@@ -1,7 +1,7 @@
 /* "nask.c" */
-/* copyright(C) 2003 H.Kawai(êÏçáèGé¿) */
-/*   [OSASK 3978], [OSASK 3979]Ç≈åıê¨Ç≥ÇÒÇÃéwìEÇëÂÇ¢Ç…éQçlÇ…ÇµÇ‹ÇµÇΩ */
-/*	è¨ñˆÇ≥ÇÒÇÃstring0Ç…ä÷Ç∑ÇÈéwìEÇ‡éQçlÇ…ÇµÇ‹ÇµÇΩ */
+/* copyright(C) 2003 H.Kawai(Â∑ùÂêàÁßÄÂÆü) */
+/*   [OSASK 3978], [OSASK 3979]„ÅßÂÖâÊàê„Åï„Çì„ÅÆÊåáÊëò„ÇíÂ§ß„ÅÑ„Å´ÂèÇËÄÉ„Å´„Åó„Åæ„Åó„Åü */
+/*	Â∞èÊü≥„Åï„Çì„ÅÆstring0„Å´Èñ¢„Åô„ÇãÊåáÊëò„ÇÇÂèÇËÄÉ„Å´„Åó„Åæ„Åó„Åü */
 
 #include "../include/stdlib.h"	/* malloc/free */
 
@@ -11,12 +11,12 @@ int nask_LABELBUFSIZ = 256 * 1024;
 
 #define	UCHAR			unsigned char
 
-#define	OPCLENMAX		8	/* ë´ÇËÇ»Ç≠Ç»Ç¡ÇΩÇÁ12Ç…ÇµÇƒÇ≠ÇæÇ≥Ç¢ */
+#define	OPCLENMAX		8	/* Ë∂≥„Çä„Å™„Åè„Å™„Å£„Åü„Çâ12„Å´„Åó„Å¶„Åè„Å†„Åï„ÅÑ */
 #define MAX_SECTIONS	8
 
 #define E_LABEL0		16
-int nask_L_LABEL0 = 16384; /* externÉâÉxÉãÇÕ16300å¬íˆìxégÇ¶ÇÈ */
-int nask_maxlabels = 64 * 1024; /* 64Kå¬(LL:88*64k) */
+int nask_L_LABEL0 = 16384; /* extern„É©„Éô„É´„ÅØ16300ÂÄãÁ®ãÂ∫¶‰Ωø„Åà„Çã */
+int nask_maxlabels = 64 * 1024; /* 64KÂÄã(LL:88*64k) */
 
 static void setdec(unsigned int i, int n, UCHAR *s);
 static void sethex0(unsigned int i, int n, UCHAR *s);
@@ -43,9 +43,9 @@ struct STR_SECTION {
 	unsigned int dollar_label1; /* ..$ */
 	unsigned int dollar_label2; /* $$ */
 	int total_len;
-	UCHAR *p0, *p; /* É\Å[ÉgópÇÃÉ|ÉCÉìÉ^ */
+	UCHAR *p0, *p; /* „ÇΩ„Éº„ÉàÁî®„ÅÆ„Éù„Ç§„É≥„Çø */
 	UCHAR name[17], name_len;
-	signed char align0, align1; /* -1ÇÕñ¢ê›íË */
+	signed char align0, align1; /* -1„ÅØÊú™Ë®≠ÂÆö */
 };
 
 struct STR_OUTPUT_SECTION {
@@ -69,11 +69,11 @@ extern int nask_errors;
 #define	SUP_Pentium3
 #define	SUP_Pentium4
 
-#define	PREFIX			0x01	/* param[1]Ç™ÉvÉäÉtÉBÉbÉNÉXî‘çÜ */
-#define	NO_PARAM		0x02	/* param[1]ÇÃâ∫à 4bitÇ™ÉIÉyÉRÅ[ÉhÉoÉCÉgêî */
-#define	OPE_MR			0x03	/* mem/reg,regå^ */ /* [1]:datawidth, [2]:len */
-#define	OPE_RM			0x04	/* reg,mem/regå^ */
-#define	OPE_M			0x05	/* mem/regå^ */
+#define	PREFIX			0x01	/* param[1]„Åå„Éó„É™„Éï„Ç£„ÉÉ„ÇØ„ÇπÁï™Âè∑ */
+#define	NO_PARAM		0x02	/* param[1]„ÅÆ‰∏ã‰Ωç4bit„Åå„Ç™„Éö„Ç≥„Éº„Éâ„Éê„Ç§„ÉàÊï∞ */
+#define	OPE_MR			0x03	/* mem/reg,regÂûã */ /* [1]:datawidth, [2]:len */
+#define	OPE_RM			0x04	/* reg,mem/regÂûã */
+#define	OPE_M			0x05	/* mem/regÂûã */
 #define OPE_SHIFT		0x06	/* ROL, ROR, RCL, RCR, SHL, SAL, SHR, SAR */
 #define OPE_RET			0x07	/* RET, RETF, RETN */
 #define OPE_AAMD		0x08	/* AAM, AAD */
@@ -106,14 +106,14 @@ extern int nask_errors;
 #define	OPE_DB			0x48	/* DB, DW, DD, DQ, DT */
 #define	OPE_END			0x49
 
-/* NO_PARAMóp */
+/* NO_PARAMÁî® */
 #define	OPE16			0x10
 #define	OPE32			0x20
 #define DEF_DS			0x40
-	/* param[1]ÇÃbit4 : ope32 */
-	/* param[1]ÇÃbit5 : ope16 */
-	/* param[1]ÇÃbit6 : ÉfÉtÉHÉãÉgÉvÉäÉtÉBÉbÉNÉXDS */
-	/* param[1]ÇÃbit7 : ÉfÉtÉHÉãÉgÉvÉäÉtÉBÉbÉNÉXSS */
+	/* param[1]„ÅÆbit4 : ope32 */
+	/* param[1]„ÅÆbit5 : ope16 */
+	/* param[1]„ÅÆbit6 : „Éá„Éï„Ç©„É´„Éà„Éó„É™„Éï„Ç£„ÉÉ„ÇØ„ÇπDS */
+	/* param[1]„ÅÆbit7 : „Éá„Éï„Ç©„É´„Éà„Éó„É™„Éï„Ç£„ÉÉ„ÇØ„ÇπSS */
 
 static UCHAR table_prms[] = {
 	0, 0, 0 /* NO_PARAM */, 2 /* OPE_MR */, 2 /* OPE_RM */,
@@ -138,7 +138,7 @@ struct STR_DECODE {
 	struct STR_SECTION *sectable;
 	UCHAR error, flag /* , dollar */;
 };
-/* flagÇÃbit0ÇÕmem/regÇ™regÇ©Ç«Ç§Ç©ÇÇ†ÇÁÇÌÇ∑ */
+/* flag„ÅÆbit0„ÅØmem/reg„Ååreg„Åã„Å©„ÅÜ„Åã„Çí„ÅÇ„Çâ„Çè„Åô */
 
 struct STR_TERM {
 	int term_type;
@@ -147,7 +147,7 @@ struct STR_TERM {
 
 struct STR_OFSEXPR {
 	int scale[2], disp;
-	unsigned char reg[2], dispflag; /* 0xffÇÃÇ∆Ç´ÅAunknown, regÇ™127à»â∫Ç»ÇÁÅAÉXÉPÅ[Éãñ≥Çµ */
+	unsigned char reg[2], dispflag; /* 0xff„ÅÆ„Å®„Åç„ÄÅunknown, reg„Åå127‰ª•‰∏ã„Å™„Çâ„ÄÅ„Çπ„Ç±„Éº„É´ÁÑ°„Åó */
 	unsigned char err;
 };
 
@@ -156,7 +156,7 @@ struct STR_DEC_EXPR_STATUS {
 	int glabel_len;
 	UCHAR *glabel;
 	signed char datawidth; /* -1(default), 1(byte), 2(word), 4(dword) */
-	signed char seg_override; /* -1(default), 0Å`5 */
+	signed char seg_override; /* -1(default), 0ÔΩû5 */
 	signed char range; /* -1(default), 0(short), 1(near), 2(far) */
 	char nosplit; /* 0(default), 1(nosplit) */
 	char use_dollar;  /* 0(no use), 1(use) */
@@ -168,7 +168,7 @@ struct STR_DEC_EXPR_STATUS {
 };
 
 struct STR_STATUS {
-	UCHAR *src1; /* ÉtÉ@ÉCÉãèIí[É|ÉCÉìÉ^ */
+	UCHAR *src1; /* „Éï„Ç°„Ç§„É´ÁµÇÁ´Ø„Éù„Ç§„É≥„Çø */
 	unsigned int support, file_len;
 	char bits, optimize, format, option;
 	struct STR_DEC_EXPR_STATUS expr_status;
@@ -178,9 +178,9 @@ struct STR_STATUS {
 };
 
 struct STR_IFDEFBUF {
-	/* èåèïtÇ´íËã`ópÉoÉbÉtÉ@ç\ë¢ëÃ */
-	UCHAR *bp, *bp0, *bp1; /* range-errorópÉoÉbÉtÉ@ */
-	UCHAR vb[12]; /* bit0-4:ÉoÉCÉgêî, bit7:exprÉtÉâÉO, bit5-6:ÉåÉìÉWÉ`ÉFÉbÉN */
+	/* Êù°‰ª∂‰ªò„ÅçÂÆöÁæ©Áî®„Éê„ÉÉ„Éï„Ç°ÊßãÈÄ†‰Ωì */
+	UCHAR *bp, *bp0, *bp1; /* range-errorÁî®„Éê„ÉÉ„Éï„Ç° */
+	UCHAR vb[12]; /* bit0-4:„Éê„Ç§„ÉàÊï∞, bit7:expr„Éï„É©„Ç∞, bit5-6:„É¨„É≥„Ç∏„ÉÅ„Çß„ÉÉ„ÇØ */
 	int dat[12];
 	UCHAR *expr[12];
 };
@@ -216,22 +216,22 @@ UCHAR *LL_skipcode(UCHAR *p);
 
 #define	defnumconst(ifdef, imm, virbyte, typecode) ifdef->vb[(virbyte) & 0x07] = typecode; ifdef->dat[(virbyte) & 0x07] = imm
 
-/* ÉäÉ}Å[ÉNNL(f8) : ÉâÉCÉìÉXÉ^Å[Ég, 4ÉoÉCÉgÇÃÉåÉìÉOÉX, 4ÉoÉCÉgÇÃÉ|ÉCÉìÉ^
-	ÉoÉCÉgóÒÇï¿Ç◊ÇÈ */
-/* ÉäÉ}Å[ÉNADR(e0) : ÉAÉhÉåÉXèoóÕ */
-/* ÉäÉ}Å[ÉNBY(e1) : 1ÉoÉCÉgèoóÕ */
-/* ÉäÉ}Å[ÉNWD(e2) : 2ÉoÉCÉgèoóÕ */
-/* ÉäÉ}Å[ÉN3B(e3) : 3ÉoÉCÉgèoóÕ */
-/* ÉäÉ}Å[ÉNDW(e4) : 4ÉoÉCÉgèoóÕ */
-/* ÉäÉ}Å[ÉN[BY](e5) : 1ÉoÉCÉgèoóÕ[]Ç¬Ç´ */
-/* ÉäÉ}Å[ÉN[WD](e6) : 2ÉoÉCÉgèoóÕ[]Ç¬Ç´ */
-/* ÉäÉ}Å[ÉN[3B](e7) : 3ÉoÉCÉgèoóÕ[]Ç¬Ç´ */
-/* ÉäÉ}Å[ÉN[DW](e8) : 4ÉoÉCÉgèoóÕ[]Ç¬Ç´ */
+/* „É™„Éû„Éº„ÇØNL(f8) : „É©„Ç§„É≥„Çπ„Çø„Éº„Éà, 4„Éê„Ç§„Éà„ÅÆ„É¨„É≥„Ç∞„Çπ, 4„Éê„Ç§„Éà„ÅÆ„Éù„Ç§„É≥„Çø
+	„Éê„Ç§„ÉàÂàó„Çí‰∏¶„Åπ„Çã */
+/* „É™„Éû„Éº„ÇØADR(e0) : „Ç¢„Éâ„É¨„ÇπÂá∫Âäõ */
+/* „É™„Éû„Éº„ÇØBY(e1) : 1„Éê„Ç§„ÉàÂá∫Âäõ */
+/* „É™„Éû„Éº„ÇØWD(e2) : 2„Éê„Ç§„ÉàÂá∫Âäõ */
+/* „É™„Éû„Éº„ÇØ3B(e3) : 3„Éê„Ç§„ÉàÂá∫Âäõ */
+/* „É™„Éû„Éº„ÇØDW(e4) : 4„Éê„Ç§„ÉàÂá∫Âäõ */
+/* „É™„Éû„Éº„ÇØ[BY](e5) : 1„Éê„Ç§„ÉàÂá∫Âäõ[]„Å§„Åç */
+/* „É™„Éû„Éº„ÇØ[WD](e6) : 2„Éê„Ç§„ÉàÂá∫Âäõ[]„Å§„Åç */
+/* „É™„Éû„Éº„ÇØ[3B](e7) : 3„Éê„Ç§„ÉàÂá∫Âäõ[]„Å§„Åç */
+/* „É™„Éû„Éº„ÇØ[DW](e8) : 4„Éê„Ç§„ÉàÂá∫Âäõ[]„Å§„Åç */
 
 #define	REM_ADDR		0xe0
-//#define	REM_BYTE		0xe1	/* îpé~ */
-//#define	REM_WORD		0xe2	/* îpé~ */
-//#define	REM_DWRD		0xe4	/* îpé~ */
+//#define	REM_BYTE		0xe1	/* ÂªÉÊ≠¢ */
+//#define	REM_WORD		0xe2	/* ÂªÉÊ≠¢ */
+//#define	REM_DWRD		0xe4	/* ÂªÉÊ≠¢ */
 #define	REM_ADDR_ERR	0xe5
 #define	REM_RANGE_ERR	0xe8
 #define REM_3B			0xf1
@@ -253,7 +253,7 @@ UCHAR *skipspace(UCHAR *s, UCHAR *t)
 }
 
 UCHAR *putimm(int i, UCHAR *p)
-/* ç≈ëÂ6ÉoÉCÉgèoóÕ */
+/* ÊúÄÂ§ß6„Éê„Ç§„ÉàÂá∫Âäõ */
 {
 	UCHAR c = 6;
 	if (i >= 0) {
@@ -284,10 +284,10 @@ UCHAR *putimm(int i, UCHAR *p)
 }
 
 UCHAR *nask(UCHAR *src0, UCHAR *src1, UCHAR *dest0, UCHAR *dest1)
-/* dest1Çï‘Ç∑(NULLÇ»ÇÁÇ†Ç”ÇÍÇΩ) */
+/* dest1„ÇíËøî„Åô(NULL„Å™„Çâ„ÅÇ„Åµ„Çå„Åü) */
 {
 	int i, j, k, prefix_def, tmret;
-	UCHAR buf[2 * 8], *bp; /* bufÇÕìKìñÇ…mallocÇµÇΩï˚Ç™Ç¢Ç¢Ç©Ç‡ */
+	UCHAR buf[2 * 8], *bp; /* buf„ÅØÈÅ©ÂΩì„Å´malloc„Åó„ÅüÊñπ„Åå„ÅÑ„ÅÑ„Åã„ÇÇ */
 	UCHAR *src, c, *s, *labelflags, *dest00 = dest0;
 	struct STR_STATUS *status;
 	struct STR_DECODE *decode;
@@ -295,7 +295,7 @@ UCHAR *nask(UCHAR *src0, UCHAR *src1, UCHAR *dest0, UCHAR *dest1)
 	struct STR_IFDEFBUF *ifdef;
 	struct STR_TERM *expr;
 	static int tbl_o16o32[4] =
-		{ 0, 0x10000000 /* O16(à√ñŸ) */, 0, 0x20000000 /* O32(à√ñŸ) */ };
+		{ 0, 0x10000000 /* O16(ÊöóÈªô) */, 0, 0x20000000 /* O32(ÊöóÈªô) */ };
 	struct STR_SECTION *sectable, *section;
 	nextlabelid = nask_L_LABEL0;
 	status = malloc(sizeof (*status));
@@ -331,7 +331,7 @@ UCHAR *nask(UCHAR *src0, UCHAR *src1, UCHAR *dest0, UCHAR *dest1)
 	status->bits = 16;
 	status->optimize = 0;
 	status->format = 0; /* BIN */
-	status->option = 0; /* ÇŸÇ⁄NASMå›ä∑ */
+	status->option = 0; /* „Åª„ÅºNASM‰∫íÊèõ */
 	status->expr_status.option = 0;
 	status->file_len = 0;
 
@@ -361,9 +361,9 @@ UCHAR *nask(UCHAR *src0, UCHAR *src1, UCHAR *dest0, UCHAR *dest1)
 		bp = buf;
 		ifdef->vb[8] = 0; /* for TIMES */
 		src = decoder(status, src0, decode);
-		/* ÉâÉCÉìÉXÉ^Å[ÉgèoóÕ */
+		/* „É©„Ç§„É≥„Çπ„Çø„Éº„ÉàÂá∫Âäõ */
 		/* f7, src - src0, src0 */
-		if (dest0 + 9 + 6 /* $ÇÃï™ */ > dest1)
+		if (dest0 + 9 + 6 /* $„ÅÆÂàÜ */ > dest1)
 			dest0 = NULL;
 		if (dest0 == NULL)
 			goto overrun;
@@ -382,8 +382,8 @@ UCHAR *nask(UCHAR *src0, UCHAR *src1, UCHAR *dest0, UCHAR *dest1)
 			}
 		}
 		if (decode->label) {
-			/* ÉâÉxÉãíËã` */
-			bp[0] = 0x0e; /* ÉvÉçÉOÉâÉÄÉJÉEÉìÉ^ÇÉâÉxÉãíËã`Ç∑ÇÈÉRÉ}ÉìÉh */
+			/* „É©„Éô„É´ÂÆöÁæ© */
+			bp[0] = 0x0e; /* „Éó„É≠„Ç∞„É©„É†„Ç´„Ç¶„É≥„Çø„Çí„É©„Éô„É´ÂÆöÁæ©„Åô„Çã„Ç≥„Éû„É≥„Éâ */
  			if (decode->instr != NULL && decode->instr->param[0] == OPE_EQU)
 				bp[0] = 0x2d; /* EQU */
 			s = decode->label;
@@ -401,7 +401,7 @@ UCHAR *nask(UCHAR *src0, UCHAR *src1, UCHAR *dest0, UCHAR *dest1)
 			i = label2id(s - decode->label, decode->label, 0);
 			if (labelflags[i]) {
 				*bp++ = 0xe7;
-				c = 0; /* mod nnn r/m Ç»Çµ */
+				c = 0; /* mod nnn r/m „Å™„Åó */
 				goto outbp;
 			}
 			labelflags[i] = 0x01;
@@ -427,23 +427,23 @@ UCHAR *nask(UCHAR *src0, UCHAR *src1, UCHAR *dest0, UCHAR *dest1)
 times_skip:
 		if (decode->error) {
 err:
-			/* ÉGÉâÅ[èoóÕ */
+			/* „Ç®„É©„ÉºÂá∫Âäõ */
 			buf[0] = decode->error | 0xe0;
 			bp = buf + 1;
-			c = 0; /* mod nnn r/m Ç»Çµ */
+			c = 0; /* mod nnn r/m „Å™„Åó */
 			goto outbp;
 		}
-		c = 0; /* mod nnn r/m Ç»Çµ */
-		prefix_def = status->bits; /* ÉfÉtÉHÉãÉgèÛë‘ */
+		c = 0; /* mod nnn r/m „Å™„Åó */
+		prefix_def = status->bits; /* „Éá„Éï„Ç©„É´„ÉàÁä∂ÊÖã */
 		if ((itp = decode->instr) != 0) {
 			switch (itp->param[0]) {
 			case NO_PARAM:
-				/* ÉvÉäÉtÉBÉbÉNÉX */
+				/* „Éó„É™„Éï„Ç£„ÉÉ„ÇØ„Çπ */
 				j = itp->param[1];
 				if (j & OPE16)
-					decode->prefix |= 0x10000000; /* O16(à√ñŸ) */
+					decode->prefix |= 0x10000000; /* O16(ÊöóÈªô) */
 				if (j & OPE32)
-					decode->prefix |= 0x20000000; /* O32(à√ñŸ) */
+					decode->prefix |= 0x20000000; /* O32(ÊöóÈªô) */
 				if (j & DEF_DS)
 					prefix_def |= 0x01; /* DS */
 				for (i = 0; i < (j & 0x0f); i++) {
@@ -451,17 +451,17 @@ err:
 					bp[1] = itp->param[2 + i];
 					bp += 2;
 				}
-			//	c = 0; /* mod nnn r/m Ç»Çµ */
+			//	c = 0; /* mod nnn r/m „Å™„Åó */
 				break;
 
 			case OPE_M:
 			ope_m:
-				if ((i = decode->gparam[0]) & 0xe0) /* regÇ≈Ç‡memÇ≈Ç‡Ç»Ç¢ || rangeÇ™Ç¬Ç¢ÇΩÇÁÉGÉâÅ[ */
-					goto err4; /* ÉfÅ[É^É^ÉCÉvÉGÉâÅ[ */
+				if ((i = decode->gparam[0]) & 0xe0) /* reg„Åß„ÇÇmem„Åß„ÇÇ„Å™„ÅÑ || range„Åå„Å§„ÅÑ„Åü„Çâ„Ç®„É©„Éº */
+					goto err4; /* „Éá„Éº„Çø„Çø„Ç§„Éó„Ç®„É©„Éº */
 				decode->flag = 0;
 				if ((i & 0x10) == 0) {
 					decode->flag = 1;
-					if (decode->gvalue[0] >= 24) /* regÇæÇ™reg8/reg16/reg32Ç≈ÇÕÇ»Ç¢ */
+					if (decode->gvalue[0] >= 24) /* reg„Å†„Ååreg8/reg16/reg32„Åß„ÅØ„Å™„ÅÑ */
 						goto err4;
 				}
 				decode->gp_mem = i;
@@ -470,48 +470,48 @@ err:
 				goto ope_mr_check0;
 
 			case OPE_MR:
-				if ((j = decode->gparam[0]) & 0xe0) /* regÇ≈Ç‡memÇ≈Ç‡Ç»Ç¢ || rangeÇ™Ç¬Ç¢ÇΩÇÁÉGÉâÅ[ */
+				if ((j = decode->gparam[0]) & 0xe0) /* reg„Åß„ÇÇmem„Åß„ÇÇ„Å™„ÅÑ || range„Åå„Å§„ÅÑ„Åü„Çâ„Ç®„É©„Éº */
 					goto err4;
 				decode->flag = 0;
 				if ((j & 0x10) == 0) {
 					decode->flag = 1;
-					if (decode->gvalue[0] >= 24) /* regÇæÇ™reg8/reg16/reg32Ç≈ÇÕÇ»Ç¢ */
+					if (decode->gvalue[0] >= 24) /* reg„Å†„Ååreg8/reg16/reg32„Åß„ÅØ„Å™„ÅÑ */
 						goto err4;
 				}
-				if (decode->gparam[1] & 0x1f0) /* regÇ≈ÇÕÇ»Ç¢ || rangeÇ™Ç¬Ç¢ÇΩÇÁÉGÉâÅ[ || use $Ç‡ÉGÉâÅ[ */
+				if (decode->gparam[1] & 0x1f0) /* reg„Åß„ÅØ„Å™„ÅÑ || range„Åå„Å§„ÅÑ„Åü„Çâ„Ç®„É©„Éº || use $„ÇÇ„Ç®„É©„Éº */
 					goto err4;
-				if (decode->gvalue[1] >= 24) /* regÇæÇ™reg8/reg16/reg32Ç≈ÇÕÇ»Ç¢ */
+				if (decode->gvalue[1] >= 24) /* reg„Å†„Ååreg8/reg16/reg32„Åß„ÅØ„Å™„ÅÑ */
 					goto err4;
 				decode->gp_reg = decode->gparam[1];
 				if ((j & 0x0f) == 0x0f && (itp->param[1] & 0x80) != 0) {
-					/* memÇÃÉfÅ[É^ÉTÉCÉYÇ™ïsíË && ëÊìÒÉIÉyÉâÉìÉhÇ…same0éwíËÇ†ÇË */
+					/* mem„ÅÆ„Éá„Éº„Çø„Çµ„Ç§„Ç∫„Åå‰∏çÂÆö && Á¨¨‰∫å„Ç™„Éö„É©„É≥„Éâ„Å´same0ÊåáÂÆö„ÅÇ„Çä */
 					j = (j & ~0x0f) | (decode->gparam[1] & 0x0f);
 				}
 				decode->gp_mem = decode->gparam[0] = j;
 				goto ope_mr2;
 
 			case OPE_RM:
-				if (decode->gparam[0] & 0x1f0) /* regÇ≈ÇÕÇ»Ç¢ || rangeÇ™Ç¬Ç¢ÇΩÇÁÉGÉâÅ[ || use $Ç‡ÉGÉâÅ[ */
+				if (decode->gparam[0] & 0x1f0) /* reg„Åß„ÅØ„Å™„ÅÑ || range„Åå„Å§„ÅÑ„Åü„Çâ„Ç®„É©„Éº || use $„ÇÇ„Ç®„É©„Éº */
 					goto err4;
-				if (decode->gvalue[0] >= 24) /* regÇæÇ™reg8/reg16/reg32Ç≈ÇÕÇ»Ç¢ */
+				if (decode->gvalue[0] >= 24) /* reg„Å†„Ååreg8/reg16/reg32„Åß„ÅØ„Å™„ÅÑ */
 					goto err4;
 				decode->gp_reg = decode->gparam[0];
-				if ((j = decode->gparam[1]) & 0xe0) /* regÇ≈Ç‡memÇ≈Ç‡Ç»Ç¢ || rangeÇ™Ç¬Ç¢ÇΩÇÁÉGÉâÅ[ */
+				if ((j = decode->gparam[1]) & 0xe0) /* reg„Åß„ÇÇmem„Åß„ÇÇ„Å™„ÅÑ || range„Åå„Å§„ÅÑ„Åü„Çâ„Ç®„É©„Éº */
 					goto err4;
 				decode->flag = 0;
 				if ((j & 0x10) == 0) {
 					decode->flag = 1;
-					if (decode->gvalue[1] >= 24) /* regÇæÇ™reg8/reg16/reg32Ç≈ÇÕÇ»Ç¢ */
+					if (decode->gvalue[1] >= 24) /* reg„Å†„Ååreg8/reg16/reg32„Åß„ÅØ„Å™„ÅÑ */
 						goto err4;
 				}
 				if ((j & 0x0f) == 0x0f && (itp->param[1] & 0x80) != 0) {
-					/* memÇÃÉfÅ[É^ÉTÉCÉYÇ™ïsíË && ëÊìÒÉIÉyÉâÉìÉhÇ…same0éwíËÇ†ÇË */
+					/* mem„ÅÆ„Éá„Éº„Çø„Çµ„Ç§„Ç∫„Åå‰∏çÂÆö && Á¨¨‰∫å„Ç™„Éö„É©„É≥„Éâ„Å´same0ÊåáÂÆö„ÅÇ„Çä */
 					j = (j & ~0x0f) | (decode->gparam[0] & 0x0f);
 				}
 				decode->gp_mem = decode->gparam[1] = j;
 
 		ope_mr2:
-				/* ÉIÉyÉâÉìÉhÉTÉCÉYÉ`ÉFÉbÉN */
+				/* „Ç™„Éö„É©„É≥„Éâ„Çµ„Ç§„Ç∫„ÉÅ„Çß„ÉÉ„ÇØ */
 				k = itp->param[1] >> 4;
 				i = decode->gparam[0] & 0x0f;
 				j = decode->gparam[1] & 0x0f;
@@ -571,7 +571,7 @@ err:
 					bp += 2;
 				}
 				if ((itp->param[2] & 0x30) != 0x20) {
-					/* ÉfÅ[É^ÉTÉCÉYÇämíË */
+					/* „Éá„Éº„Çø„Çµ„Ç§„Ç∫„ÇíÁ¢∫ÂÆö */
 					i = decode->gparam[0];
 					if (itp->param[2] & 0x08)
 						i = decode->gparam[1];
@@ -579,9 +579,9 @@ err:
 					if ((itp->param[2] & 0x20) == 0) {
 						decode->prefix |= (tbl_o16o32 - 1)[i];
 					//	if (i == 2)
-					//		decode->prefix |= 0x10000000; /* O16(à√ñŸ) */
+					//		decode->prefix |= 0x10000000; /* O16(ÊöóÈªô) */
 					//	if (i == 4)
-					//		decode->prefix |= 0x20000000; /* O32(à√ñŸ) */
+					//		decode->prefix |= 0x20000000; /* O32(ÊöóÈªô) */
 					}
 					if (itp->param[2] & 0x10) {
 						if (i != 1)
@@ -597,11 +597,11 @@ err:
 				bp[2] = 0x7a; /* disp */
 				bp += 3;
 	setc:
-				c = 3 ^ decode->flag; /* mod nnn r/m Ç†ÇË */ 				
+				c = 3 ^ decode->flag; /* mod nnn r/m „ÅÇ„Çä */ 				
 				break;
 
 			case OPE_SHIFT: /* mem/reg, imm8|CL */
-				if ((j = decode->gparam[0]) & 0xe0) /* regÇ≈Ç‡memÇ≈Ç‡Ç»Ç¢ || rangeÇ™Ç¬Ç¢ÇΩÇÁÉGÉâÅ[ */
+				if ((j = decode->gparam[0]) & 0xe0) /* reg„Åß„ÇÇmem„Åß„ÇÇ„Å™„ÅÑ || range„Åå„Å§„ÅÑ„Åü„Çâ„Ç®„É©„Éº */
 					goto err4;
 				decode->gp_mem = j;
 				decode->gp_reg = itp->param[1] << 9; /* TTT */
@@ -609,10 +609,10 @@ err:
 				if ((j & 0x10) == 0) {
 					/* reg */
 					decode->flag = 1;
-					if (decode->gvalue[0] >= 24) /* regÇæÇ™reg8/reg16/reg32Ç≈ÇÕÇ»Ç¢ */
+					if (decode->gvalue[0] >= 24) /* reg„Å†„Ååreg8/reg16/reg32„Åß„ÅØ„Å™„ÅÑ */
 						goto err4;
 				}
-				/* ÉfÅ[É^ÉTÉCÉYÇämíË */
+				/* „Éá„Éº„Çø„Çµ„Ç§„Ç∫„ÇíÁ¢∫ÂÆö */
 				i = decode->gparam[0] & 0x0f;
 				if (i == 0)
 					goto err3;
@@ -620,9 +620,9 @@ err:
 					goto err3;
 				decode->prefix |= (tbl_o16o32 - 1)[i];
 			//	if (i == 2)
-			//		decode->prefix |= 0x10000000; /* O16(à√ñŸ) */
+			//		decode->prefix |= 0x10000000; /* O16(ÊöóÈªô) */
 			//	if (i == 4)
-			//		decode->prefix |= 0x20000000; /* O32(à√ñŸ) */
+			//		decode->prefix |= 0x20000000; /* O32(ÊöóÈªô) */
 				j = 0;
 				if (i != 1)
 					j++; /* j = 1; */
@@ -639,7 +639,7 @@ err:
 					};
 					mcode[2] = 0xc0 | j;
 					mcode[7] = 0xd0 | j;
-					if ((decode->gparam[1] & 0xf0) != 0x20) /* immÇ≈ÇÕÇ»Ç¢ || rangeÇ™Ç¬Ç¢ÇƒÇ¢ÇΩ */
+					if ((decode->gparam[1] & 0xf0) != 0x20) /* imm„Åß„ÅØ„Å™„ÅÑ || range„Åå„Å§„ÅÑ„Å¶„ÅÑ„Åü */
 						goto err4; /* data type error */
 					if ((decode->gparam[1] & 0x0f) == 0x0f) {
 						if (microcode94(ifdef, status->expression, mcode))
@@ -649,7 +649,7 @@ err:
 						if (defnumexpr(ifdef, status->expression, 0x75 & 0x07, 0x98 & 0x07))
 							goto err2;
 					} else
-						goto err3; /* WORDÇ‚DWORDÇ™éwíËÇ≥ÇÍÇΩ */
+						goto err3; /* WORD„ÇÑDWORD„ÅåÊåáÂÆö„Åï„Çå„Åü */
 					bp[0] = 0x7c; /* 1100000w || 1101000w */
 					bp[1] = 0x78; /* mod nnn r/m */
 					bp[2] = 0x79; /* sib */
@@ -657,30 +657,30 @@ err:
 					bp[4] = 0x7d; /* imm8 || none */
 				}
 				bp += 5;
-			//	c = 3 ^ decode->flag; /* mod nnn r/m Ç†ÇË */ 				
+			//	c = 3 ^ decode->flag; /* mod nnn r/m „ÅÇ„Çä */ 				
 			//	break;
 				goto setc;
 
 			case OPE_RET: /* RET, RETF, RETN */
 				bp[0] = SHORT_DB1; /* 0x31 */
-			//	c = 0; /* mod nnn r/m Ç»Çµ */
+			//	c = 0; /* mod nnn r/m „Å™„Åó */
 				if (decode->flag == 0) {
-					/* ÉIÉyÉâÉìÉhÇ»Çµ */
+					/* „Ç™„Éö„É©„É≥„Éâ„Å™„Åó */
 				//	bp[0] = SHORT_DB1; /* 0x31 */
 					bp[1] = itp->param[1] | 0x01;
 					bp += 2;
 					break;
 				}
 				if (decode->flag > 1)
-					goto err2; /* ÉpÉâÉÅÅ[É^ÉGÉâÅ[ */
+					goto err2; /* „Éë„É©„É°„Éº„Çø„Ç®„É©„Éº */
 				if ((decode->gparam[0] & 0xf0) != 0x20)
-					goto err2; /* immÇ≈ÇÕÇ»Ç¢ || rangeÇ™Ç¬Ç¢ÇƒÇ¢ÇΩ */
+					goto err2; /* imm„Åß„ÅØ„Å™„ÅÑ || range„Åå„Å§„ÅÑ„Å¶„ÅÑ„Åü */
 				if ((decode->gparam[0] & 0x0f) == 2)
-					goto OPE_RET_notopt; /* WORDéwíËÇ†ÇË */
+					goto OPE_RET_notopt; /* WORDÊåáÂÆö„ÅÇ„Çä */
 				if ((decode->gparam[0] & 0x0f) != 0x0f)
-					goto err3; /* BYTEÇ‚DWORDÇ™éwíËÇ≥ÇÍÇΩ */
+					goto err3; /* BYTE„ÇÑDWORD„ÅåÊåáÂÆö„Åï„Çå„Åü */
 				if (status->optimize == 0) {
-					/* ç≈ìKâªÇµÇ»Ç¢ */
+					/* ÊúÄÈÅ©Âåñ„Åó„Å™„ÅÑ */
 		OPE_RET_notopt:
 					if (defnumexpr(ifdef, status->expression, 0x75 & 0x07, 0x9a & 0x07))
 						goto err2;
@@ -694,10 +694,10 @@ err:
 					};
 					mcode[2] = itp->param[1];
 					mcode[7] = itp->param[1] | 0x01;
-					/* ç≈ìKâªÇ∑ÇÈ */
+					/* ÊúÄÈÅ©Âåñ„Åô„Çã */
 					if (microcode94(ifdef, status->expression, mcode))
 						goto err2;
-					*bp++ = 0x7c; /* é©ìÆëIëÇ≥ÇÍÇΩÉIÉyÉRÅ[Éh */
+					*bp++ = 0x7c; /* Ëá™ÂãïÈÅ∏Êäû„Åï„Çå„Åü„Ç™„Éö„Ç≥„Éº„Éâ */
 				}
 				*bp++ = 0x7d; /* imm16 || none */
 				break;
@@ -707,30 +707,30 @@ err:
 					defnumconst(ifdef, itp->param[2], 0x74, 0x01 /* UCHAR, const */);
 				} else if (decode->flag == 1) {
 					if ((decode->gparam[0] & 0xf0) != 0x20)
-						goto err2; /* immÇ≈ÇÕÇ»Ç¢ || rangeÇ™Ç¬Ç¢ÇƒÇ¢ÇΩ */
+						goto err2; /* imm„Åß„ÅØ„Å™„ÅÑ || range„Åå„Å§„ÅÑ„Å¶„ÅÑ„Åü */
 					if ((decode->gparam[0] & 0x0f) != 0x01 && (decode->gparam[0] & 0x0f) != 0x0f)
-						goto err3; /* WORDÇ‚DWORDÇ™Ç¬Ç¢ÇƒÇ¢ÇΩ */
+						goto err3; /* WORD„ÇÑDWORD„Åå„Å§„ÅÑ„Å¶„ÅÑ„Åü */
 					if (defnumexpr(ifdef, status->expression, 0x74 & 0x07, 0x98 & 0x07))
 						goto err2;
 				} else
-					goto err2; /* ÉpÉâÉÅÅ[É^ÉGÉâÅ[ */
+					goto err2; /* „Éë„É©„É°„Éº„Çø„Ç®„É©„Éº */
 				bp[0] = SHORT_DB1; /* 0x31 */
 				bp[1] = itp->param[1];
-				bp[2] = 0x7c; /* ÉIÉyÉâÉìÉh(ÉfÉtÉHÉãÉg:itp->param[2]) */
+				bp[2] = 0x7c; /* „Ç™„Éö„É©„É≥„Éâ(„Éá„Éï„Ç©„É´„Éà:itp->param[2]) */
 				bp += 3;
-			//	c = 0; /* mod nnn r/m Ç»Çµ */
+			//	c = 0; /* mod nnn r/m „Å™„Åó */
 				break;
 
 			case OPE_INT: /* INT */
 				if ((decode->gparam[0] & 0xf0) != 0x20)
-					goto err2; /* immÇ≈ÇÕÇ»Ç¢ || rangeÇ™Ç¬Ç¢ÇƒÇ¢ÇΩ */
+					goto err2; /* imm„Åß„ÅØ„Å™„ÅÑ || range„Åå„Å§„ÅÑ„Å¶„ÅÑ„Åü */
 				if ((decode->gparam[0] & 0x0f) == 1)
-					goto OPE_INT_notopt; /* BYTEéwíËÇ†ÇË */
+					goto OPE_INT_notopt; /* BYTEÊåáÂÆö„ÅÇ„Çä */
 				if ((decode->gparam[0] & 0x0f) != 0x0f)
-					goto err3; /* WORDÇ‚DWORDÇ™Ç¬Ç¢ÇƒÇ¢ÇΩ */
+					goto err3; /* WORD„ÇÑDWORD„Åå„Å§„ÅÑ„Å¶„ÅÑ„Åü */
 				if (status->optimize == 0) {
 		OPE_INT_notopt:
-					/* ç≈ìKâªÇµÇ»Ç¢ */
+					/* ÊúÄÈÅ©Âåñ„Åó„Å™„ÅÑ */
 					if (defnumexpr(ifdef, status->expression, 0x75 & 0x07, 0x98 & 0x07))
 						goto err2;
 					bp[0] = SHORT_DB1; /* 0x31 */
@@ -741,19 +741,19 @@ err:
 						0x0154, SHORT_DB1, 0xcd, 0x98, 0, /* default */
 						0x03,   SHORT_DB1, 0xcc, SHORT_DB0, 0 /* if == 3 */
 					};
-					/* ç≈ìKâªÇ∑ÇÈ */
+					/* ÊúÄÈÅ©Âåñ„Åô„Çã */
 					if (microcode94(ifdef, status->expression, mcode))
 						goto err2;
-					*bp++ = 0x7c; /* é©ìÆëIëÇ≥ÇÍÇΩÉIÉyÉRÅ[Éh */
+					*bp++ = 0x7c; /* Ëá™ÂãïÈÅ∏Êäû„Åï„Çå„Åü„Ç™„Éö„Ç≥„Éº„Éâ */
 				}
 				*bp++ = 0x7d; /* imm8 || none */
-			//	c = 0; /* mod nnn r/m Ç»Çµ */
+			//	c = 0; /* mod nnn r/m „Å™„Åó */
 				break;
 
 			case OPE_PUSH: /* PUSH, POP, INC, DEC */
 				if (decode->gparam[0] & 0xc0)
-					goto err2; /* rangeÇ™Ç¬Ç¢ÇƒÇ¢ÇΩ */
-			//	c = 0; /* mod nnn r/m Ç»Çµ */
+					goto err2; /* range„Åå„Å§„ÅÑ„Å¶„ÅÑ„Åü */
+			//	c = 0; /* mod nnn r/m „Å™„Åó */
 				decode->gp_mem = decode->gparam[0];
 				decode->gp_reg = (itp->param[1] & 0x07) << 9;
 				bp[0] = SHORT_DB1; /* 0x31 */
@@ -762,9 +762,9 @@ err:
 					if (decode->gvalue[0] < 16) {
 						/* reg16/reg32 */
 						decode->prefix |= (tbl_o16o32 - 1)[decode->gparam[0] & 0x0f];
-					//	i = 0x10000000; /* O16(à√ñŸ) */
+					//	i = 0x10000000; /* O16(ÊöóÈªô) */
 					//	if (decode->gvalue[0] < 8) {
-					//	//	i = 0x20000000; /* O32(à√ñŸ) */
+					//	//	i = 0x20000000; /* O32(ÊöóÈªô) */
 					//		i <<= 1;
 					//	}
 					//	decode->prefix |= i;
@@ -777,7 +777,7 @@ err:
 						if (itp->param[1] & 0x08)
 							goto err3; /* PUSH, POP */
 						bp[1] = itp->param[3];
-						c = 2; /* mod nnn r/m Ç†ÇË */
+						c = 2; /* mod nnn r/m „ÅÇ„Çä */
 			ope_push_mem:
 						bp[2] = 0x78;
 						bp[3] = 0x79;
@@ -789,7 +789,7 @@ err:
 						goto err2; /* INC, DEC */
 					if (decode->gvalue[0] < 28) {
 						/* ES, CS, SS, DS */
-						/* NASKÇÕ"POP CS"ÇÉGÉâÅ[Ç…ÇµÇ»Ç¢(8086ÇÃÇΩÇﬂ) */
+						/* NASK„ÅØ"POP CS"„Çí„Ç®„É©„Éº„Å´„Åó„Å™„ÅÑ(8086„ÅÆ„Åü„ÇÅ) */
 						bp[1] = itp->param[4] | (decode->gvalue[0] & 0x03) << 3;
 						bp += 2;
 						goto outbp;
@@ -825,7 +825,7 @@ err:
 					}
 					bp[1] |= itp->param[3];
 					decode->prefix |= (tbl_o16o32 - 1)[c];
-					c = 3; /* mod nnn r/m Ç†ÇË */
+					c = 3; /* mod nnn r/m „ÅÇ„Çä */
 					goto ope_push_mem;
 				case 0x20: /* imm */
 					if ((itp->param[1] & 0x10) == 0)
@@ -847,7 +847,7 @@ err:
 						bp[0] = 0x7d;
 						bp[1] = 0x7c;
 						bp += 2;
-						c = 0; /* mod nnn r/m Ç»Çµ */
+						c = 0; /* mod nnn r/m „Å™„Åó */
 						goto outbp;
 					}
 				}
@@ -855,9 +855,9 @@ err:
 
 			case OPE_MOV: /* MOV */
 				if (decode->gparam[0] & 0xc0)
-					goto err4; /* rangeÇ™Ç¬Ç¢ÇƒÇ¢ÇÈ, data type error */
+					goto err4; /* range„Åå„Å§„ÅÑ„Å¶„ÅÑ„Çã, data type error */
 				if (decode->gparam[1] & 0xc0)
-					goto err4; /* rangeÇ™Ç¬Ç¢ÇƒÇ¢ÇÈ, data type error */
+					goto err4; /* range„Åå„Å§„ÅÑ„Å¶„ÅÑ„Çã, data type error */
 				if ((decode->gparam[1] & 0x30) == 0x20) {
 					/* imm */
 					static char typecode[4] = { 0x9e & 0x07, 0x9b & 0x07, 0, 0x9d & 0x07 };
@@ -878,7 +878,7 @@ err:
 						if (c != 1)
 							bp[1] |= 0x08;
 						bp += 3;
-						c = 0; /* mod nnn r/m Ç»Çµ */
+						c = 0; /* mod nnn r/m „Å™„Åó */
 						goto outbp;
 					}
 					if (j != 0x10)
@@ -899,7 +899,7 @@ err:
 					if (c != 1)
 						bp[1] |= 0x01;
 					bp += 6;
-					c = 3; /* mod nnn r/m Ç†ÇË */
+					c = 3; /* mod nnn r/m „ÅÇ„Çä */
 					goto outbp;
 				}
 				i = 0; /* direction-bit */
@@ -919,13 +919,13 @@ err:
 				//	prefix_def |= tmret & 0x03;
 					decode->flag = 0;
 				} else if ((decode->gp_mem & 0x30) != 0x00)
-					goto err4; /* immÇ™óàÇƒÇÕÇ¢ÇØÇ»Ç¢ */
+					goto err4; /* imm„ÅåÊù•„Å¶„ÅØ„ÅÑ„Åë„Å™„ÅÑ */
 				else if ((decode->gp_mem >> 9) >= 24)
-					goto err4; /* reg8/reg16/reg32à»äOÇ™óàÇƒÇÕÇ¢ÇØÇ»Ç¢ */
+					goto err4; /* reg8/reg16/reg32‰ª•Â§ñ„ÅåÊù•„Å¶„ÅØ„ÅÑ„Åë„Å™„ÅÑ */
 				j = decode->gp_reg = decode->gparam[i ^ 1];
 				c = decode->gp_mem & 0x0f;
 				if ((j & 0x30) != 0x00)
-					goto err4; /* regÇ≈ÇÕÇ»Ç¢, data type error */
+					goto err4; /* reg„Åß„ÅØ„Å™„ÅÑ, data type error */
 				if (24 <= (j >> 9) && (j >> 9) < 30 && decode->flag != 0) {
 					if (c == 1)
 						goto err3; /* data size error */
@@ -942,7 +942,7 @@ err:
 						bp[1] = c;
 						bp[2] = 0x7a; /* disp */
 						bp += 3;
-					//	c = 3 ^ decode->flag; /* mod nnn r/m Ç†ÇË */
+					//	c = 3 ^ decode->flag; /* mod nnn r/m „ÅÇ„Çä */
 					//	goto outbp;
 						goto setc;
 					}
@@ -954,7 +954,7 @@ err:
 				}
 				if (j < 30) { /* mem/reg,sreg */
 					if (i == 0 && decode->flag != 0) {
-						/* (i == 0)Ç©Ç¬regÇ»ÇÁÅAO16/O32Ç†ÇË */
+						/* (i == 0)„Åã„Å§reg„Å™„Çâ„ÄÅO16/O32„ÅÇ„Çä */
 						decode->prefix |= (tbl_o16o32 - 1)[c];
 					}
 					itp->param[2] = 0x21; /* no-w no-o16/o32 */
@@ -962,7 +962,7 @@ err:
 					goto ope_mr_mem;
 				}
 				if (j < 40)
-					goto err2; /* ÇªÇÒÇ»ÉåÉWÉXÉ^ÇÕímÇÁÇ»Ç¢ÇÃÇ≈ÅAÉpÉâÉÅÅ[É^ÉGÉâÅ[ */
+					goto err2; /* „Åù„Çì„Å™„É¨„Ç∏„Çπ„Çø„ÅØÁü•„Çâ„Å™„ÅÑ„ÅÆ„Åß„ÄÅ„Éë„É©„É°„Éº„Çø„Ç®„É©„Éº */
 				if (j < 64) {
 					c = (j - 40) >> 3;
 					if (c == 2)
@@ -974,15 +974,15 @@ err:
 					goto ope_mr_mem;
 				}
 	err2:
-				decode->error = 2; /* ÉpÉâÉÅÅ[É^ÉGÉâÅ[ */
+				decode->error = 2; /* „Éë„É©„É°„Éº„Çø„Ç®„É©„Éº */
 				goto err;
 
 			case OPE_ADD: /* ADD */
 				itp->param[3] &= 0x38;
 				if (decode->gparam[0] & 0xc0)
-					goto err4; /* rangeÇ™Ç¬Ç¢ÇƒÇ¢ÇÈ, data type error */
+					goto err4; /* range„Åå„Å§„ÅÑ„Å¶„ÅÑ„Çã, data type error */
 				if (decode->gparam[1] & 0xc0)
-					goto err4; /* rangeÇ™Ç¬Ç¢ÇƒÇ¢ÇÈ, data type error */
+					goto err4; /* range„Åå„Å§„ÅÑ„Å¶„ÅÑ„Çã, data type error */
 				if ((decode->gparam[1] & 0x30) == 0x20) {
 					/* imm */
 					if ((c = decode->gparam[0] & 0x0f) == 0x0f)
@@ -994,12 +994,12 @@ err:
 							goto err3; /* data size error */
 					}
 					decode->prefix |= (tbl_o16o32 - 1)[c];
-					if ((j = decode->gparam[0]) & 0x20) /* regÇ≈Ç‡memÇ≈Ç‡Ç»Ç¢Ç»ÇÁÉGÉâÅ[ */
+					if ((j = decode->gparam[0]) & 0x20) /* reg„Åß„ÇÇmem„Åß„ÇÇ„Å™„ÅÑ„Å™„Çâ„Ç®„É©„Éº */
 						goto err4;
 					decode->flag = 0;
 					if ((j & 0x10) == 0) {
 						decode->flag = 1;
-						if (decode->gvalue[0] >= 24) /* regÇæÇ™reg8/reg16/reg32Ç≈ÇÕÇ»Ç¢ */
+						if (decode->gvalue[0] >= 24) /* reg„Å†„Ååreg8/reg16/reg32„Åß„ÅØ„Å™„ÅÑ */
 							goto err4;
 						if ((decode->gvalue[0] & 0x07) == 0) {
 							/* EAX, AX, AL */
@@ -1008,7 +1008,7 @@ err:
 										0x01 /* UCHAR, const */, 0x83, 0x01 /* UCHAR, const */, 0xc0 /* 8bit */
 							};
 							if (c <= 2) {
-								/* AL, AXÇ»ÇÃÇ≈òbÇÕä»íP */
+								/* AL, AX„Å™„ÅÆ„ÅßË©±„ÅØÁ∞°Âçò */
 								bp[0] = SHORT_DB1;
 								bp[1] = itp->param[3] | 0x04;
 								if (c == 2)
@@ -1019,8 +1019,8 @@ err:
 							//	c == 2 >> 9b(3);
 							//	9 - c * 3
 								if (defnumexpr(ifdef, status->expression, 0x7c & 0x07, 9 - c * 3))
-									goto err2; /* ÉpÉâÉÅÅ[É^ÉGÉâÅ[ */
-								c = 0; /* mod nnn r/m Ç»Çµ */
+									goto err2; /* „Éë„É©„É°„Éº„Çø„Ç®„É©„Éº */
+								c = 0; /* mod nnn r/m „Å™„Åó */
 								goto outbp;
 							}
 							/* EAX */
@@ -1033,50 +1033,16 @@ err:
 							bp += 3;
 
 							if (microcode91(ifdef, status->expression, mcode, decode->gparam[1] & 0x0f))
-								goto err2; /* ÉpÉâÉÅÅ[É^ÉGÉâÅ[ */
-							c = 0; /* mod nnn r/m Ç»Çµ */
+								goto err2; /* „Éë„É©„É°„Éº„Çø„Ç®„É©„Éº */
+							c = 0; /* mod nnn r/m „Å™„Åó */
 							goto outbp;
 						}
 					}
 					decode->gp_mem = decode->gparam[0];
-					decode->gp_reg = itp->param[3] << (9 - 3);
-					if (c == 1) {
-						/* 1ÉoÉCÉgÇ»ÇÃÇ≈òbÇÕä»íP */
-						bp[0] = SHORT_DB1;
-						bp[1] = 0x80;
-						bp += 2;
-						if (defnumexpr(ifdef, status->expression, 0x7c & 0x07, 0x9e & 0x07))
-							goto err2; /* ÉpÉâÉÅÅ[É^ÉGÉâÅ[ */
-					} else {
-						static int mcode[] = {
-							0x54,	0x01 /* UCHAR, const */, 0x81 /* 16bit/32bit */,
-									0x01 /* UCHAR, const */, 0x83 /* 8bit */
-						};
-						mcode[0] = 0x54; /* 16bit */
-						if (c == 4)
-							mcode[0] = 0x5c; /* 32bit */
-						*bp++ = 0x7d;
-						if (microcode90(ifdef, status->expression, mcode, decode->gparam[1] & 0x0f))
-							goto err2; /* ÉpÉâÉÅÅ[É^ÉGÉâÅ[ */
-					}
-					bp[0] = 0x78;
-					bp[1] = 0x79;
-					bp[2] = 0x7a;
-					bp[3] = 0x7c;
-					bp += 4;
-				//	c = 3 ^ decode->flag; /* mod nnn r/m Ç†ÇË */
-				//	goto outbp;
-					goto setc;
-				}
-				i = 0; /* direction-bit */
-				if ((decode->gparam[1] & 0x30) == 0x10)
-					i++;
-				if ((j = decode->gparam[i]) & 0x20) /* regÇ≈Ç‡memÇ≈Ç‡Ç»Ç¢Ç»ÇÁÉGÉâÅ[ */
-					goto err4;
-				decode->flag = 0;
-				if ((j & 0x10) == 0) {
-					decode->flag = 1;
-					if (decode->gvalue[i] >= 24) /* regÇæÇ™reg8/reg16/reg32Ç≈ÇÕÇ»Ç¢ */
+					decode->gp_reg = it /* UCHAR, const */, 0xc0 /* 8bit */
+							};
+							if (c <= 2) {
+								/* AL, AXÁ∏∫ÔΩ™Á∏∫ÔΩÆÁ∏∫ÔΩßÈößÔΩ±Á∏∫ÔΩØÈÇÅÔΩ°Ëúä[i] >= 24) /* regÇæÇ™reg8/reg16/reg32Ç≈ÇÕÇ»Ç¢ */
 						goto err4;
 				}
 				if (decode->gparam[i ^ 1] & 0x30) /* regÇ≈ÇÕÇ»Ç¢Ç»ÇÁÉGÉâÅ[ */

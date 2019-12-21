@@ -2,10 +2,10 @@
 /* copyright (C) 2004 H.Kawai & I.Tak. (KL-01) */
 
 #define SAR_MODE_WIN32		1
-/* Linux‚È‚Ç‚Å‚Íª‚ğƒRƒƒ“ƒgƒAƒEƒg‚·‚é */
+/* Linuxãªã©ã§ã¯â†‘ã‚’ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã™ã‚‹ */
 
 //#define SAR_MODE_POSIX	1
-/* Windows‚È‚Ç‚Å‚Íª‚ğƒRƒƒ“ƒgƒAƒEƒg‚·‚é */
+/* Windowsãªã©ã§ã¯â†‘ã‚’ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã™ã‚‹ */
 
 #define SAR_MODE_SJIS		1
 
@@ -13,11 +13,11 @@
 
 typedef unsigned char UCHAR;
 
-/* ƒtƒH[ƒ}ƒbƒg‚ªsartol0e¨0f‚Å‚ ‚¿‚±‚¿•Ï‚í‚Á‚½ */
+/* ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆãŒsartol0eâ†’0fã§ã‚ã¡ã“ã¡å¤‰ã‚ã£ãŸ */
 
-/* ƒAƒ‰ƒCƒ“‚ª1‚È‚ç‘O‚É14ƒoƒCƒg‚ğ’Ç‰Á‚·‚é‚¾‚¯‚ÅAKHBIOS‘Î‰‚É‚Å‚«‚é */
-/* 16ƒoƒCƒg’Ç‰Á‚Å‚¢‚¢‚È‚çA1/2/4/8/16‚ÌƒAƒ‰ƒCƒ“‚à–â‘è‚È‚¢ */
-/* ‚¾‚©‚ç‚±‚ê‚ç‚ÌƒAƒ‰ƒCƒ“‚Å‚ÍA-‚ğw’è‚·‚é•K‘R«‚Í’á‚¢‚¾‚ë‚¤ */
+/* ã‚¢ãƒ©ã‚¤ãƒ³ãŒ1ãªã‚‰å‰ã«14ãƒã‚¤ãƒˆã‚’è¿½åŠ ã™ã‚‹ã ã‘ã§ã€KHBIOSå¯¾å¿œã«ã§ãã‚‹ */
+/* 16ãƒã‚¤ãƒˆè¿½åŠ ã§ã„ã„ãªã‚‰ã€1/2/4/8/16ã®ã‚¢ãƒ©ã‚¤ãƒ³ã‚‚å•é¡Œãªã„ */
+/* ã ã‹ã‚‰ã“ã‚Œã‚‰ã®ã‚¢ãƒ©ã‚¤ãƒ³ã§ã¯ã€-ã‚’æŒ‡å®šã™ã‚‹å¿…ç„¶æ€§ã¯ä½ã„ã ã‚ã† */
 
 struct sar_dirattr0 {
 	int flags, unitnamelen, align;
@@ -43,17 +43,17 @@ struct sar_fileinfo0 {
 	struct sar_attrtime at;
 #if 0
 	int attr;
-		/* attr‚ÌˆÓ–¡‚ğsartol0e¨0f‚Å‘å•‚É•ÏX */
+		/* attrã®æ„å‘³ã‚’sartol0eâ†’0fã§å¤§å¹…ã«å¤‰æ›´ */
 		/* bit0-3:0000=normal, 0001=extend, 0010=vfile, 0011=vdir */
 		/*		01xx=dir(bit0:0=inline, bit1:1=extend) */
-			/* vfile, vdir‚Íxfile, xdir‚ğw‚·Bxfile, xdir‚ÍƒfƒtƒHƒ‹ƒg‚ªhidden‚ÅAƒŠƒ“ƒNƒJƒEƒ“ƒg‚ª‚ ‚é */
-			/* Œ´‘¥‚Æ‚µ‚Äxfile, xdir‚Íƒ‹[ƒgƒfƒBƒŒƒNƒgƒŠ‚Ì––”ö‚É’u‚­ */
-			/* xfile‚âxdir‚Íƒ‹[ƒgƒfƒBƒŒƒNƒgƒŠ“à‚Ì“Á•Ê‚ÈƒfƒBƒŒƒNƒgƒŠ‚É‚¨‚©‚ê‚é */
-			/* ‚±‚ÌƒfƒBƒŒƒNƒgƒŠ‚Å‚Íƒtƒ@ƒCƒ‹ƒl[ƒ€‚Í‚È‚­‘S‚ÄIDinamelen•”•ª‚Å‹Lqj‚ÅŠÇ—‚³‚ê‚é */
-			/* extendƒfƒBƒŒƒNƒgƒŠ‚Í’·‚¢ƒwƒbƒ_‚ª‚ ‚Á‚ÄƒfƒBƒŒƒNƒgƒŠƒtƒH[ƒ}ƒbƒgƒpƒ‰ƒ[ƒ^‚ğ•ÏX‚Å‚«‚éƒfƒBƒŒƒNƒgƒŠ */
+			/* vfile, vdirã¯xfile, xdirã‚’æŒ‡ã™ã€‚xfile, xdirã¯ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆãŒhiddenã§ã€ãƒªãƒ³ã‚¯ã‚«ã‚¦ãƒ³ãƒˆãŒã‚ã‚‹ */
+			/* åŸå‰‡ã¨ã—ã¦xfile, xdirã¯ãƒ«ãƒ¼ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®æœ«å°¾ã«ç½®ã */
+			/* xfileã‚„xdirã¯ãƒ«ãƒ¼ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå†…ã®ç‰¹åˆ¥ãªãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«ãŠã‹ã‚Œã‚‹ */
+			/* ã“ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã§ã¯ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒ¼ãƒ ã¯ãªãå…¨ã¦IDï¼ˆnamelenéƒ¨åˆ†ã§è¨˜è¿°ï¼‰ã§ç®¡ç†ã•ã‚Œã‚‹ */
+			/* extendãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã¯é•·ã„ãƒ˜ãƒƒãƒ€ãŒã‚ã£ã¦ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’å¤‰æ›´ã§ãã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª */
 		/* bit4:1=deleted */
-		/* bit5:1=timeƒtƒB[ƒ‹ƒh‚È‚µ */
-		/* bit6:1=ƒp[ƒ~ƒbƒVƒ‡ƒ“ƒtƒB[ƒ‹ƒh‚ ‚è */
+		/* bit5:1=timeãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ãªã— */
+		/* bit6:1=ãƒ‘ãƒ¼ãƒŸãƒƒã‚·ãƒ§ãƒ³ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚ã‚Š */
 		/* bit7:1=read-only */
 		/* bit8:1=hidden */
 		/* bit9:1=system */
@@ -90,90 +90,90 @@ struct sar_archandle1 {
 	UCHAR *p, *p1, *s, *s0;
 	UCHAR lastdir[4096];
 	struct sar_archw_subdir {
-		UCHAR *p0; /* ‚Æ‚è‚ ‚¦‚¸‚İ‚ñ‚È4ƒoƒCƒgŠm•Û‚µA‚ ‚Æ‚Å‚Â‚ß‚é */
-		UCHAR *pl; /* lastdir“à‚Ìƒ|ƒCƒ“ƒ^ */
+		UCHAR *p0; /* ã¨ã‚Šã‚ãˆãšã¿ã‚“ãª4ãƒã‚¤ãƒˆç¢ºä¿ã—ã€ã‚ã¨ã§ã¤ã‚ã‚‹ */
+		UCHAR *pl; /* lastdirå†…ã®ãƒã‚¤ãƒ³ã‚¿ */
 		UCHAR *s0;
-		UCHAR *ps; /* ƒfƒBƒŒƒNƒgƒŠ‚ÌsizeƒtƒB[ƒ‹ƒhƒ|ƒCƒ“ƒ^ */
+		UCHAR *ps; /* ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®sizeãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ãƒã‚¤ãƒ³ã‚¿ */
 	} dir[16];
 	int dirlev, reservelen;
 };
 
 #if 0
 
-ƒtƒH[ƒ}ƒbƒgî•ñ
+ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆæƒ…å ±
 
-ƒVƒOƒlƒ`ƒƒF"sar\0KHB0"  73 61 72 00 4b 48 42 30
-	ƒVƒOƒlƒ`ƒƒ‚ªƒtƒ@ƒCƒ‹æ“ª‚ÉŒ©‚Â‚©‚ç‚È‚¢ê‡A‚¨‚æ‚ÑŒã‘±‚ÌƒtƒH[ƒ}ƒbƒgƒo[ƒWƒ‡ƒ“‚ª‚¨‚©‚µ‚¢ê‡A
-	ƒtƒ@ƒCƒ‹æ“ª‚Ì‘O‚É—‰ğ‚Å‚«‚È‚¢14ƒoƒCƒg‚ª‚­‚Á‚Â‚¢‚Ä‚¢‚é‚©‚à‚µ‚ê‚È‚¢‚Æ”»’è‚µ‚Ä
-	ƒIƒtƒZƒbƒg0x0e‚©‚ç‚ÌƒVƒOƒlƒ`ƒƒ”»’è‚ğ‚·‚é‚±‚ÆB
-	‚±‚Ìƒ‹[ƒ‹‚É‚æ‚èAKHBIOS—pƒfƒBƒXƒNƒCƒ[ƒW‚É‘Î‰‚·‚éB
-	æ“ª512Aæ“ª1kAæ“ª2kAæ“ª4kAEEEˆÈ‰º64k‚Ü‚ÅA‚Å‚à‚æ‚¢B16‚©‚ç’²‚×‚é‚©B
+ã‚·ã‚°ãƒãƒãƒ£ï¼š"sar\0KHB0"  73 61 72 00 4b 48 42 30
+	ã‚·ã‚°ãƒãƒãƒ£ãŒãƒ•ã‚¡ã‚¤ãƒ«å…ˆé ­ã«è¦‹ã¤ã‹ã‚‰ãªã„å ´åˆã€ãŠã‚ˆã³å¾Œç¶šã®ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆãƒãƒ¼ã‚¸ãƒ§ãƒ³ãŒãŠã‹ã—ã„å ´åˆã€
+	ãƒ•ã‚¡ã‚¤ãƒ«å…ˆé ­ã®å‰ã«ç†è§£ã§ããªã„14ãƒã‚¤ãƒˆãŒãã£ã¤ã„ã¦ã„ã‚‹ã‹ã‚‚ã—ã‚Œãªã„ã¨åˆ¤å®šã—ã¦
+	ã‚ªãƒ•ã‚»ãƒƒãƒˆ0x0eã‹ã‚‰ã®ã‚·ã‚°ãƒãƒãƒ£åˆ¤å®šã‚’ã™ã‚‹ã“ã¨ã€‚
+	ã“ã®ãƒ«ãƒ¼ãƒ«ã«ã‚ˆã‚Šã€KHBIOSç”¨ãƒ‡ã‚£ã‚¹ã‚¯ã‚¤ãƒ¡ãƒ¼ã‚¸ã«å¯¾å¿œã™ã‚‹ã€‚
+	å…ˆé ­512ã€å…ˆé ­1kã€å…ˆé ­2kã€å…ˆé ­4kã€ãƒ»ãƒ»ãƒ»ä»¥ä¸‹64kã¾ã§ã€ã§ã‚‚ã‚ˆã„ã€‚16ã‹ã‚‰èª¿ã¹ã‚‹ã‹ã€‚
 
-s7s‚ÅƒtƒH[ƒ}ƒbƒgƒo[ƒWƒ‡ƒ“(0)
-s7s‚Åƒtƒ‰ƒOƒtƒB[ƒ‹ƒh
-	ƒ‹[ƒg‚Ìƒtƒ@ƒCƒ‹‘Š‘ÎŠJnˆÊ’uÈ—ªibit0‚ğ0‚ÉjB
-	ƒtƒ@ƒCƒ‹–¼—]”’‚ÍAŒã‘±‚Ìƒtƒ@ƒCƒ‹‘®«s7s‚É0x00‚ğ˜A‚Ë‚é‚±‚Æ‚ÅƒJƒo[‚Å‚«‚éB
-	‚»‚ê‚ª•s–‚Ìê‡‚ÍAbit1‚ğ1‚É‚µ‚ÄAƒtƒ@ƒCƒ‹–¼ƒtƒB[ƒ‹ƒh“à‚ÉÀƒtƒ@ƒCƒ‹–¼’·‚ğ“ü‚ê‚éiextendjB
-	bit2‚ª1‚¾‚Æƒtƒ@ƒCƒ‹‘®«ƒtƒB[ƒ‹ƒh‚Å‚Ís7s‚Ì•Ï‚í‚è‚Ét8s‚ğg—pBt8s‚ÍŒˆ‚ß‘Å‚¿‚·‚é‚É‚Íˆµ‚¢‚â‚·‚¢B
-	bit3‚ª1‚¾‚Æƒx[ƒXƒAƒgƒŠƒrƒ…[ƒg‚ ‚è
-	bit4‚ª1‚¾‚Æƒ^ƒCƒ€ƒ][ƒ“ƒtƒB[ƒ‹ƒh‚ ‚è
-	bit5‚ª1‚¾‚Æƒx[ƒX“ú‚È‚µ
-	bit6‚ª1‚¾‚Æƒx[ƒXƒAƒNƒZƒXŒ ‚È‚µ
-	bit7‚ª1‚¾‚ÆŠg’£‘®«‚ ‚èB
-	bit8‚ª1‚¾‚ÆŠg’£ƒwƒbƒ_‚ ‚èB
-	bit9‚ª1‚¾‚Æ•‰‚Ì‚ğ‹–‚·B
-ƒ‰ƒ“ƒQ[ƒWƒR[ƒh(0:•s–¾)B1‚¾‚ÆIBMB
-ƒx[ƒXƒAƒgƒŠƒrƒ…[ƒgA7bit+7bitB
-“ú’PˆÊEƒx[ƒX’PˆÊ
-	“ú’PˆÊ‚ª•‰‚Ìê‡A•b‚æ‚è‚à×‚©‚¢’PˆÊ‚ğw’è‚·‚é‚±‚Æ‚É‚È‚é‚ªA‚»‚Ìê‡‚ÍLSB‚ª‚³‚ç‚É‘®«‚É‚È‚èA
-	LSB‚ª0‚¾‚Æ10iŒnALSB‚ª1‚¾‚Æ2iŒn‚É‚È‚éB
-ƒx[ƒX“úEƒx[ƒXƒAƒNƒZƒXŒ i‚±‚ê‚ªXOR‚³‚ê‚éj
-	ƒAƒNƒZƒXŒ ƒtƒB[ƒ‹ƒh‚Íƒrƒbƒg‚ª‹t‡‚É‚È‚Á‚Ä‚¢‚éi‚Ü‚¸©•ªAƒOƒ‹[ƒvA‚»‚Ì‘¼AŠg’£jB
-	‚µ‚©‚à©•ª‚àAxwr‚Ì‡ir‚ª‰ºˆÊAx‚ªãˆÊj
-ƒAƒ‰ƒCƒ“ƒR[ƒhi‚±‚ê‚ª‚È‚­‚Ä‚à–ˆ‰ñˆÊ’u‚ğ‘‚¯‚ÎƒAƒ‰ƒCƒ“‚Í‚Å‚«‚é‚æjB
-Šg’£‘®«’·i0‚¾‚Æ‰Â•Ï’·j
-Šg’£‘®«ƒR[ƒhi0‚Í–¢\¿j
-Šg’£ƒwƒbƒ_’·
+s7sã§ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆãƒãƒ¼ã‚¸ãƒ§ãƒ³(0)
+s7sã§ãƒ•ãƒ©ã‚°ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰
+	ãƒ«ãƒ¼ãƒˆã®ãƒ•ã‚¡ã‚¤ãƒ«ç›¸å¯¾é–‹å§‹ä½ç½®çœç•¥ï¼ˆbit0ã‚’0ã«ï¼‰ã€‚
+	ãƒ•ã‚¡ã‚¤ãƒ«åä½™ç™½ã¯ã€å¾Œç¶šã®ãƒ•ã‚¡ã‚¤ãƒ«å±æ€§s7sã«0x00ã‚’é€£ã­ã‚‹ã“ã¨ã§ã‚«ãƒãƒ¼ã§ãã‚‹ã€‚
+	ãã‚ŒãŒä¸æº€ã®å ´åˆã¯ã€bit1ã‚’1ã«ã—ã¦ã€ãƒ•ã‚¡ã‚¤ãƒ«åãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰å†…ã«å®Ÿãƒ•ã‚¡ã‚¤ãƒ«åé•·ã‚’å…¥ã‚Œã‚‹ï¼ˆextendï¼‰ã€‚
+	bit2ãŒ1ã ã¨ãƒ•ã‚¡ã‚¤ãƒ«å±æ€§ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã§ã¯s7sã®å¤‰ã‚ã‚Šã«t8sã‚’ä½¿ç”¨ã€‚t8sã¯æ±ºã‚æ‰“ã¡ã™ã‚‹ã«ã¯æ‰±ã„ã‚„ã™ã„ã€‚
+	bit3ãŒ1ã ã¨ãƒ™ãƒ¼ã‚¹ã‚¢ãƒˆãƒªãƒ“ãƒ¥ãƒ¼ãƒˆã‚ã‚Š
+	bit4ãŒ1ã ã¨ã‚¿ã‚¤ãƒ ã‚¾ãƒ¼ãƒ³ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚ã‚Š
+	bit5ãŒ1ã ã¨ãƒ™ãƒ¼ã‚¹æ—¥æ™‚ãªã—
+	bit6ãŒ1ã ã¨ãƒ™ãƒ¼ã‚¹ã‚¢ã‚¯ã‚»ã‚¹æ¨©ãªã—
+	bit7ãŒ1ã ã¨æ‹¡å¼µå±æ€§ã‚ã‚Šã€‚
+	bit8ãŒ1ã ã¨æ‹¡å¼µãƒ˜ãƒƒãƒ€ã‚ã‚Šã€‚
+	bit9ãŒ1ã ã¨è² ã®æ™‚åˆ»ã‚’è¨±ã™ã€‚
+ãƒ©ãƒ³ã‚²ãƒ¼ã‚¸ã‚³ãƒ¼ãƒ‰(0:ä¸æ˜)ã€‚1ã ã¨IBMã€‚
+ãƒ™ãƒ¼ã‚¹ã‚¢ãƒˆãƒªãƒ“ãƒ¥ãƒ¼ãƒˆã€7bit+7bitã€‚
+æ—¥æ™‚å˜ä½ãƒ»ãƒ™ãƒ¼ã‚¹å˜ä½
+	æ—¥æ™‚å˜ä½ãŒè² ã®å ´åˆã€ç§’ã‚ˆã‚Šã‚‚ç´°ã‹ã„å˜ä½ã‚’æŒ‡å®šã™ã‚‹ã“ã¨ã«ãªã‚‹ãŒã€ãã®å ´åˆã¯LSBãŒã•ã‚‰ã«å±æ€§ã«ãªã‚Šã€
+	LSBãŒ0ã ã¨10é€²ç³»ã€LSBãŒ1ã ã¨2é€²ç³»ã«ãªã‚‹ã€‚
+ãƒ™ãƒ¼ã‚¹æ—¥æ™‚ãƒ»ãƒ™ãƒ¼ã‚¹ã‚¢ã‚¯ã‚»ã‚¹æ¨©ï¼ˆã“ã‚ŒãŒXORã•ã‚Œã‚‹ï¼‰
+	ã‚¢ã‚¯ã‚»ã‚¹æ¨©ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã¯ãƒ“ãƒƒãƒˆãŒé€†é †ã«ãªã£ã¦ã„ã‚‹ï¼ˆã¾ãšè‡ªåˆ†ã€ã‚°ãƒ«ãƒ¼ãƒ—ã€ãã®ä»–ã€æ‹¡å¼µï¼‰ã€‚
+	ã—ã‹ã‚‚è‡ªåˆ†ã‚‚ã€xwrã®é †ï¼ˆrãŒä¸‹ä½ã€xãŒä¸Šä½ï¼‰
+ã‚¢ãƒ©ã‚¤ãƒ³ã‚³ãƒ¼ãƒ‰ï¼ˆã“ã‚ŒãŒãªãã¦ã‚‚æ¯å›ä½ç½®ã‚’æ›¸ã‘ã°ã‚¢ãƒ©ã‚¤ãƒ³ã¯ã§ãã‚‹ã‚ˆï¼‰ã€‚
+æ‹¡å¼µå±æ€§é•·ï¼ˆ0ã ã¨å¯å¤‰é•·ï¼‰
+æ‹¡å¼µå±æ€§ã‚³ãƒ¼ãƒ‰ï¼ˆ0ã¯æœªç”³è«‹ï¼‰
+æ‹¡å¼µãƒ˜ãƒƒãƒ€é•·
 
-s7s‚Åƒwƒbƒ_’·
+s7sã§ãƒ˜ãƒƒãƒ€é•·
 
-ƒtƒ@ƒCƒ‹ƒl[ƒ€’·is7s - ƒAƒ‰ƒCƒ“‚Ì‚½‚ßj
-ƒtƒ@ƒCƒ‹ƒl[ƒ€
-ƒtƒ@ƒCƒ‹‘®«
-ƒtƒ@ƒCƒ‹“úi•„†•ts7sj
-iƒp[ƒ~ƒbƒVƒ‡ƒ“j
-ƒtƒ@ƒCƒ‹‘Š‘ÎŠJnˆÊ’ui•„†•ts7sj
-ƒtƒ@ƒCƒ‹ƒTƒCƒYis7sj/ƒXƒLƒbƒv’·iƒoƒCƒg”F”z‰º‚ÌŒÂ”‚Í”‚¦‚È‚¢‚±‚Æ‚É‚µ‚½j/â‘ÎŠJnˆÊ’u
+ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒ¼ãƒ é•·ï¼ˆs7s - ã‚¢ãƒ©ã‚¤ãƒ³ã®ãŸã‚ï¼‰
+ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒ¼ãƒ 
+ãƒ•ã‚¡ã‚¤ãƒ«å±æ€§
+ãƒ•ã‚¡ã‚¤ãƒ«æ—¥æ™‚ï¼ˆç¬¦å·ä»˜s7sï¼‰
+ï¼ˆãƒ‘ãƒ¼ãƒŸãƒƒã‚·ãƒ§ãƒ³ï¼‰
+ãƒ•ã‚¡ã‚¤ãƒ«ç›¸å¯¾é–‹å§‹ä½ç½®ï¼ˆç¬¦å·ä»˜s7sï¼‰
+ãƒ•ã‚¡ã‚¤ãƒ«ã‚µã‚¤ã‚ºï¼ˆs7sï¼‰/ã‚¹ã‚­ãƒƒãƒ—é•·ï¼ˆãƒã‚¤ãƒˆæ•°ï¼šé…ä¸‹ã®å€‹æ•°ã¯æ•°ãˆãªã„ã“ã¨ã«ã—ãŸï¼‰/çµ¶å¯¾é–‹å§‹ä½ç½®
 
-ƒTƒuƒfƒBƒŒƒNƒgƒŠ‚Å‚ÍAÅ‰‚Ìƒtƒ@ƒCƒ‹‚Íƒwƒbƒ_I’[‚©‚ç‚Ì‘Š‘Î‚ÅŠJnˆÊ’u‚ğ‹L˜^B
+ã‚µãƒ–ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã§ã¯ã€æœ€åˆã®ãƒ•ã‚¡ã‚¤ãƒ«ã¯ãƒ˜ãƒƒãƒ€çµ‚ç«¯ã‹ã‚‰ã®ç›¸å¯¾ã§é–‹å§‹ä½ç½®ã‚’è¨˜éŒ²ã€‚
 
-“ú‚ÍA
-•b‚É6bitA•ª‚É6bitA‚É5bitA“ú‚É5bitAŒ‚É4bitA”N‚É‚Í‚¢‚­‚ç‚Å‚àB
-•b‚©‚çŒ‚Ü‚Å‚Å26ƒrƒbƒgB
-‚Í‘S‚Ä¢ŠE•W€‚ÅŠi”[B‚ğ31‚É‚·‚é‚ÆA–³ŒøB
+æ—¥æ™‚ã¯ã€
+ç§’ã«6bitã€åˆ†ã«6bitã€æ™‚ã«5bitã€æ—¥ã«5bitã€æœˆã«4bitã€å¹´ã«ã¯ã„ãã‚‰ã§ã‚‚ã€‚
+ç§’ã‹ã‚‰æœˆã¾ã§ã§26ãƒ“ãƒƒãƒˆã€‚
+æ™‚åˆ»ã¯å…¨ã¦ä¸–ç•Œæ¨™æº–æ™‚ã§æ ¼ç´ã€‚æ™‚ã‚’31ã«ã™ã‚‹ã¨ã€ç„¡åŠ¹æ™‚åˆ»ã€‚
 
-sar‚ÍŠî–{“I‚ÉƒŠ[ƒhƒIƒ“ƒŠ[‚µ‚©l‚¦‚Ä‚È‚¢BƒŠ[ƒhƒIƒ“ƒŠ[‚Å‚¢‚©‚É’Z‚­‘‚­‚©‚Å‚ ‚éB
+sarã¯åŸºæœ¬çš„ã«ãƒªãƒ¼ãƒ‰ã‚ªãƒ³ãƒªãƒ¼ã—ã‹è€ƒãˆã¦ãªã„ã€‚ãƒªãƒ¼ãƒ‰ã‚ªãƒ³ãƒªãƒ¼ã§ã„ã‹ã«çŸ­ãæ›¸ãã‹ã§ã‚ã‚‹ã€‚
 
 #endif
 
 #if 0
 
-‚à‘S•”–³ŒøB
-‘®«‚à700
-ƒx[ƒXƒpƒX‚ÆAƒtƒ@ƒCƒ‹–¼—ñ‹“‚Å¶¬Be‚ÆdB
-e‚Ìê‡Aargv[1]=="e"
-	argv[2]==ƒx[ƒXƒpƒX("."‚È‚Ç)
-	argv[3]==Ši”[ƒtƒ@ƒCƒ‹–¼
+æ™‚åˆ»ã‚‚å…¨éƒ¨ç„¡åŠ¹æ™‚åˆ»ã€‚
+å±æ€§ã‚‚700
+ãƒ™ãƒ¼ã‚¹ãƒ‘ã‚¹ã¨ã€ãƒ•ã‚¡ã‚¤ãƒ«ååˆ—æŒ™ã§ç”Ÿæˆã€‚eã¨dã€‚
+eã®å ´åˆã€argv[1]=="e"
+	argv[2]==ãƒ™ãƒ¼ã‚¹ãƒ‘ã‚¹("."ãªã©)
+	argv[3]==æ ¼ç´ãƒ•ã‚¡ã‚¤ãƒ«å
 
-ƒtƒ@ƒCƒ‹ƒl[ƒ€‚Í127‚Ü‚Åiƒtƒ@ƒCƒ‹ƒl[ƒ€’·0‚ÅI’[j
-‘®«‚Í‚â‚é‹C‚Ì‚È‚¢0B
-ƒtƒ@ƒCƒ‹“ú‚Í‚â‚é‹C‚È‚µ‚Ì0B
+ãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒ¼ãƒ ã¯127ã¾ã§ï¼ˆãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒ¼ãƒ é•·0ã§çµ‚ç«¯ï¼‰
+å±æ€§ã¯ã‚„ã‚‹æ°—ã®ãªã„0ã€‚
+ãƒ•ã‚¡ã‚¤ãƒ«æ—¥æ™‚ã¯ã‚„ã‚‹æ°—ãªã—ã®0ã€‚
 
-ƒŠƒ“ƒNƒJƒEƒ“ƒg‚Í‚È‚¢‚ªA•À—ñƒfƒBƒŒƒNƒgƒŠ‚Í‰Â”\B
-	¨ Šî–{“I‚Édeleted‚ÅÁ‚µ‚Ä‚¢‚Á‚ÄA‚½‚Ü‚É®—‚ÅƒfƒBƒŒƒNƒgƒŠ\‘¢‘S‘Ì‚ğ“Ç‚İæ‚Á‚ÄƒfƒbƒhƒŠƒ“ƒN‚ğˆ•ª‚·‚ê‚Î‚¢‚¢‚¾‚ë‚¤B
-		íœ“ú‚ğŠÇ—‚µ‚½‚¢ê‡‚ÍAdeletedƒfƒBƒŒƒNƒgƒŠ‚ğì‚Á‚ÄA‚»‚±‚ÉD‚«‚Èî•ñ‚ğ‚½‚ß‚ê‚Î‚¢‚¢‚©‚à‚µ‚ê‚È‚¢B
-		‚±‚¤‚¢‚¤“Á•Ê‚ÈƒfƒBƒŒƒNƒgƒŠ‚ÍA–¼‘O‚ÌÅ‰‚ğ0x00‚É‚·‚é‚Æ‚©‚Å•\Œ»‚µ‚Ä‚à‚¢‚¢‚¾‚ë‚¤
-			iˆê”Êƒtƒ@ƒCƒ‹‚ª0x00‚Ån‚Ü‚é‚È‚çA0x00-0x00‚Å•\Œ»‚³‚¹‚é‚Æ‚©jB
+ãƒªãƒ³ã‚¯ã‚«ã‚¦ãƒ³ãƒˆã¯ãªã„ãŒã€ä¸¦åˆ—ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã¯å¯èƒ½ã€‚
+	â†’ åŸºæœ¬çš„ã«deletedã§æ¶ˆã—ã¦ã„ã£ã¦ã€ãŸã¾ã«æ•´ç†ã§ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªæ§‹é€ å…¨ä½“ã‚’èª­ã¿å–ã£ã¦ãƒ‡ãƒƒãƒ‰ãƒªãƒ³ã‚¯ã‚’å‡¦åˆ†ã™ã‚Œã°ã„ã„ã ã‚ã†ã€‚
+		å‰Šé™¤æ—¥ã‚’ç®¡ç†ã—ãŸã„å ´åˆã¯ã€deletedãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’ä½œã£ã¦ã€ãã“ã«å¥½ããªæƒ…å ±ã‚’ãŸã‚ã‚Œã°ã„ã„ã‹ã‚‚ã—ã‚Œãªã„ã€‚
+		ã“ã†ã„ã†ç‰¹åˆ¥ãªãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã¯ã€åå‰ã®æœ€åˆã‚’0x00ã«ã™ã‚‹ã¨ã‹ã§è¡¨ç¾ã—ã¦ã‚‚ã„ã„ã ã‚ã†
+			ï¼ˆä¸€èˆ¬ãƒ•ã‚¡ã‚¤ãƒ«ãŒ0x00ã§å§‹ã¾ã‚‹ãªã‚‰ã€0x00-0x00ã§è¡¨ç¾ã•ã›ã‚‹ã¨ã‹ï¼‰ã€‚
 
 #endif
 
@@ -278,7 +278,7 @@ UCHAR **ini2arg(int *pargc, UCHAR *ini)
 	do {
 		do {
 			if (*p == '\0')
-				break; /* ƒRƒ}ƒ“ƒhƒ‰ƒCƒ“ƒoƒO‰ñ”ğ‚Ì‚½‚ß */
+				break; /* ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒ³ãƒã‚°å›é¿ã®ãŸã‚ */
 			if (*p == 0x22)
 				mode ^= 1;
 			else
@@ -311,14 +311,14 @@ int decode(int argc, UCHAR **argv)
 	FILE *fp;
 	int i;
 
-	/* '\'‚ğ'/'‚É’¼‚µ‚ÄˆÈ~‚Ìì‹Æ‚ğ‚â‚è‚â‚·‚­‚·‚é */
+	/* '\'ã‚’'/'ã«ç›´ã—ã¦ä»¥é™ã®ä½œæ¥­ã‚’ã‚„ã‚Šã‚„ã™ãã™ã‚‹ */
 	fixpath(argv[0], work->arcname);
 	fixpath(argv[1], work->basepath);
 
-	/* basepath‚Ì‰ÁHi/‚ÅI‚í‚Á‚Ä‚¢‚é‚Æ‚«‚Ìˆ—‚È‚Çj */
+	/* basepathã®åŠ å·¥ï¼ˆ/ã§çµ‚ã‚ã£ã¦ã„ã‚‹ã¨ãã®å‡¦ç†ãªã©ï¼‰ */
 	fixbasepath(work->basepath, work->arcname);
 
-	/* ƒA[ƒJƒCƒu“Ç‚İ‚İ */
+	/* ã‚¢ãƒ¼ã‚«ã‚¤ãƒ–èª­ã¿è¾¼ã¿ */
 	fp = fopen(argv[0], "rb");
 	if (fp == NULL) {
 		fprintf(ERROUT, "can't open file : %s\n", argv[0]);
@@ -354,11 +354,11 @@ int decode_main(int asiz, int bsiz, UCHAR *arc, UCHAR *tmp, UCHAR *basepath, int
 	UCHAR *bp1;
 	int i;
 
-	/* tekˆ³k‚ªŠ|‚©‚Á‚Ä‚¢‚ê‚ÎA‚±‚ê‚ğ‚Æ‚­ */
+	/* tekåœ§ç¸®ãŒæ›ã‹ã£ã¦ã„ã‚Œã°ã€ã“ã‚Œã‚’ã¨ã */
 	if (autodecomp(bsiz, arc, asiz) < 0)
 		goto tekerr;
 
-	/* “Ç‚İ‚İê—pƒ‚[ƒh‚ÅƒA[ƒJƒCƒu‚ğŠJ‚­ */
+	/* èª­ã¿è¾¼ã¿å°‚ç”¨ãƒ¢ãƒ¼ãƒ‰ã§ã‚¢ãƒ¼ã‚«ã‚¤ãƒ–ã‚’é–‹ã */
 	sar_openarchive_r(&work->arc, bsiz, arc);
 	if (work->arc.p0 == NULL) {
 tekerr:
@@ -367,7 +367,7 @@ tekerr:
 		return 1;
 	}
 	
-	/* basepath‚Ì––”ö‚ğŒŸo */
+	/* basepathã®æœ«å°¾ã‚’æ¤œå‡º */
 	for (bp1 = basepath; *bp1 != 0; bp1++);
 	work->sub.bp0 = basepath;
 	work->sub.tmp = tmp;
@@ -386,18 +386,18 @@ int decode_sub(struct sar_fileinfo0 *dir, UCHAR *name, void *prm)
 	FILE *fp;
 
 	if (0x03 <= i && i <= 0x07) {
-		/* ƒfƒBƒŒƒNƒgƒŠŒn */
+		/* ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªç³» */
 		i = fmkdir(work->bp0, work->tmp);
 		if (i == 0)
 			setattrtime(&dir->at, work->bp0);
 		return i;
 	}
-	if (i) { /* ‘®«Šm”FF‚Ü‚¾’Êíƒtƒ@ƒCƒ‹ˆÈŠO‚Íˆµ‚¦‚È‚¢ */
+	if (i) { /* å±æ€§ç¢ºèªï¼šã¾ã é€šå¸¸ãƒ•ã‚¡ã‚¤ãƒ«ä»¥å¤–ã¯æ‰±ãˆãªã„ */
 		fprintf(ERROUT, "unsupported file type : %s\n", name);
 		return 1;
 	}
 
-	/* ˆê”Êƒtƒ@ƒCƒ‹ */
+	/* ä¸€èˆ¬ãƒ•ã‚¡ã‚¤ãƒ« */
 	fp = ffopen(work->bp0, work->tmp);
 	if (fp == NULL) {
 		fprintf(ERROUT, "can't open file : %s\n", work->bp0);
@@ -417,7 +417,7 @@ int decode_sub(struct sar_fileinfo0 *dir, UCHAR *name, void *prm)
 
 int access_all_r(struct sar_fileinfo0 *dir, UCHAR *name, UCHAR *name1, int argc, UCHAR **argv, int flags,
 	int (*func)(struct sar_fileinfo0 *, UCHAR *, void *), void *prm)
-/* ğŒ‚ğ–‚½‚·ƒfƒBƒŒƒNƒgƒŠ“à‚Ì‘S‚Ä‚Ìƒtƒ@ƒCƒ‹EƒfƒBƒŒƒNƒgƒŠ‚É‘Î‚µ‚Äfunc‚ğ“K—p */
+/* æ¡ä»¶ã‚’æº€ãŸã™ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªå†…ã®å…¨ã¦ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ»ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«å¯¾ã—ã¦funcã‚’é©ç”¨ */
 {
 	UCHAR *p, *q;
 	int i, r = 0;
@@ -427,9 +427,9 @@ int access_all_r(struct sar_fileinfo0 *dir, UCHAR *name, UCHAR *name1, int argc,
 			break;
 
 		if ((flags & 1) == 0 && (dir->at.attr & 0x10) != 0)
-			continue; /* deleted‚ÍƒXƒLƒbƒv */
+			continue; /* deletedã¯ã‚¹ã‚­ãƒƒãƒ— */
 
-		/* ƒtƒ@ƒCƒ‹–¼‚Ì˜AŒ‹ */
+		/* ãƒ•ã‚¡ã‚¤ãƒ«åã®é€£çµ */
 		p = dir->name;
 		q = name1;
 		do {
@@ -439,15 +439,15 @@ int access_all_r(struct sar_fileinfo0 *dir, UCHAR *name, UCHAR *name1, int argc,
 
 		i = dir->at.attr & 0x0f;
 		if (i == 0x00) {
-			/* ’Êíƒtƒ@ƒCƒ‹ */
-			/* ƒtƒ@ƒCƒ‹–¼‚ğw’è‚µ‚Ä‚¢‚éê‡Aˆê’v‚·‚é‚à‚Ì‚ª‚ ‚é‚©‚Ç‚¤‚©‚ğƒ`ƒFƒbƒN‚·‚é */
+			/* é€šå¸¸ãƒ•ã‚¡ã‚¤ãƒ« */
+			/* ãƒ•ã‚¡ã‚¤ãƒ«åã‚’æŒ‡å®šã—ã¦ã„ã‚‹å ´åˆã€ä¸€è‡´ã™ã‚‹ã‚‚ã®ãŒã‚ã‚‹ã‹ã©ã†ã‹ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹ */
 			if (match(name, argc, argv) >= 0)
 				r = (*func)(dir, name, prm);
 		} else if (i == 0x04) {
-			/* ƒCƒ“ƒ‰ƒCƒ“ƒfƒBƒŒƒNƒgƒŠ */
+			/* ã‚¤ãƒ³ãƒ©ã‚¤ãƒ³ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª */
 			q[0] = '/';
 			q[1] = '\0';
-			/* ƒtƒ@ƒCƒ‹–¼‚ğw’è‚µ‚Ä‚¢‚éê‡Aˆê’v‚·‚é‚à‚Ì‚ª‚ ‚é‚©‚Ç‚¤‚©‚ğƒ`ƒFƒbƒN‚·‚é */
+			/* ãƒ•ã‚¡ã‚¤ãƒ«åã‚’æŒ‡å®šã—ã¦ã„ã‚‹å ´åˆã€ä¸€è‡´ã™ã‚‹ã‚‚ã®ãŒã‚ã‚‹ã‹ã©ã†ã‹ã‚’ãƒã‚§ãƒƒã‚¯ã™ã‚‹ */
 			if (match(name, argc, argv) >= 0)
 				r = (*func)(dir, name, prm);
 			if (flags & 2) {
@@ -502,11 +502,11 @@ int autorun(UCHAR *tmp, UCHAR *cmd, UCHAR *base)
 
 	return system(tmp);
 
-	/* #_‚ğƒXƒy[ƒX’uŠ·‚É‚·‚ê‚ÎŒİŠ·«‚Í•Û‚Ä‚é */
-	/* #W‚à•K—v‚¾ */
-	/* #‚ğŒŸo‚µ‚½‚ç©“®#w‚ÍƒIƒt‚É‚È‚éA‚Æ */
-	/* ‚Æ‚¢‚¤‚©‚»‚ê‚È‚ç#_‚Í‚È‚­‚Ä‚à‚¢‚¢‚ÈEEE‚¢‚â•K—vB
-		""‚Íg‚¢‚½‚­‚È‚¢‚ªAƒXƒy[ƒX‚ğ“ü‚ê‚½‚¢ê‡‚Í‚ ‚è‚¤‚éB */
+	/* #_ã‚’ã‚¹ãƒšãƒ¼ã‚¹ç½®æ›ã«ã™ã‚Œã°äº’æ›æ€§ã¯ä¿ã¦ã‚‹ */
+	/* #Wã‚‚å¿…è¦ã  */
+	/* #ã‚’æ¤œå‡ºã—ãŸã‚‰è‡ªå‹•#wã¯ã‚ªãƒ•ã«ãªã‚‹ã€ã¨ */
+	/* ã¨ã„ã†ã‹ãã‚Œãªã‚‰#_ã¯ãªãã¦ã‚‚ã„ã„ãªãƒ»ãƒ»ãƒ»ã„ã‚„å¿…è¦ã€‚
+		""ã¯ä½¿ã„ãŸããªã„ãŒã€ã‚¹ãƒšãƒ¼ã‚¹ã‚’å…¥ã‚ŒãŸã„å ´åˆã¯ã‚ã‚Šã†ã‚‹ã€‚ */
 }
 
 void fixpath(UCHAR *src, UCHAR *dst)
@@ -544,16 +544,16 @@ void fixbasepath(UCHAR *base, UCHAR *arc)
 {
 	UCHAR *p, *q, *r, flags = 0;
 	int j;
-	/* basepath‚ÌŒã‚ë‚Ì'/'‚Ì”‚ğ”‚¦‚é */
+	/* basepathã®å¾Œã‚ã®'/'ã®æ•°ã‚’æ•°ãˆã‚‹ */
 	for (q = base; *q != '\0'; q++);
 	while (base <= &q[-1] && q[-1] == '/') {
 		*--q = '\0';
 		flags++;
 	}
 
-	/* basepath‚Ì––”ö‚ª"."‚Å‚ ‚ê‚Î‚±‚ê‚ğŠO‚· */
+	/* basepathã®æœ«å°¾ãŒ"."ã§ã‚ã‚Œã°ã“ã‚Œã‚’å¤–ã™ */
 	/* "a:/." -> "a:/", "a:." -> "a:" */
-	/* ‚»‚¤‚Å‚È‚¯‚ê‚Î"/"‚ğ‚Â‚¯‚é */
+	/* ãã†ã§ãªã‘ã‚Œã°"/"ã‚’ã¤ã‘ã‚‹ */
 	if (base <= &q[-1] && q[-1] == '.' &&
 		(base == &q[-1] || (base <= &q[-2] && (q[-2] == '/' || q[-2] == ':'))))
 		q--;
@@ -561,7 +561,7 @@ void fixbasepath(UCHAR *base, UCHAR *arc)
 		*q++ = '/';
 	*q = '\0';
 
-	/* "..@arcpath"‚Ìƒ`ƒFƒbƒN */
+	/* "..@arcpath"ã®ãƒã‚§ãƒƒã‚¯ */
 	if (q - base == 11) {
 		UCHAR c = 0;
 		for (j = 0; j < 11; j++)
@@ -578,7 +578,7 @@ void fixbasepath(UCHAR *base, UCHAR *arc)
 		}
 	}
 
-	/* basepath‚ÉƒA[ƒJƒCƒu–¼‚ğ•t‚¯‘«‚· */
+	/* basepathã«ã‚¢ãƒ¼ã‚«ã‚¤ãƒ–åã‚’ä»˜ã‘è¶³ã™ */
 	if (flags >= 1) {
 		for (r = p = arc; *p != '\0'; p++) {
 			if (*p == '/')
@@ -601,7 +601,7 @@ void fixbasepath(UCHAR *base, UCHAR *arc)
 }
 
 int match(UCHAR *name, int argc, UCHAR **argv)
-/* 0:‹–‰ÂA-1:•s‹–‰Â, 1ˆÈã:‘ã‘Ö•\Œ»‚ª‘¶İ‚·‚é */
+/* 0:è¨±å¯ã€-1:ä¸è¨±å¯, 1ä»¥ä¸Š:ä»£æ›¿è¡¨ç¾ãŒå­˜åœ¨ã™ã‚‹ */
 {
 	int i, j = 0, flags = 0, len = strlen(name);
 	UCHAR *p;
@@ -618,25 +618,25 @@ int match(UCHAR *name, int argc, UCHAR **argv)
 			} else
 				continue;
 		} else
-			flags |= 0x0a; /* ’ÊíğŒ‚ª‘¶İ‚µ‚½ */
+			flags |= 0x0a; /* é€šå¸¸æ¡ä»¶ãŒå­˜åœ¨ã—ãŸ */
 		if (strncmp(name, p, len) == 0 && p[len] == '\0') {
 			if (flags & 1)
 				return -1;
 			else {
-				flags |= 0x10; /* ’ÊíğŒ‚ªˆê’v‚µ‚½ */
+				flags |= 0x10; /* é€šå¸¸æ¡ä»¶ãŒä¸€è‡´ã—ãŸ */
 				j = i + 1;
 			}
 		}
 		flags &= ~0x3;
 	}
 	if (flags == 0)
-		return 0; /* ğŒ‚Íˆê‚Â‚à–³‚¢all */
-	if (flags & 0x10) { /* ˆê’v‚ ‚è•”Û’è‚É‚ÍŠY“–‚¹‚¸ */
+		return 0; /* æ¡ä»¶ã¯ä¸€ã¤ã‚‚ç„¡ã„ï¼all */
+	if (flags & 0x10) { /* ä¸€è‡´ã‚ã‚Šï¼†å¦å®šã«ã¯è©²å½“ã›ãš */
 		if (j < argc && argv[j][0] == ':' && argv[j][1] == '=')
 			return j;
 		return 0;
 	}
-	if (flags == 0x04) /* ”Û’èğŒ‚µ‚©‚È‚¢‚ª‚Ç‚ê‚É‚àŠ|‚©‚ç‚È‚©‚Á‚½ */
+	if (flags == 0x04) /* å¦å®šæ¡ä»¶ã—ã‹ãªã„ãŒã©ã‚Œã«ã‚‚æ›ã‹ã‚‰ãªã‹ã£ãŸ */
 		return 0;
 	return -1;
 }
@@ -667,7 +667,7 @@ int list0(int argc, UCHAR **argv)
 		argv++;
 	}
 
-	/* ƒA[ƒJƒCƒu“Ç‚İ‚İ */
+	/* ã‚¢ãƒ¼ã‚«ã‚¤ãƒ–èª­ã¿è¾¼ã¿ */
 	fp = fopen(argv[0], "rb");
 	if (fp == NULL) {
 		fprintf(ERROUT, "can't open file : %s\n", argv[0]);
@@ -690,11 +690,11 @@ int list_main(int asiz, int bsiz, UCHAR *fbuf, UCHAR *tmp, int argc, UCHAR **arg
 	struct sar_archandle0 arc;
 	struct sar_fileinfo0 dir;
 
-	/* tekˆ³k‚ªŠ|‚©‚Á‚Ä‚¢‚ê‚ÎA‚±‚ê‚ğ‚Æ‚­ */
+	/* tekåœ§ç¸®ãŒæ›ã‹ã£ã¦ã„ã‚Œã°ã€ã“ã‚Œã‚’ã¨ã */
 	if (autodecomp(bsiz, fbuf, asiz) < 0)
 		goto tekerr;
 
-	/* “Ç‚İ‚İê—pƒ‚[ƒh‚ÅƒA[ƒJƒCƒu‚ğŠJ‚­ */
+	/* èª­ã¿è¾¼ã¿å°‚ç”¨ãƒ¢ãƒ¼ãƒ‰ã§ã‚¢ãƒ¼ã‚«ã‚¤ãƒ–ã‚’é–‹ã */
 	sar_openarchive_r(&arc, bsiz, fbuf);
 	if (arc.p0 == NULL) {
 tekerr:
@@ -717,7 +717,7 @@ int list_sub(struct sar_fileinfo0 *dir, UCHAR *name, void *prm)
 		tmp[j] = "----/--/--  --:--:--.---  _____                   "[j];
 
 	if (dir->at.subsec != -1) {
-		/* •â³ */
+		/* æ™‚åˆ»è£œæ­£ */
 		sar_shifttime(&dir->at, bias, NULL);
 		sprintf(tmp, "%04d/%02d/%02d  %02d:%02d:%02d.%03d  _____                  ",
 			dir->at.year, dir->at.mon, dir->at.day,
@@ -743,18 +743,18 @@ int list_sub(struct sar_fileinfo0 *dir, UCHAR *name, void *prm)
 
 	i = dir->at.attr & 0x0f;
 	if (i == 0x00) {
-		/* ’Êíƒtƒ@ƒCƒ‹ */
+		/* é€šå¸¸ãƒ•ã‚¡ã‚¤ãƒ« */
 		j = dir->size;
 		q = &tmp[47];
 		do {
 			*q-- = '0' + (j % 10);
 		} while (j /= 10);
 	} else if (i == 0x04) {
-		/* ƒCƒ“ƒ‰ƒCƒ“ƒfƒBƒŒƒNƒgƒŠ */
+		/* ã‚¤ãƒ³ãƒ©ã‚¤ãƒ³ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª */
 		for (j = 0; j < 5; j++)
 			tmp[41 + j] = "<dir>"[j];
 	}
-	puts(tmp); /* o—Í */
+	puts(tmp); /* å‡ºåŠ› */
 	return 0;
 }
 
@@ -779,7 +779,7 @@ int encode(int argc, UCHAR **argv)
 prefix:
 	if (*p == '!') {
 		p++;
-		flags |= 2; /* ƒtƒ@ƒCƒ‹‘®«A“úŠi”[ */
+		flags |= 2; /* ãƒ•ã‚¡ã‚¤ãƒ«å±æ€§ã€æ—¥æ™‚æ ¼ç´ */
 		goto prefix;
 	}
 	if (*p == '@') {
@@ -827,18 +827,18 @@ open_err:
 			return 1;
 		}
 		r = arc->s;
-			/* ¡‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚ÍƒCƒ“ƒ‰ƒCƒ“ƒfƒBƒŒƒNƒgƒŠ‚µ‚©ƒTƒ|[ƒg‚µ‚Ä‚È‚¢‚Ì‚ÅAarc->s‚Í—˜—p‚Å‚«‚é */
+			/* ä»Šã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã¯ã‚¤ãƒ³ãƒ©ã‚¤ãƒ³ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã—ã‹ã‚µãƒãƒ¼ãƒˆã—ã¦ãªã„ã®ã§ã€arc->sã¯åˆ©ç”¨ã§ãã‚‹ */
 		j = fread(r, 1, fbuf + SIZ_FILEBUF - r, fp);
-			/* fread‚Í‚Í‚İ‚¾‚·‚æ‚¤‚È—v‹‚©‚Ç‚¤‚©‚ğ‚í‚´‚í‚´ƒ`ƒFƒbƒN‚µ‚Ä‚¢‚é‚ç‚µ‚¢ */
+			/* freadã¯ã¯ã¿ã ã™ã‚ˆã†ãªè¦æ±‚ã‹ã©ã†ã‹ã‚’ã‚ã–ã‚ã–ãƒã‚§ãƒƒã‚¯ã—ã¦ã„ã‚‹ã‚‰ã—ã„ */
 		fclose(fp);
 		if (flags & 1)
-			j = autodecomp(fbuf + SIZ_FILEBUF - r, r, j); /* ƒGƒ‰[ƒ`ƒFƒbƒN‚³‚Ú‚è */
+			j = autodecomp(fbuf + SIZ_FILEBUF - r, r, j); /* ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯ã•ã¼ã‚Š */
 
 		finfo->size = j;
 		r += j;
 		if (flags & 2)
 			getattrtime(&finfo->at, fnb0);
-		sar_putfile_w(finfo, arc, flags); /* finfo‚Ì’†‚Ì–¼‘O‚É‚ÍƒfƒBƒŒƒNƒgƒŠ–¼‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ä‚æ‚¢ */
+		sar_putfile_w(finfo, arc, flags); /* finfoã®ä¸­ã®åå‰ã«ã¯ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªåãŒå«ã¾ã‚Œã¦ã„ã¦ã‚ˆã„ */
 		while (r < arc->s)
 			*r++ = 0x00;
 	}
@@ -856,13 +856,13 @@ open_err:
 }
 
 int restore(UCHAR **argv)
-/* ‚½‚¾‚ÌtekƒfƒR[ƒ_ */
+/* ãŸã ã®tekãƒ‡ã‚³ãƒ¼ãƒ€ */
 {
 	UCHAR *buf = malloc(SIZ_FILEBUF);
 	FILE *fp;
 	int csiz, dsiz;
 	if (argv[0][0] == ':' && argv[0][1] == 's' && argv[0][2] == 't' && argv[0][3] == 'd' && argv[0][4] == '\0')
-		fp = stdin; /* å‚ÉLinux‚ÅŠˆ–ôiƒoƒCƒiƒŠƒ‚[ƒh‚Å‚ ‚é•K—v‚ª‚ ‚é‚Ì‚Åj */
+		fp = stdin; /* ä¸»ã«Linuxã§æ´»èºï¼ˆãƒã‚¤ãƒŠãƒªãƒ¢ãƒ¼ãƒ‰ã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚‹ã®ã§ï¼‰ */
 	else {
 		fp = fopen(argv[0], "rb");
 		if (fp == NULL) {
@@ -881,7 +881,7 @@ err:
 		return 1;
 	}
 	if (argv[1][0] == ':' && argv[1][1] == 's' && argv[1][2] == 't' && argv[1][3] == 'd' && argv[1][4] == '\0')
-		fp = stdout; /* å‚ÉLinux‚ÅŠˆ–ôiƒoƒCƒiƒŠƒ‚[ƒh‚Å‚ ‚é•K—v‚ª‚ ‚é‚Ì‚Åj */
+		fp = stdout; /* ä¸»ã«Linuxã§æ´»èºï¼ˆãƒã‚¤ãƒŠãƒªãƒ¢ãƒ¼ãƒ‰ã§ã‚ã‚‹å¿…è¦ãŒã‚ã‚‹ã®ã§ï¼‰ */
 	else {
 		fp = fopen(argv[1], "wb");
 		if (fp == NULL) {
@@ -899,7 +899,7 @@ err:
 	return 0;
 }
 
-/* ƒtƒ@ƒCƒ‹ŠÖŒWŠÖ”ŒQ */
+/* ãƒ•ã‚¡ã‚¤ãƒ«é–¢ä¿‚é–¢æ•°ç¾¤ */
 
 int chkdir(UCHAR *path, UCHAR *tmp)
 {
@@ -953,10 +953,10 @@ int makdir(UCHAR *path, UCHAR *tmp)
 	#endif
 	i = system(tmp);
 	#if (defined(SAR_MODE_WIN32) && 0)
-		/* ‚±‚ê‚ğ‚â‚ç‚È‚­‚Ä‚à‚æ‚­‚È‚Á‚½‚Ì‚ÅƒRƒƒ“ƒgƒAƒEƒg */
+		/* ã“ã‚Œã‚’ã‚„ã‚‰ãªãã¦ã‚‚ã‚ˆããªã£ãŸã®ã§ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆ */
 		if (i == 0) {
-			/* Windows‚Ìmkdir‚Í‚È‚ñ‚ÆƒfƒBƒŒƒNƒgƒŠ‚Ì¶¬‚É¸”s‚µ‚Ä‚àƒGƒ‰[‚É‚È‚ç‚È‚¢ */
-			/* ‚¾‚©‚ç‚¿‚á‚ñ‚Æo—ˆ‚½‚©‚Ç‚¤‚©‚ğŠm”F */
+			/* Windowsã®mkdirã¯ãªã‚“ã¨ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®ç”Ÿæˆã«å¤±æ•—ã—ã¦ã‚‚ã‚¨ãƒ©ãƒ¼ã«ãªã‚‰ãªã„ */
+			/* ã ã‹ã‚‰ã¡ã‚ƒã‚“ã¨å‡ºæ¥ãŸã‹ã©ã†ã‹ã‚’ç¢ºèª */
 			i = chkdir(path, tmp);
 		}
 	#endif
@@ -968,7 +968,7 @@ int fmkdir(UCHAR *path, UCHAR *tmp)
 {
 	UCHAR *t, *t1;
 	if (chkdir(path, tmp) == 0)
-		return 0; /* Šù‚É‘¶İ‚·‚é */
+		return 0; /* æ—¢ã«å­˜åœ¨ã™ã‚‹ */
 	for (t = tmp; *path != '\0'; *t++ = *path++);
 	if (t[-1] == '/')
 		t--;
@@ -976,9 +976,9 @@ int fmkdir(UCHAR *path, UCHAR *tmp)
 
 	t1 = t;
 	#if 0
-		/* Win95‚Å—]Œv‚ÈƒƒbƒZ[ƒW‚ªo‚é‚Ì‚Å‚±‚ê‚ÍƒXƒLƒbƒv */
+		/* Win95ã§ä½™è¨ˆãªãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãŒå‡ºã‚‹ã®ã§ã“ã‚Œã¯ã‚¹ã‚­ãƒƒãƒ— */
 		if (makdir(tmp, t1 + 1) == 0)
-			return 0; /* –³–‚É¶¬‚Å‚«‚½ */
+			return 0; /* ç„¡äº‹ã«ç”Ÿæˆã§ããŸ */
 	#endif
 	for (;;) {
 		while (t > tmp && *t != '/' && *t != ':')
@@ -993,7 +993,7 @@ int fmkdir(UCHAR *path, UCHAR *tmp)
 		if (chkdir(tmp, t1 + 1) == 0)
 			break;
 	}
-	/* ˆê‚Â‘Oi‚·‚é */
+	/* ä¸€ã¤å‰é€²ã™ã‚‹ */
 	do {
 		if (t > tmp)
 			*t = '/';
@@ -1004,13 +1004,13 @@ colon:
 			t++;
 		} while (*t);
 		if (makdir(tmp, t1 + 1))
-			return 1; /* ‚È‚º‚©ƒGƒ‰[ */
+			return 1; /* ãªãœã‹ã‚¨ãƒ©ãƒ¼ */
 	} while (t < t1);
-	return 0; /* ‘S•”Š®—¹ */
+	return 0; /* å…¨éƒ¨å®Œäº† */
 }
 
 FILE *ffopen(UCHAR *path, UCHAR *tmp)
-/* wb‚Å‚ÌƒI[ƒvƒ“‚ÉŒÀ’è */
+/* wbã§ã®ã‚ªãƒ¼ãƒ—ãƒ³ã«é™å®š */
 {
 	UCHAR *t = tmp, *p = NULL, *q, *s;
 	FILE *fp;
@@ -1108,12 +1108,12 @@ FILE *ffopen(UCHAR *path, UCHAR *tmp)
 	#include <sys/stat.h>
 	#include <unistd.h>
 	#include <utime.h>
-	#include <time.h>		/* ANSI-C, time_t‚Æ“ú‚Ì•ÏŠ·‚Ég‚¤ */
+	#include <time.h>		/* ANSI-C, time_tã¨æ—¥æ™‚ã®å¤‰æ›ã«ä½¿ã† */
 #endif
 
 
 void getattrtime(struct sar_attrtime *s, UCHAR *path)
-/* s->attr‚Ìbit0-3,5-6‚Í•Û‘¶‚·‚é‚±‚Æ */
+/* s->attrã®bit0-3,5-6ã¯ä¿å­˜ã™ã‚‹ã“ã¨ */
 {
 	#if (defined(SAR_MODE_WIN32))
 		int i;
@@ -1148,13 +1148,13 @@ void getattrtime(struct sar_attrtime *s, UCHAR *path)
 		}
 		s->permission = 0700;
 	#elif (defined(SAR_MODE_POSIX))
-		/* POSIX‚É‚µ‚Ä‚İ‚éƒeƒXƒg */
+		/* POSIXã«ã—ã¦ã¿ã‚‹ãƒ†ã‚¹ãƒˆ */
 		struct stat buf;
 		s->attr &= 0x6f;
 		s->subsec = -1;
 		if (stat(path, &buf) == 0) {
 			struct tm gm;
-			s->permission = buf.st_mode & 0777; /* SUID‚Æ‚©ˆê‰Á‚· */
+			s->permission = buf.st_mode & 0777; /* SUIDã¨ã‹ä¸€å¿œæ¶ˆã™ */
 			/* ANSI-C */
 			if (gmtime_r(&buf.st_mtime, &gm)) {
 				s->subsec = 0;
@@ -1170,7 +1170,7 @@ void getattrtime(struct sar_attrtime *s, UCHAR *path)
 	#else
 		s->attr &= 0x6f;
 		s->permission = 0700;
-		s->subsec |= -1; /* subsec == -1 : XVî•ñ‚È‚µ */
+		s->subsec |= -1; /* subsec == -1 : æ›´æ–°æ™‚åˆ»æƒ…å ±ãªã— */
 	#endif
 	return;
 }
@@ -1207,7 +1207,7 @@ void setattrtime(struct sar_attrtime *s, UCHAR *path)
 				FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
 				NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS, 0);
 			if (h != -1) {
-				SetFileTime(h, &ft, &ft, &ft); /* ‚Æ‚è‚ ‚¦‚¸‚·‚×‚Ä‚±‚Ì“ú‚É‚µ‚Ä‚İ‚é */
+				SetFileTime(h, &ft, &ft, &ft); /* ã¨ã‚Šã‚ãˆãšã™ã¹ã¦ã“ã®æ—¥æ™‚ã«ã—ã¦ã¿ã‚‹ */
 				CloseHandle(h);
 			}
 		}
@@ -1223,137 +1223,30 @@ void setattrtime(struct sar_attrtime *s, UCHAR *path)
 		gm.tm_mon  = s->mon - 1;
 		gm.tm_year = s->year - 1900;
 
-		/* GNUŠg’£timegm‚Ì‘ã‚í‚è */
-		tz = getenv("TZ"); /* TZ‚ğ•Û‘¶ */
-		setenv("TZ", "", 1); /* TZ‚ğÁ‹ */
+		/* GNUæ‹¡å¼µtimegmã®ä»£ã‚ã‚Š */
+		tz = getenv("TZ"); /* TZã‚’ä¿å­˜ */
+		setenv("TZ", "", 1); /* TZã‚’æ¶ˆå» */
 		tzset();
 		buf.modtime = buf.actime = mktime(&gm);
 		if (tz)
 			setenv("TZ", tz, 1);
 		else
 			unsetenv("TZ");
-		tzset();	/* TZ•œŒ³ */
+		tzset();	/* TZå¾©å…ƒ */
 
 		if (buf.modtime != -1)
 			utime(path, &buf);
-		chmod(path, s->permission); /* ¸”s‚µ‚Ä‚à‹C‚É‚µ‚È‚¢ */
-	#else
-		/* ‰½‚à‚µ‚È‚¢ */
-	#endif
-	return;
-}
-
-/* sarƒTƒ|[ƒgŠÖ”ŒQi“WŠJ—pj */
-
-unsigned int sar_getnum_s7s(UCHAR **pp)
-/* ‚±‚ê‚Í•K‚¸big-endian */
-/* ‰º‘Ê‚ª‚È‚¢‚Ì‚Å’†g‚ğ‚¢‚¶‚è‚â‚·‚¢‚µApad‚à‚¢‚ê‚â‚·‚¢B */
-{
-	unsigned int s = 0;
-	UCHAR *p = *pp;
-	do {
-		s = s << 7 | *p++;
-	} while ((s & 1) == 0);
-	s >>= 1;
-	*pp = p;
-	return s;
-}
-
-void sar_openarchive_r(struct sar_archandle0 *handle, int siz, UCHAR *buf)
-/* “Ç‚İ‚İê—pƒ‚[ƒh‚ÅƒA[ƒJƒCƒu‚ğŠJ‚­ */
-{
-	int i, j;
-	UCHAR *p, *q;
-	handle->da0.alignbase = buf;
-	handle->p1 = buf + siz;
-	handle->p0 = NULL;
-	handle->da0.baseattr_f = 0;
-	handle->da0.baseattr_d = 0;
-	handle->da0.baseperm_f = 0x0007;
-	handle->da0.baseperm_d = 0x0007; /* ƒwƒbƒ_‚Å‚Í‰ºˆÊ‚ªfAãˆÊ‚ªdB‚µ‚©‚àd•”•ª‚Íf‚É‘Î‚·‚éxor‚Å‹Lq */
-	handle->da0.flags = 0;
-	handle->da0.unitnamelen = 0;
-
-	for (i = 0; i < 6; i++)
-		handle->da0.time0[i] = 0;
-
-	j = 0;
-retry:
-	i = 0;
-	p = buf + j;
-	for (q = "sar\0KHB0\1\1\1\1\x2d\x3f\x0f\2"; *q != 1; i |= *p++ ^ *q++); /* 8ƒoƒCƒg */
-	if (i) {
-		if (j == 0) {
-			j += 14;
-			goto retry;
+		chmsec = st.wSecond;
+			s->min = st.wMinute;
+			s->hour = st.wHour;
+			s->day = st.wDay;
+			s->mon = st.wMonth;
+			s->year = st.wYear;
+			s->year_h = 0;
 		}
-		if (j < 16) {
-			j = 16;
-			goto retry;
-		}
-		if (j < 64 * 1024) {
-			j += j;
-			goto retry;
-		}
-arc_err:
-		return;
-	}
-	if (sar_getnum_s7s(&p) != 0) {
-		if (j == 0) {
-			j += 14;
-			goto retry;
-		}
-		goto arc_err; /* ƒtƒH[ƒ}ƒbƒgƒo[ƒWƒ‡ƒ“ƒ`ƒFƒbƒN */
-	}
-	handle->da0.flags = sar_getnum_s7s(&p);
-
-	if (handle->da0.flags & ~0x0029)
-		goto arc_err; /* ƒtƒ‰ƒOƒ`ƒFƒbƒN */
-
-	sar_getnum_s7s(&p); /* ƒ‰ƒ“ƒQ[ƒW‚Í–³‹ */
-	if (handle->da0.flags & 0x0008) {
-		/* ƒx[ƒXƒAƒgƒŠƒrƒ…[ƒg */
-		i = sar_getnum_s7s(&p);
-		handle->da0.baseattr_f = i & 0x7f;
-		handle->da0.baseattr_d = (i >> 7) & 0x7f;
-	}
-	sar_getnum_s7s(&p); /* “ú’PˆÊ‚Í–³‹ */
-	if ((handle->da0.flags & 0x0020) == 0) {
-		/* ƒx[ƒX‚ª‚ ‚ê‚ÎA‚»‚ê‚Í–³Œø“ú‚Å‚ ‚é‚ÆŒˆ‚ß•t‚¯‚é */
-		sar_getnum_s7s(&p); /* ƒx[ƒX’PˆÊ‚Í–³‹ */
-		sar_getnum_s7s(&p); /* ƒx[ƒX“ú‚à–³‹ */
-		sar_time2uc(&sar_atinv, (UCHAR *) handle->da0.time0);
-	}
-	i = sar_getnum_s7s(&p); /* ƒx[ƒXƒAƒNƒZƒXŒ  */
-	handle->da0.baseperm_f = i;
-	handle->da0.baseperm_d = i; /* ãˆÊ‚ª0‚È‚ç‚±‚ê‚Å‚¢‚¢ */
-
-	handle->da0.align = (1 << sar_getnum_s7s(&p)) - 1; /* align‚Íƒ}ƒXƒNƒpƒ^[ƒ“‚É‚È‚Á‚Ä‚¢‚é‚Ì‚É’ˆÓ */
-	handle->p0 = p;
-	return;
-}
-
-void sar_opendirectory_r(struct sar_fileinfo0 *dir, struct sar_dirattr0 *da0, UCHAR *p)
-{
-	int i, align = da0->align;
-	UCHAR *alignbase = da0->alignbase;
-
-	i = sar_getnum_s7s(&p); /* ƒfƒBƒŒƒNƒgƒŠ’· */
-	dir->p = p;
-	dir->s = alignbase + (((p - alignbase) + align) & ~align) + i * (align + 1);
-	dir->da0 = *da0;
-
-	return;
-}
-
-#if 0
-
-	/* ‚ ‚Ü‚è‚É’Pƒ‚È‚Ì‚ÅŠÖ”‚É‚·‚é‚Ü‚Å‚à‚È‚¢ */
-
-void sar_openildirectory_r(struct sar_fileinfo0 *dir, struct sar_archandle0 *arc, UCHAR *p, UCHAR *s)
-{
-	dir->p = p;
-	dir->s = s;
+		s->permission = 0700;
+	#elif (defined(SAR_MODE_POSIX))
+		/* POSIXç¸ºï½«ç¸ºåŠ±â€»ç¸ºï½¿ç¹§ä¹ãƒ¦ç¹§ï½¹ç¹= s;
 
 	return;
 }

@@ -17,7 +17,7 @@ Parser::Parser(void){
 }
 
 
-// Parameterí«â¡ånÇÃèàóùä÷êî
+// ParameterËøΩÂä†Á≥ª„ÅÆÂá¶ÁêÜÈñ¢Êï∞
 HRESULT	Parser::Sizeof(Parameter& param){
 	TagList*	tag;
 	int			size;
@@ -30,7 +30,7 @@ HRESULT	Parser::Sizeof(Parameter& param){
 	  case TK_UNSIGNED: case TK_SIGNED: scanner.GetToken(); break;
 	}
 	scanner.GetToken();
-//	if(scanner.PeekToken() == TK_STRUCT) scanner.GetToken(); // Åustruct É^ÉOñºÅvÇãñâ¬Ç∑ÇÈÇΩÇﬂÇÃãÍì˜ÇÃçÙ
+//	if(scanner.PeekToken() == TK_STRUCT) scanner.GetToken(); // „Äåstruct „Çø„Ç∞Âêç„Äç„ÇíË®±ÂèØ„Åô„Çã„Åü„ÇÅ„ÅÆËã¶ËÇâ„ÅÆÁ≠ñ
 	tag = generator.FindTagList(scanner.GetLabel());
 	if(tag == NULL){
 		Error("Invalid type");
@@ -40,16 +40,16 @@ HRESULT	Parser::Sizeof(Parameter& param){
 	switch(scanner.PeekToken()){
 	  case TK_NEAR:
 		if(generator.seg->use == TK_USE32) size = 4; else size = 2;
-		scanner.GetToken();						// éüÇ÷êiÇﬂÇÈ
-		if(scanner.GetToken() != TK_MUL){		// ç°ÇÕ*Ç™Ç¢Ç≠Ç¬Ç‡ë±Ç≠ÇÃÇÇ©ÇØÇ»Ç¢
+		scanner.GetToken();						// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
+		if(scanner.GetToken() != TK_MUL){		// ‰ªä„ÅØ*„Åå„ÅÑ„Åè„Å§„ÇÇÁ∂ö„Åè„ÅÆ„Çí„Åã„Åë„Å™„ÅÑ
 			Error("Missing \"*\" after near");
 			return 4;
 		}
 		break;
 	  case TK_FAR:
 		if(generator.seg->use == TK_USE32) size = 6; else size = 4;
-		scanner.GetToken();						// éüÇ÷êiÇﬂÇÈ
-		if(scanner.GetToken() != TK_MUL){		// ç°ÇÕ*Ç™Ç¢Ç≠Ç¬Ç‡ë±Ç≠ÇÃÇÇ©ÇØÇ»Ç¢
+		scanner.GetToken();						// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
+		if(scanner.GetToken() != TK_MUL){		// ‰ªä„ÅØ*„Åå„ÅÑ„Åè„Å§„ÇÇÁ∂ö„Åè„ÅÆ„Çí„Åã„Åë„Å™„ÅÑ
 			Error("Missing \"*\" after far");
 			return 4;
 		}
@@ -67,10 +67,10 @@ HRESULT	Parser::Sizeof(Parameter& param){
 	return 0;
 }
 
-// Parameterí«â¡ånÇÃèàóùä÷êî
+// ParameterËøΩÂä†Á≥ª„ÅÆÂá¶ÁêÜÈñ¢Êï∞
 HRESULT	Parser::Address(Parameter& param){
 	LabelList* label;
-	Parameter	selparam;			// Selector()ÇÕparamÇ™îjâÛÇ≥ÇÍÇÈÇ©ÇÁ
+	Parameter	selparam;			// Selector()„ÅØparam„ÅåÁ†¥Â£ä„Åï„Çå„Çã„Åã„Çâ
 	if(scanner.PeekToken() == TK_AND) scanner.GetToken();
 	if(scanner.GetToken() != TK_LABEL){
 		Error("Invalid value after \"&\"");
@@ -91,11 +91,11 @@ HRESULT	Parser::Address(Parameter& param){
 	return 0;
 }
 
-// Parameterí«â¡ånÇÃèàóùä÷êî
-// &&ÇÃÉ`ÉFÉbÉNã@ç\Ç™ä√Ç¢ÅBdefault == ÇÃÇΩÇﬂÅB
+// ParameterËøΩÂä†Á≥ª„ÅÆÂá¶ÁêÜÈñ¢Êï∞
+// &&„ÅÆ„ÉÅ„Çß„ÉÉ„ÇØÊ©üÊßã„ÅåÁîò„ÅÑ„ÄÇdefault == „ÅÆ„Åü„ÇÅ„ÄÇ
 HRESULT	Parser::LocalAddress(Parameter& param){
 	LabelList*	label;
-	Parameter	selparam;			// Selector()ÇÕparamÇ™îjâÛÇ≥ÇÍÇÈÇ©ÇÁ
+	Parameter	selparam;			// Selector()„ÅØparam„ÅåÁ†¥Â£ä„Åï„Çå„Çã„Åã„Çâ
 	char		buf[256];
 	if(scanner.PeekToken() == TK_DAND) scanner.GetToken();
 	if(scanner.PeekToken() != TK_LABEL) return 0;
@@ -118,7 +118,7 @@ HRESULT	Parser::LocalAddress(Parameter& param){
 	return 0;
 }
 
-// paramÇÃíÜêgÇÕâÛÇ≥ÇÍÇÈ
+// param„ÅÆ‰∏≠Ë∫´„ÅØÂ£ä„Åï„Çå„Çã
 HRESULT	Parser::Selector(Parameter& param, LabelList* label){
 	char	buf[256];
 	string	dummy;
@@ -168,7 +168,7 @@ HRESULT	Parser::Selector2(Parameter& param){
 			return 2;
 		}
 		if(Array(param) != 0) return 1;
-		if(Selector2(param) != 0) return 1;		//çƒãAÇÇ©ÇØÇÈ
+		if(Selector2(param) != 0) return 1;		//ÂÜçÂ∏∞„Çí„Åã„Åë„Çã
 		break;
 	  case TK_DOT:
 		if(param.type->bStruct == false){
@@ -185,7 +185,7 @@ HRESULT	Parser::Selector2(Parameter& param){
 			Error("Cannot use \".\" for pointer");
 			return 4;
 		}
-		scanner.GetToken();			// éüÇ…êiÇﬂÇÈ
+		scanner.GetToken();			// Ê¨°„Å´ÈÄ≤„ÇÅ„Çã
 		scanner.GetToken();
 		member = param.type->FindMemberList(scanner.GetLabel());
 		if(member == NULL){
@@ -193,7 +193,7 @@ HRESULT	Parser::Selector2(Parameter& param){
 			return 5;
 		}
 		Member2Param(param, member);
-		if(Selector2(param) != 0) return 1;		//çƒãAÇÇ©ÇØÇÈ
+		if(Selector2(param) != 0) return 1;		//ÂÜçÂ∏∞„Çí„Åã„Åë„Çã
 		break;
 	  case TK_MEMBER:
 		if(param.type->bStruct == false){
@@ -214,7 +214,7 @@ HRESULT	Parser::Selector2(Parameter& param){
 			Error("Can use \"->\" only for alias");
 			return 8;
 		}
-		scanner.GetToken();			// éüÇ…êiÇﬂÇÈ
+		scanner.GetToken();			// Ê¨°„Å´ÈÄ≤„ÇÅ„Çã
 		scanner.GetToken();
 		member = param.type->FindMemberList(scanner.GetLabel());
 		if(member == NULL){
@@ -222,7 +222,7 @@ HRESULT	Parser::Selector2(Parameter& param){
 			return 9;
 		}
 		Member2Param(param, member);
-		if(Selector2(param) != 0) return 1;		//çƒãAÇÇ©ÇØÇÈ
+		if(Selector2(param) != 0) return 1;		//ÂÜçÂ∏∞„Çí„Åã„Åë„Çã
 		break;
 	}
 	return 0;
@@ -313,17 +313,17 @@ HRESULT	Parser::Param2Param(Parameter& to, Parameter& from){
 	return 0;
 }
 
-// offsetÉLÉÉÉXÉgÇ‚segmentÉLÉÉÉXÉgÇÕéwíËÇ≈Ç´Ç»Ç¢
+// offset„Ç≠„É£„Çπ„Éà„ÇÑsegment„Ç≠„É£„Çπ„Éà„ÅØÊåáÂÆö„Åß„Åç„Å™„ÅÑ
 HRESULT	Parser::Array(Parameter& param){
 	Token			ope = TK_PLUS;
 	int				PRnest, SQnest;
-	Parameter		selparam, castparam;			// Selector()ÇÕparamÇ™îjâÛÇ≥ÇÍÇÈÇ©ÇÁ
+	Parameter		selparam, castparam;			// Selector()„ÅØparam„ÅåÁ†¥Â£ä„Åï„Çå„Çã„Åã„Çâ
 	SegmentList*	seg;
 	RegisterList*	reg;
 	LabelList*		label;
 	switch(scanner.GetToken()){
-	  case TK_LPR: PRnest=1; SQnest=100; break;	// Ç®ÇªÇÁÇ≠ä÷åWÇ»Ç¢ï˚ÇÕ0Ç…Ç»ÇÁÇ»Ç¢
-	  case TK_LSQ: SQnest=1; PRnest=100; break;	// Ç®ÇªÇÁÇ≠ä÷åWÇ»Ç¢ï˚ÇÕ0Ç…Ç»ÇÁÇ»Ç¢
+	  case TK_LPR: PRnest=1; SQnest=100; break;	// „Åä„Åù„Çâ„ÅèÈñ¢‰øÇ„Å™„ÅÑÊñπ„ÅØ0„Å´„Å™„Çâ„Å™„ÅÑ
+	  case TK_LSQ: SQnest=1; PRnest=100; break;	// „Åä„Åù„Çâ„ÅèÈñ¢‰øÇ„Å™„ÅÑÊñπ„ÅØ0„Å´„Å™„Çâ„Å™„ÅÑ
 	  default: return 0;
 	}
 	param.paramtype = P_MEM;
@@ -382,9 +382,9 @@ HRESULT	Parser::Array(Parameter& param){
 		  case TK_SIZEOF:if(Sizeof(param) != 0)  return 1;     castparam.type=NULL; break;
 		  case TK_AND:   if(Address(param) != 0) return 1;     castparam.type=NULL; break;
 		  case TK_DAND:  if(LocalAddress(param) != 0) return 1;castparam.type=NULL; break;
-		  case TK_PLUS:  param.disp+="+";                      castparam.type=NULL; continue;	// íPçÄââéZéq+
-		  case TK_MINUS: param.disp+="-";     ope=TK_MINUS;    castparam.type=NULL; continue;	// íPçÄââéZéq-
-		  case TK_CPL:   param.disp+=" NOT "; ope=TK_CPL;      castparam.type=NULL; continue;	// íPçÄââéZéq~
+		  case TK_PLUS:  param.disp+="+";                      castparam.type=NULL; continue;	// ÂçòÈ†ÖÊºîÁÆóÂ≠ê+
+		  case TK_MINUS: param.disp+="-";     ope=TK_MINUS;    castparam.type=NULL; continue;	// ÂçòÈ†ÖÊºîÁÆóÂ≠ê-
+		  case TK_CPL:   param.disp+=" NOT "; ope=TK_CPL;      castparam.type=NULL; continue;	// ÂçòÈ†ÖÊºîÁÆóÂ≠ê~
 		  case TK_LPR:
 			if(scanner.PeekToken() >= TK_DWORD && scanner.PeekToken() <= TK_SEGMENT){
 				if(Cast(castparam) != 0) return 1;		// ?
@@ -420,7 +420,7 @@ HRESULT	Parser::Array(Parameter& param){
 		param.size=0; param.bArray=false; param.pdepth=0;
 	}else{
 		param.size=param.type->size; param.bArray=false;
-		if(param.pdepth > 0) param.pdepth--;	// ó’éûÅBÉzÉìÉgÇÕifêﬂÇæÇØÇ≈ÇÊÇ¢ÇÕÇ∏
+		if(param.pdepth > 0) param.pdepth--;	// Ëá®ÊôÇ„ÄÇ„Éõ„É≥„Éà„ÅØifÁØÄ„Å†„Åë„Åß„Çà„ÅÑ„ÅØ„Åö
 	}
 	return 0;
 }
@@ -492,7 +492,7 @@ HRESULT	Parser::ArrayReg(Parameter& param, RegisterList* reg){
 		PointerCheck(reg);
 		if(reg->bIndex == true){
 			if(scanner.PeekToken() == TK_MUL){
-				scanner.GetToken();					// éüÇ÷êiÇﬂÇÈ
+				scanner.GetToken();					// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
 				if(scanner.GetToken() != TK_NUM){
 					Error("Must be Index*{1,2,4,8}");
 					return 5;
@@ -524,12 +524,12 @@ HRESULT	Parser::ArrayReg(Parameter& param, RegisterList* reg){
 }
 
 HRESULT	Parser::Pointer(Parameter& param){
-	Parameter	selparam;				// Selector()ÇÕparamÇ™îjâÛÇ≥ÇÍÇÈÇ©ÇÁ
+	Parameter	selparam;				// Selector()„ÅØparam„ÅåÁ†¥Â£ä„Åï„Çå„Çã„Åã„Çâ
 	LabelList*	label;
 	if(scanner.PeekToken() == TK_MUL) scanner.GetToken();
 	switch(scanner.PeekToken()){
 	  case TK_LABEL:
-		scanner.GetToken();				//éüÇ…êiÇﬂÇÈ
+		scanner.GetToken();				//Ê¨°„Å´ÈÄ≤„ÇÅ„Çã
 		label = generator.FindLabelList(scanner.GetLabel());
 		if(label == NULL){
 			Error("Value not defined");
@@ -623,7 +623,7 @@ HRESULT	Parser::GetParameter(Parameter& param){
 			if(scanner.PeekToken() == TK_DCOLON){
 				scanner.GetToken();
 				if(scanner.GetToken() != TK_WQUOTE){
-					Error("Must be Segment::\"Å`\"");
+					Error("Must be Segment::\"ÔΩû\"");
 					return 8;
 				}
 				buf = new char[256];
@@ -659,7 +659,7 @@ HRESULT	Parser::GetParameter(Parameter& param){
 				selparam.seg = reg;
 				if(scanner.PeekToken() != TK_COLON){
 					if(seg != NULL){
-						scanner.GetToken();	// Åu:ÅvÇÇ∆ÇŒÇ∑
+						scanner.GetToken();	// „Äå:„Äç„Çí„Å®„Å∞„Åô
 						Error("Followed by segment name independently");
 						return 8;
 					}else{
@@ -667,7 +667,7 @@ HRESULT	Parser::GetParameter(Parameter& param){
 						param.pdepth =0;	param.size  =reg->size;
 					}
 				}else{
-					scanner.GetToken();	// Åu:ÅvÇÇ∆ÇŒÇ∑
+					scanner.GetToken();	// „Äå:„Äç„Çí„Å®„Å∞„Åô
 					scanner.GetToken();
 					reg = generator.FindRegisterList(scanner.GetLabel());
 					if(reg == NULL){
@@ -676,7 +676,7 @@ HRESULT	Parser::GetParameter(Parameter& param){
 					}
 					PointerCheck(reg);
 					if(reg->bBase == false){
-						Error("Must be Seg:Base");	// segreg:constÇÕèëÇØÇ»Ç¢
+						Error("Must be Seg:Base");	// segreg:const„ÅØÊõ∏„Åë„Å™„ÅÑ
 						return 5;
 					}
 					selparam.base=reg; param.bLabel=false;  param.paramtype=P_MEM;
@@ -732,13 +732,13 @@ HRESULT	Parser::GetParameter(Parameter& param){
 					return 6;
 				}
 				param.ptype=castparam.ptype; param.size=castparam.size;
-				param.pdepth=castparam.pdepth; param.paramtype=castparam.paramtype; // CastÇ…ÇÊÇËí«â¡
-				//! offsetÇ™êîílÇÃÉGÉCÉäÉAÉXÇìÆçÏÇ≥ÇπÇÈÇΩÇﬂÇÃÇ†Ç‚ÇµÇ¢í«â¡
+				param.pdepth=castparam.pdepth; param.paramtype=castparam.paramtype; // Cast„Å´„Çà„ÇäËøΩÂä†
+				//! offset„ÅåÊï∞ÂÄ§„ÅÆ„Ç®„Ç§„É™„Ç¢„Çπ„ÇíÂãï‰Ωú„Åï„Åõ„Çã„Åü„ÇÅ„ÅÆ„ÅÇ„ÇÑ„Åó„ÅÑËøΩÂä†
 				if(param.base == NULL) param.paramtype = P_IMM;
 			}
 			break;
 		}
-		// ïœêîÇ≈Ç‡ÉåÉWÉXÉ^Ç≈Ç‡Ç»Ç¢èÍçáÇÕÉAÉhÉåÉXÉâÉxÉãÇ∆å©Ç»Ç∑
+		// Â§âÊï∞„Åß„ÇÇ„É¨„Ç∏„Çπ„Çø„Åß„ÇÇ„Å™„ÅÑÂ†¥Âêà„ÅØ„Ç¢„Éâ„É¨„Çπ„É©„Éô„É´„Å®Ë¶ã„Å™„Åô
 		param.type =generator.FindTagList("dword");
 		param.ptype=TK_NEAR; param.pdepth=1; param.size=4; param.bLabel=true;
 		param.disp =scanner.GetLabel(); param.paramtype=P_MEM;
@@ -750,8 +750,8 @@ HRESULT	Parser::GetParameter(Parameter& param){
 	return 0;
 }
 
-// rep, true, falseÇ»Ç«ÇÃÉRÉ}ÉìÉhÉLÉÉÉXÉgÇÕÇ«Ç§Ç‚Ç¡ÇƒìnÇ∑ÇÃÇ©ÅH
-// (ÇÃéüÇÃÉgÅ[ÉNÉìÇ©ÇÁìnÇ∑
+// rep, true, false„Å™„Å©„ÅÆ„Ç≥„Éû„É≥„Éâ„Ç≠„É£„Çπ„Éà„ÅØ„Å©„ÅÜ„ÇÑ„Å£„Å¶Ê∏°„Åô„ÅÆ„ÅãÔºü
+// („ÅÆÊ¨°„ÅÆ„Éà„Éº„ÇØ„É≥„Åã„ÇâÊ∏°„Åô
 HRESULT	Parser::Cast(Parameter& param){
 	TagList*	tag;
 	Token		token;
@@ -763,7 +763,7 @@ HRESULT	Parser::Cast(Parameter& param){
 	  case TK_OFFSET: 
 		scanner.GetToken(); param.ptype=TK_OFFSET;
 		if(generator.seg->use == TK_USE32) param.size=4; else param.size=2;
-//		if(param.seg != NULL){			// Ç†Ç‚ÇµÇ¢í«â¡ï™
+//		if(param.seg != NULL){			// „ÅÇ„ÇÑ„Åó„ÅÑËøΩÂä†ÂàÜ
 			param.paramtype = P_REG;
 			param.pdepth = 0;
 //		}
@@ -774,7 +774,7 @@ HRESULT	Parser::Cast(Parameter& param){
 		return 0;
 	  case TK_SEGMENT:
 		scanner.GetToken(); param.ptype=TK_SEGMENT; param.size=2;
-//		if(param.seg != NULL){			// Ç†Ç‚ÇµÇ¢í«â¡ï™
+//		if(param.seg != NULL){			// „ÅÇ„ÇÑ„Åó„ÅÑËøΩÂä†ÂàÜ
 			param.paramtype = P_REG;
 			param.base = param.seg;
 			param.pdepth = 0;
@@ -786,7 +786,7 @@ HRESULT	Parser::Cast(Parameter& param){
 		return 0;
 	}
 	scanner.GetToken();
-//	if(scanner.PeekToken() == TK_STRUCT) scanner.GetToken(); // Åustruct É^ÉOñºÅvÇãñâ¬Ç∑ÇÈÇΩÇﬂÇÃãÍì˜ÇÃçÙ
+//	if(scanner.PeekToken() == TK_STRUCT) scanner.GetToken(); // „Äåstruct „Çø„Ç∞Âêç„Äç„ÇíË®±ÂèØ„Åô„Çã„Åü„ÇÅ„ÅÆËã¶ËÇâ„ÅÆÁ≠ñ
 	tag = generator.FindTagList(scanner.GetLabel());
 	if(tag == NULL){
 		Error("Invalid type for cast or invalid type");
@@ -802,7 +802,7 @@ HRESULT	Parser::Cast(Parameter& param){
 			Error("Cannot find \"*\" after near, far keywords");
 			return 2;
 		}
-		// ñ{ìñÇÕÇ±Ç±Ç…*Ç™Ç¢Ç≠Ç¬ë±Ç¢ÇƒÇ‡Ç¢Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
+		// Êú¨ÂΩì„ÅØ„Åì„Åì„Å´*„Åå„ÅÑ„Åè„Å§Á∂ö„ÅÑ„Å¶„ÇÇ„ÅÑ„ÅÑ„Çà„ÅÜ„Å´„Åô„Çã
 		param.pdepth = 1;
 		if(param.ptype == TK_NEAR){
 			if(generator.seg->use == TK_USE32) param.size = 4; else param.size = 2;
@@ -811,7 +811,7 @@ HRESULT	Parser::Cast(Parameter& param){
 		}
 		break;
 	  case TK_MUL:
-		// ñ{ìñÇÕÇ±Ç±Ç…*Ç™Ç¢Ç≠Ç¬ë±Ç¢ÇƒÇ‡Ç¢Ç¢ÇÊÇ§Ç…Ç∑ÇÈ
+		// Êú¨ÂΩì„ÅØ„Åì„Åì„Å´*„Åå„ÅÑ„Åè„Å§Á∂ö„ÅÑ„Å¶„ÇÇ„ÅÑ„ÅÑ„Çà„ÅÜ„Å´„Åô„Çã
 		param.pdepth = 1;
 		if(param.ptype == TK_NEAR){
 			if(generator.seg->use == TK_USE32) param.size = 4; else param.size = 2;
@@ -820,7 +820,7 @@ HRESULT	Parser::Cast(Parameter& param){
 		}
 		break;
 	  case TK_RPR:
-		// ó’éûÉfÉoÉbÉOÅBÇ±Ç±ÇÕ(int)ìôÇÃéûÇ…í ÇÈ
+		// Ëá®ÊôÇ„Éá„Éê„ÉÉ„Ç∞„ÄÇ„Åì„Åì„ÅØ(int)Á≠â„ÅÆÊôÇ„Å´ÈÄö„Çã
 		return 0;
 	}
 	if(scanner.GetToken() != TK_RPR){
@@ -844,9 +844,9 @@ HRESULT	Parser::Immedeate(Parameter& param){
 		  case TK_DAND:  if(LocalAddress(param) != 0) return 1; break;
 		  case TK_SIZEOF:if(Sizeof(param) != 0) return 1;       break;
 		  case TK_NUM:   param.disp+=scanner.GetLabel();        break;
-		  case TK_PLUS:  param.disp+="+";                       continue;	// íPçÄââéZéq+
-		  case TK_MINUS: param.disp+="-";                       continue;	// íPçÄââéZéq-
-		  case TK_CPL:   param.disp+=" NOT ";                   continue;	// íPçÄââéZéq~
+		  case TK_PLUS:  param.disp+="+";                       continue;	// ÂçòÈ†ÖÊºîÁÆóÂ≠ê+
+		  case TK_MINUS: param.disp+="-";                       continue;	// ÂçòÈ†ÖÊºîÁÆóÂ≠ê-
+		  case TK_CPL:   param.disp+=" NOT ";                   continue;	// ÂçòÈ†ÖÊºîÁÆóÂ≠ê~
 		  case TK_LABEL:
 			label = generator.FindLabelList(scanner.GetLabel());
 			if(label == NULL || label->alias.paramtype != P_IMM) return 1;
@@ -907,7 +907,7 @@ void	Parser::Expression(void){
 		generator.Op1(command, param1);
 		break;
 	  case TK_CPLA: case TK_NEG:
-		generator.Op1(command, param1);		// ñ{ìñÇÕparam1==param2ÇÃÉ`ÉFÉbÉNÇÇ∑ÇÈ
+		generator.Op1(command, param1);		// Êú¨ÂΩì„ÅØparam1==param2„ÅÆ„ÉÅ„Çß„ÉÉ„ÇØ„Çí„Åô„Çã
 		break;
 	  default:
 		Error("Invalid operator in expression");
@@ -925,7 +925,7 @@ void	Parser::Expression(void){
 	return;
 }
 
-// case, default, elseÇÕÇ«Ç§Ç∑ÇÈÅH
+// case, default, else„ÅØ„Å©„ÅÜ„Åô„ÇãÔºü
 void	Parser::Statement(void){
 	char			buf[2048], buf2[1024];
 	LPSTR			str;
@@ -960,9 +960,9 @@ void	Parser::Statement(void){
 		}else if(tag != NULL){
 			DefineVariable();
 		}else{
-			scanner.GetToken();			// éüÇ÷êiÇﬂÇÈ
+			scanner.GetToken();			// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
 			switch(scanner.GetToken()){
-			  case TK_COLON:	// ÉAÉhÉåÉXÉâÉxÉãíËã`
+			  case TK_COLON:	// „Ç¢„Éâ„É¨„Çπ„É©„Éô„É´ÂÆöÁæ©
 				if(StatementLevel == 0){
 					if(str[0] == '#'){
 						Error("Cannot define local label in root scope");
@@ -983,7 +983,7 @@ void	Parser::Statement(void){
 						generator.GlobalLabel(p);
 					}
 				}else if(StatementLevel == 1){
-					// ÉZÉOÉÅÉìÉgì‡Ç≈ÇÃÉâÉxÉãíËã`ÇÕñ≥éã
+					// „Çª„Ç∞„É°„É≥„ÉàÂÜÖ„Åß„ÅÆ„É©„Éô„É´ÂÆöÁæ©„ÅØÁÑ°Ë¶ñ
 				}else{
 					if(str[0] == '@'){
 						p = str + 1;
@@ -1012,7 +1012,7 @@ void	Parser::Statement(void){
 					}
 				}
 				break;
-			  case TK_LPR:		// ÉAÉZÉìÉuÉâÉLÅ[ÉèÅ[Éhíºê⁄éwíË
+			  case TK_LPR:		// „Ç¢„Çª„É≥„Éñ„É©„Ç≠„Éº„ÉØ„Éº„ÉâÁõ¥Êé•ÊåáÂÆö
 				strcpy(buf, "");
 				while(scanner.PeekToken() != TK_RPR){
 					if(GetParameter(param) != 0){};	// skipline
@@ -1028,7 +1028,7 @@ void	Parser::Statement(void){
 					}
 					param.Initialize();
 				}
-				scanner.GetToken();			// éüÇ÷êiÇﬂÇÈ
+				scanner.GetToken();			// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
 				generator.OutputMASM("", str, buf, "");
 				if(scanner.GetToken() != TK_DLM){
 					Error("Missing \";\"");
@@ -1072,34 +1072,32 @@ void	Parser::Statement(void){
 		break;
 	  case TK_LOOP:
 		LoopStatement();
+	K_DWORD: case TK_CHAR: case TK_SHORT: case TK_LONG:
+	  case TK_INT: case TK_STATIC: case TK_SIGNED: case TK_UNSIGNED:
+		DefineVariable();
 		break;
-	  case TK_BREAK:
-		BreakStatement();
+	  case TK_STRUCT:
+//		scanner.GetToken();
+//		str = strdup(scanner.GetLabel());
+//		tag = generator.FindTagList(str);
+//		if(tag != NULL){
+//			DefineVariable();
+//		}else{
+			DefineStruct();
+//		}
 		break;
-	  case TK_FOR:
-		ForStatement();
+	  case TK_DEFAULT:
+		DefineDefault();
 		break;
-	  case TK_WHILE:
-		WhileStatement();
+	  case TK_ASMOUT:
+		AsmoutStatement();
 		break;
-	  case TK_DO:
-		DoStatement();
+	  case TK_IF:
+		IfStatement();
 		break;
-	  case TK_CONTINUE:
-		ContinueStatement();
-		break;
-	  case TK_ALT:
-		AltStatement();
-		break;
-	  case TK_GOTO:
-		scanner.GetToken();		// éüÇ÷êiÇﬂÇÈ
-		switch(scanner.GetToken()){
-		  case TK_LABEL:
-			str = scanner.GetLabel();
-			if(str[0] == '@'){
-				generator.GlobalJump(C_JMP, str+1);
-				if(scanner.GetToken() != TK_DLM){
-					Error("Missing \";\"");
+	  case TK_LOOP:
+		LoopStatement();
+	ing \";\"");
 					return;
 				}
 			}else if(str[0] == '#'){
@@ -1122,7 +1120,7 @@ void	Parser::Statement(void){
 						return;
 					}
 				}else{
-					// ÉâÉxÉãÇÃëOï˚éQè∆ÇÕÇ≈Ç´Ç»Ç¢ÇÃÇ≈ÉçÅ[ÉJÉãÉâÉxÉãÇ∆âºíË
+					// „É©„Éô„É´„ÅÆÂâçÊñπÂèÇÁÖß„ÅØ„Åß„Åç„Å™„ÅÑ„ÅÆ„Åß„É≠„Éº„Ç´„É´„É©„Éô„É´„Å®‰ªÆÂÆö
 					generator.Jump(C_JMP, str);
 					if(scanner.GetToken() != TK_DLM){
 						Error("Missing \";\"");
@@ -1138,7 +1136,7 @@ void	Parser::Statement(void){
 		}
 		break;
 	  case TK_RETURN:
-		scanner.GetToken();		// éüÇ÷êiÇﬂÇÈ
+		scanner.GetToken();		// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
 		generator.OutputMASM("", "ret", "", "");
 		if(scanner.GetToken() != TK_DLM){
 			Error("Missing \";\"");
@@ -1163,7 +1161,7 @@ void	Parser::Statement(void){
 	}
 }
 
-// à¯êîÇ…ÇÕëŒâûÇµÇƒÇ»Ç¢
+// ÂºïÊï∞„Å´„ÅØÂØæÂøú„Åó„Å¶„Å™„ÅÑ
 void	Parser::DefineFunction(void){
 	LPSTR			str;
 	LabelList*		label;
@@ -1210,27 +1208,27 @@ void	Parser::DefineFunction(void){
 		Error("Missing \")\" in function declaration (parametor not available)");
 		return;
 	}
-	// ä÷êîÇÃêÈåæÇíËã`Ç∑ÇÈÅBStatementLevelÇ…íçà”
+	// Èñ¢Êï∞„ÅÆÂÆ£Ë®Ä„ÇíÂÆöÁæ©„Åô„Çã„ÄÇStatementLevel„Å´Ê≥®ÊÑè
 	if(StatementLevel == 2){
 		Error("Function not alowed in a function");
 		return;
 	}
 	if(scanner.PeekToken() == TK_DLM){
-		scanner.GetToken();		// éüÇ÷êiÇﬂÇÈ
+		scanner.GetToken();		// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
 		if(generator.FindGlobalLabelList(str) != NULL) return;
 		label = new LabelList(false, generator.FindTagList("void")
 			, ptype, 0, segment, 0, false, true, param, 0, true);
-		generator.AddGlobalLabelList(str, label);	// bAlias=trueÇÕêÈåæÇæÇØÇÃà”ñ°
+		generator.AddGlobalLabelList(str, label);	// bAlias=true„ÅØÂÆ£Ë®Ä„Å†„Åë„ÅÆÊÑèÂë≥
 		return;
 	}
-	// Ç±Ç±Ç©ÇÁä÷êîé©ëÃÇíËã`Ç∑ÇÈ
+	// „Åì„Åì„Åã„ÇâÈñ¢Êï∞Ëá™‰Ωì„ÇíÂÆöÁæ©„Åô„Çã
 	label = generator.FindGlobalLabelList(str);
 	if(label != NULL){
 		if(label->bAlias == false){
 			Error("Cannot duplicate to register function");
 			return;
 		}
-		label->bAlias = false;		// é¿ëÃÇ™íËã`Ç≥ÇÍÇΩÇÃÇ≈bAlias=falseÇ…Ç∑ÇÈ
+		label->bAlias = false;		// ÂÆü‰Ωì„ÅåÂÆöÁæ©„Åï„Çå„Åü„ÅÆ„ÅßbAlias=false„Å´„Åô„Çã
 	}else{
 		label = new LabelList(false, generator.FindTagList("void")
 			, ptype, 0, segment, 0, false, false, param, 0, true);
@@ -1280,7 +1278,7 @@ void	Parser::DefineVariable(void){
 		return;
 	}
 	if(scanner.PeekToken() == TK_STATIC){
-		scanner.GetToken();			// éüÇ÷êiÇﬂÇÈ
+		scanner.GetToken();			// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
 		initlabel->bStatic = true;
 	}
 	switch(scanner.PeekToken()){
@@ -1305,8 +1303,8 @@ void	Parser::DefineVariable(void){
 		switch(token){
 		  case TK_NEAR:
 			label->ptype = TK_NEAR;
-			scanner.GetToken();						// éüÇ÷êiÇﬂÇÈ
-			if(scanner.GetToken() != TK_MUL){		// ç°ÇÕ*Ç™Ç¢Ç≠Ç¬Ç‡ë±Ç≠ÇÃÇÇ©ÇØÇ»Ç¢
+			scanner.GetToken();						// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
+			if(scanner.GetToken() != TK_MUL){		// ‰ªä„ÅØ*„Åå„ÅÑ„Åè„Å§„ÇÇÁ∂ö„Åè„ÅÆ„Çí„Åã„Åë„Å™„ÅÑ
 				Error("Missing \"*\" after near");
 				return;
 			}
@@ -1314,8 +1312,8 @@ void	Parser::DefineVariable(void){
 			break;
 		  case TK_FAR:
 			label->ptype = TK_FAR;
-			scanner.GetToken();						// éüÇ÷êiÇﬂÇÈ
-			if(scanner.GetToken() != TK_MUL){		// ç°ÇÕ*Ç™Ç¢Ç≠Ç¬Ç‡ë±Ç≠ÇÃÇÇ©ÇØÇ»Ç¢
+			scanner.GetToken();						// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
+			if(scanner.GetToken() != TK_MUL){		// ‰ªä„ÅØ*„Åå„ÅÑ„Åè„Å§„ÇÇÁ∂ö„Åè„ÅÆ„Çí„Åã„Åë„Å™„ÅÑ
 				Error("Missing \"*\" after near");
 				return;
 			}
@@ -1379,7 +1377,7 @@ void	Parser::DefineVariable(void){
 				return;
 			}
 			label->segment = defaultdatasegment;
-			// îzóÒÅAèâä˙ílÇÃèàóùÅB
+			// ÈÖçÂàó„ÄÅÂàùÊúüÂÄ§„ÅÆÂá¶ÁêÜ„ÄÇ
 			InitialArray(label);
 			switch(scanner.PeekToken()){
 			  case TK_EQ:
@@ -1397,7 +1395,7 @@ void	Parser::DefineVariable(void){
 				Error("Cannot duplicate to register label on the same statement level");
 				return;
 			}
-			// îzóÒÅAèâä˙ílÇÃèàóùÅB
+			// ÈÖçÂàó„ÄÅÂàùÊúüÂÄ§„ÅÆÂá¶ÁêÜ„ÄÇ
 			InitialArray(label);
 			switch(scanner.PeekToken()){
 			  case TK_EQ:
@@ -1414,7 +1412,7 @@ void	Parser::DefineVariable(void){
 				Error("Cannot duplicate to register label on the same statement level");
 				return;
 			}
-			// îzóÒÅAèâä˙ílÇÃèàóùÅB
+			// ÈÖçÂàó„ÄÅÂàùÊúüÂÄ§„ÅÆÂá¶ÁêÜ„ÄÇ
 			InitialArray(label);
 			switch(scanner.PeekToken()){
 			  case TK_EQ:
@@ -1435,7 +1433,7 @@ void	Parser::DefineVariable(void){
 				Error("Cannot duplicate register label on the same statement level");
 				return;
 			}
-			// îzóÒÅAÉGÉCÉäÉAÉXÇÃèàóù
+			// ÈÖçÂàó„ÄÅ„Ç®„Ç§„É™„Ç¢„Çπ„ÅÆÂá¶ÁêÜ
 			InitialArray(label);
 			if(label->bArray == true && label->size == 0){
 				Error("Meaningless array without element (Cannot initialize local value)");
@@ -1455,7 +1453,7 @@ void	Parser::DefineVariable(void){
 				SysVarLocalValue += label->type->size;
 				break;
 			}
-			generator.AddLocalLabelList(str, label);	// ÉçÅ[ÉJÉãïœêîÇÃèÍçáÇÕÇ±ÇÍÇ≈èIÇÌÇË
+			generator.AddLocalLabelList(str, label);	// „É≠„Éº„Ç´„É´Â§âÊï∞„ÅÆÂ†¥Âêà„ÅØ„Åì„Çå„ÅßÁµÇ„Çè„Çä
 		}
 		switch(scanner.PeekToken()){
 		  case TK_COMMA:
@@ -1473,7 +1471,7 @@ void	Parser::InitialArray(LabelList* label){
 	if(scanner.PeekToken() == TK_LSQ){
 		label->bArray = true;
 		label->pdepth = 1;
-		scanner.GetToken();		// éüÇ÷êiÇﬂÇÈ
+		scanner.GetToken();		// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
 		switch(scanner.GetToken()){
 		case TK_NUM:
 			label->size = scanner.GetNum();
@@ -1615,8 +1613,8 @@ void	Parser::DefineAlias(LabelList* label){
 	}
 }
 
-// åªç›Ç≈ÇÕç\ë¢ëÃÇÕÇ‡ÇøÇÎÇÒÅAîzóÒÇÃèâä˙âªÇ‡ÉTÉ|Å[ÉgÇµÇƒÇ»Ç¢ÅiÇ»ÇÒÇ∆Ç©ÇµÇΩÇ¢Åj
-// îzóÒÇÉTÉ|Å[ÉgÇ∑ÇÈÇΩÇﬂÇ…ÇÕóvëfêîÇÇµÇ¡Ç©ÇËîcà¨ÇµÇƒÇ§Ç‹Ç¢ãÔçáÇ…','Çì¸ÇÍÇÈïKóvÇ™Ç†ÇÈ
+// ÁèæÂú®„Åß„ÅØÊßãÈÄ†‰Ωì„ÅØ„ÇÇ„Å°„Çç„Çì„ÄÅÈÖçÂàó„ÅÆÂàùÊúüÂåñ„ÇÇ„Çµ„Éù„Éº„Éà„Åó„Å¶„Å™„ÅÑÔºà„Å™„Çì„Å®„Åã„Åó„Åü„ÅÑÔºâ
+// ÈÖçÂàó„Çí„Çµ„Éù„Éº„Éà„Åô„Çã„Åü„ÇÅ„Å´„ÅØË¶ÅÁ¥†Êï∞„Çí„Åó„Å£„Åã„ÇäÊääÊè°„Åó„Å¶„ÅÜ„Åæ„ÅÑÂÖ∑Âêà„Å´','„ÇíÂÖ•„Çå„ÇãÂøÖË¶Å„Åå„ÅÇ„Çã
 void	Parser::DefineInitial(LabelList* label, LPSTR initialize){
 	char	buf[1024], *p;
 	int		size;
@@ -1654,7 +1652,7 @@ void	Parser::DefineInitial(LabelList* label, LPSTR initialize){
 void	Parser::DefineStruct(void){
 	TagList*	tag;
 	LPSTR			name;
-//	if(scanner.PeekToken() == TK_STRUCT) scanner.GetToken();	// struct É^ÉOñºä÷òAÇ≈ÇÃèCê≥ from Statement()
+//	if(scanner.PeekToken() == TK_STRUCT) scanner.GetToken();	// struct „Çø„Ç∞ÂêçÈñ¢ÈÄ£„Åß„ÅÆ‰øÆÊ≠£ from Statement()
 	if(scanner.GetToken() != TK_STRUCT) return;
 	if(scanner.GetToken() != TK_LABEL){
 
@@ -1685,7 +1683,7 @@ void	Parser::DefineStruct(void){
 		return;
 	}
 	while(scanner.PeekToken() != TK_RBR) DefineMember(tag);
-	scanner.GetToken();			// éüÇ…êiÇﬂÇÈ
+	scanner.GetToken();			// Ê¨°„Å´ÈÄ≤„ÇÅ„Çã
 	StructAlignCount = 0;
 	if(scanner.GetToken() != TK_DLM){
 		Error("Missing \";\"");
@@ -1702,7 +1700,7 @@ void	Parser::DefineMember(TagList* tag){
 		return;
 	}
 	token = scanner.GetToken();
-//	if(scanner.PeekToken() == TK_STRUCT) scanner.GetToken(); // Åustruct É^ÉOñºÅvÇãñâ¬Ç∑ÇÈÇΩÇﬂÇÃãÍì˜ÇÃçÙ
+//	if(scanner.PeekToken() == TK_STRUCT) scanner.GetToken(); // „Äåstruct „Çø„Ç∞Âêç„Äç„ÇíË®±ÂèØ„Åô„Çã„Åü„ÇÅ„ÅÆËã¶ËÇâ„ÅÆÁ≠ñ
 	switch(token){
 	  case TK_UNSIGNED: initmember.bSigned=false; token=scanner.GetToken(); break;
 	  case TK_SIGNED:   initmember.bSigned=true;  token=scanner.GetToken(); break;
@@ -1718,8 +1716,8 @@ void	Parser::DefineMember(TagList* tag){
 		switch(token){
 		  case TK_NEAR:
 			member->ptype = TK_NEAR;
-			scanner.GetToken();						// éüÇ÷êiÇﬂÇÈ
-			if(scanner.GetToken() != TK_MUL){		// ç°ÇÕ*Ç™Ç¢Ç≠Ç¬Ç‡ë±Ç≠ÇÃÇÇ©ÇØÇ»Ç¢
+			scanner.GetToken();						// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
+			if(scanner.GetToken() != TK_MUL){		// ‰ªä„ÅØ*„Åå„ÅÑ„Åè„Å§„ÇÇÁ∂ö„Åè„ÅÆ„Çí„Åã„Åë„Å™„ÅÑ
 				Error("Cannot find \"*\" after near");
 				return;
 			}
@@ -1727,8 +1725,8 @@ void	Parser::DefineMember(TagList* tag){
 			break;
 		  case TK_FAR:
 			member->ptype = TK_FAR;
-			scanner.GetToken();						// éüÇ÷êiÇﬂÇÈ
-			if(scanner.GetToken() != TK_MUL){		// ç°ÇÕ*Ç™Ç¢Ç≠Ç¬Ç‡ë±Ç≠ÇÃÇÇ©ÇØÇ»Ç¢
+			scanner.GetToken();						// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
+			if(scanner.GetToken() != TK_MUL){		// ‰ªä„ÅØ*„Åå„ÅÑ„Åè„Å§„ÇÇÁ∂ö„Åè„ÅÆ„Çí„Åã„Åë„Å™„ÅÑ
 				Error("Cannot find \"*\" after near");
 				return;
 			}
@@ -1753,7 +1751,7 @@ void	Parser::DefineMember(TagList* tag){
 		}
 		if(scanner.PeekToken() == TK_LSQ){
 			member->bArray = true;
-			scanner.GetToken();		// éüÇ÷êiÇﬂÇÈ
+			scanner.GetToken();		// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
 			switch(scanner.GetToken()){
 			case TK_NUM:
 				member->size = scanner.GetNum();
@@ -1817,7 +1815,7 @@ void	Parser::DefineSegment(void){
 		return;
 	}
 	name = strdup(scanner.GetLabel());
-// ëSÇƒìØÇ∂ÉpÉâÉÅÅ[É^Ç»ÇÁï°êîèëÇ≠Ç±Ç∆ÇÕãñÇ≥ÇÍÇƒÇ¢ÇÈÇ™ÅAñ ì|Ç»ÇÃÇ≈É`ÉFÉbÉNÇ»Çµ
+// ÂÖ®„Å¶Âêå„Åò„Éë„É©„É°„Éº„Çø„Å™„ÇâË§áÊï∞Êõ∏„Åè„Åì„Å®„ÅØË®±„Åï„Çå„Å¶„ÅÑ„Çã„Åå„ÄÅÈù¢ÂÄí„Å™„ÅÆ„Åß„ÉÅ„Çß„ÉÉ„ÇØ„Å™„Åó
 //	seg = generator.FindSegmentList(name);
 //	if(seg != NULL){
 //		Error("Same segment name already exists");
@@ -1859,7 +1857,7 @@ void	Parser::DefineSegment(void){
 			return;
 		}
 	}
-	scanner.GetToken();			// éüÇ÷êiÇﬂÇÈ
+	scanner.GetToken();			// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
 	generator.AddSegmentList(name, seg);
 	switch(scanner.GetToken()){
 	  case TK_DLM: return;
@@ -1869,7 +1867,7 @@ void	Parser::DefineSegment(void){
 		while(scanner.PeekToken() != TK_RBR){
 			DefineVariable();
 		}
-		scanner.GetToken();			// éüÇ÷êiÇﬂÇÈ
+		scanner.GetToken();			// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
 		generator.EndSegment();
 		StatementLevel = 0;
 		break;
@@ -1944,9 +1942,9 @@ void	Parser::DefineDefault(void){
 
 void	Parser::StatementSequence(void){
 	if(scanner.PeekToken() != TK_LBR){ Statement(); return; }
-	scanner.GetToken();			// éüÇ…êiÇﬂÇÈ
+	scanner.GetToken();			// Ê¨°„Å´ÈÄ≤„ÇÅ„Çã
 	while(scanner.PeekToken() != TK_RBR) Statement();
-	scanner.GetToken();			// éüÇ…êiÇﬂÇÈ
+	scanner.GetToken();			// Ê¨°„Å´ÈÄ≤„ÇÅ„Çã
 }
 
 void	Parser::IfStatement(void){
@@ -1955,14 +1953,14 @@ void	Parser::IfStatement(void){
 	char		buf[256];
 	if(scanner.GetToken() != TK_IF) return;
 	if(scanner.PeekToken() != TK_LPR){
-		scanner.GetToken();		// éüÇ÷êiÇﬂÇÈ
+		scanner.GetToken();		// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
 		Error("Missing \"(\" in if clause");
 		return;
 	}
 	cmptype = Compare();
 	switch(scanner.PeekToken()){
 	  case TK_GOTO:
-		scanner.GetToken();	// éüÇ÷êiÇﬂÇÈ
+		scanner.GetToken();	// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
 		if(scanner.GetToken() != TK_LABEL){
 			Error("Cannot find label after goto");
 			return;
@@ -1982,7 +1980,7 @@ void	Parser::IfStatement(void){
 	}
 	cmptype = TransCompare(cmptype);
 	labelcount = LocalLabelCounter;
-	LocalLabelCounter += 2;		// elseÇ∆ifï∂ÇÃèIÇÌÇËÇÃÇQÉJèäï™ämï€
+	LocalLabelCounter += 2;		// else„Å®ifÊñá„ÅÆÁµÇ„Çè„Çä„ÅÆÔºí„Ç´ÊâÄÂàÜÁ¢∫‰øù
 	generator.Jump(cmptype, labelcount);
 	StatementSequence();
 	if(scanner.PeekToken() != TK_ELSE){
@@ -1990,8 +1988,8 @@ void	Parser::IfStatement(void){
 		generator.LocalLabel(buf);
 		return;
 	}
-	scanner.GetToken();		// éüÇ÷êiÇﬂÇÈ
-	generator.Jump(C_JMP, labelcount+1);		// ifï∂ÇÃèIÇÌÇËÇ÷ÉWÉÉÉìÉv
+	scanner.GetToken();		// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
+	generator.Jump(C_JMP, labelcount+1);		// ifÊñá„ÅÆÁµÇ„Çè„Çä„Å∏„Ç∏„É£„É≥„Éó
 	sprintf(buf, "LL%04X", labelcount);
 	generator.LocalLabel(buf);
 	StatementSequence();
@@ -1999,8 +1997,8 @@ void	Parser::IfStatement(void){
 	generator.LocalLabel(buf);
 }
 
-// î‰ärï∂ÇÕÉLÉÉÉXÉgä÷åWÇ™îÒèÌÇ…Ç†Ç‚ÇµÇ¢
-// ã@î\í«â¡ÇÃóíÇ≈Ç‡Ç§ÇÆÇøÇ·ÇÆÇøÇ·Åiäæ
+// ÊØîËºÉÊñá„ÅØ„Ç≠„É£„Çπ„ÉàÈñ¢‰øÇ„ÅåÈùûÂ∏∏„Å´„ÅÇ„ÇÑ„Åó„ÅÑ
+// Ê©üËÉΩËøΩÂä†„ÅÆÂµê„Åß„ÇÇ„ÅÜ„Åê„Å°„ÇÉ„Åê„Å°„ÇÉÔºàÊ±ó
 CompareType Parser::Compare(void){
 	Parameter	param1, param2, castparam;
 	CompareType	cmptype;
@@ -2008,7 +2006,7 @@ CompareType Parser::Compare(void){
 	bool		bFor = false;
 	if(scanner.PeekToken() == TK_LPR) scanner.GetToken(); else bFor = true;
 	if(scanner.PeekToken() == TK_LPR){
-		scanner.GetToken();			// éüÇ÷êiÇﬂÇÈ
+		scanner.GetToken();			// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
 		bCasted=true;
 		switch(scanner.GetToken()){
 		  case TK_UNSIGNED: castparam.bSigned = false; break;
@@ -2167,13 +2165,13 @@ void	Parser::LoopStatement(void){
 		return;
 	}
 	labelcount = LocalLabelCounter;
-	LocalLabelCounter += 2;		// loopï∂ÇÃÇÕÇ∂ÇﬂÇ∆loopï∂ÇÃèIÇÌÇËÇÃÇQÉJèäï™ämï€
+	LocalLabelCounter += 2;		// loopÊñá„ÅÆ„ÅØ„Åò„ÇÅ„Å®loopÊñá„ÅÆÁµÇ„Çè„Çä„ÅÆÔºí„Ç´ÊâÄÂàÜÁ¢∫‰øù
 	LoopLabel[LoopLabelPoint] = labelcount+1;
 	LoopLabelPoint++;
 	sprintf(buf, "LL%04X", labelcount);
 	generator.LocalLabel(buf);
 	StatementSequence();
-	generator.Jump(C_JMP, labelcount);			// loopï∂ÇÃÇÕÇ∂ÇﬂÇ÷ÉWÉÉÉìÉv
+	generator.Jump(C_JMP, labelcount);			// loopÊñá„ÅÆ„ÅØ„Åò„ÇÅ„Å∏„Ç∏„É£„É≥„Éó
 	sprintf(buf, "LL%04X", labelcount+1);
 	generator.LocalLabel(buf);
 	LoopLabelPoint--;
@@ -2219,8 +2217,8 @@ void	Parser::AsmoutStatement(void){
 		Error("Missing \"(\"");
 		return;
 	}
-	strcpy(buf, scanner.GetLabel() + 1);	// ÇÕÇ∂ÇﬂÇÃ"ÇèúÇ≠
-	buf[strlen(buf)-1] = '\0';				// ç≈å„ÇÃ"ÇèúÇ≠
+	strcpy(buf, scanner.GetLabel() + 1);	// „ÅØ„Åò„ÇÅ„ÅÆ"„ÇíÈô§„Åè
+	buf[strlen(buf)-1] = '\0';				// ÊúÄÂæå„ÅÆ"„ÇíÈô§„Åè
 	generator.Asmout(buf);
 	if(scanner.GetToken() != TK_RPR){
 		Error("Missing \")\"");
@@ -2247,18 +2245,18 @@ void	Parser::ForStatement(void){
 		Error("Missing \"(\"");
 		return;
 	}
-	// ëÊÇPï∂
+	// Á¨¨ÔºëÊñá
 	if(scanner.PeekToken() == TK_DLM) scanner.GetToken();
 	else Expression();
 	
 	labelcount = LocalLabelCounter;
-	LocalLabelCounter += 2;		// loopï∂ÇÃÇÕÇ∂ÇﬂÇ∆loopï∂ÇÃèIÇÌÇËÇÃÇQÉJèäï™ämï€
+	LocalLabelCounter += 2;		// loopÊñá„ÅÆ„ÅØ„Åò„ÇÅ„Å®loopÊñá„ÅÆÁµÇ„Çè„Çä„ÅÆÔºí„Ç´ÊâÄÂàÜÁ¢∫‰øù
 	LoopLabel[LoopLabelPoint] = labelcount+1;
 	LoopLabelPoint++;
 	sprintf(buf, "LL%04X", labelcount);
 	generator.LocalLabel(buf);
 	
-	// ëÊÇQï∂
+	// Á¨¨ÔºíÊñá
 	if(scanner.PeekToken() == TK_DLM) scanner.GetToken();
 	else{
 		cmptype = Compare();
@@ -2266,7 +2264,7 @@ void	Parser::ForStatement(void){
 		generator.Jump(cmptype, labelcount+1);
 	}
 	
-	// ëÊÇRï∂
+	// Á¨¨ÔºìÊñá
 	if(scanner.PeekToken() == TK_RPR){
 		scanner.GetToken();
 		StatementSequence();
@@ -2284,7 +2282,7 @@ void	Parser::ForStatement(void){
 		generator.Erase(linedata1);
 		generator.Erase(linedata2);
 	}
-	generator.Jump(C_JMP, labelcount);			// loopï∂ÇÃÇÕÇ∂ÇﬂÇ÷ÉWÉÉÉìÉv
+	generator.Jump(C_JMP, labelcount);			// loopÊñá„ÅÆ„ÅØ„Åò„ÇÅ„Å∏„Ç∏„É£„É≥„Éó
 	
 	sprintf(buf, "LL%04X", labelcount+1);
 	generator.LocalLabel(buf);
@@ -2301,12 +2299,12 @@ void	Parser::WhileStatement(void){
 		return;
 	}
 	if(scanner.PeekToken() != TK_LPR){
-		scanner.GetToken();		// éüÇ÷êiÇﬂÇÈ
+		scanner.GetToken();		// Ê¨°„Å∏ÈÄ≤„ÇÅ„Çã
 		Error("Cannot find \"(\" in while clause");
 		return;
 	}
 	labelcount = LocalLabelCounter;
-	LocalLabelCounter += 2;		// whileï∂ÇÃÇÕÇ∂ÇﬂÇ∆whileï∂ÇÃèIÇÌÇËÇÃÇQÉJèäï™ämï€
+	LocalLabelCounter += 2;		// whileÊñá„ÅÆ„ÅØ„Åò„ÇÅ„Å®whileÊñá„ÅÆÁµÇ„Çè„Çä„ÅÆÔºí„Ç´ÊâÄÂàÜÁ¢∫‰øù
 	LoopLabel[LoopLabelPoint] = labelcount+1;
 	LoopLabelPoint++;
 	sprintf(buf, "LL%04X", labelcount);
@@ -2315,59 +2313,16 @@ void	Parser::WhileStatement(void){
 	cmptype = TransCompare(cmptype);
 	generator.Jump(cmptype, labelcount+1);
 	StatementSequence();
-	generator.Jump(C_JMP, labelcount);			// whileï∂ÇÃÇÕÇ∂ÇﬂÇ÷ÉWÉÉÉìÉv
-	sprintf(buf, "LL%04X", labelcount+1);
-	generator.LocalLabel(buf);
-	LoopLabelPoint--;
-}
-
-void	Parser::DoStatement(void){
-	int		labelcount;
-	CompareType	cmptype;
-	char	buf[256];
-	if(scanner.GetToken() != TK_DO) return;
-	if(LoopLabelPoint >= 32){
-		Error("32 nests allowed in loop clause");
-		return;
-	}
-	labelcount = LocalLabelCounter;
-	LocalLabelCounter += 2;		// doÅ`whileï∂ÇÃÇÕÇ∂ÇﬂÇ∆doÅ`whileï∂ÇÃèIÇÌÇËÇÃÇQÉJèäï™ämï€
-	LoopLabel[LoopLabelPoint] = labelcount+1;
-	LoopLabelPoint++;
-	sprintf(buf, "LL%04X", labelcount);
-	generator.LocalLabel(buf);
-	StatementSequence();
-	if(scanner.GetToken() != TK_WHILE) return;
-	if(scanner.PeekToken() != TK_LPR){
-		scanner.GetToken();		// éüÇ÷êiÇﬂÇÈ
-		Error("Cannot find \"(\" in doÅ`while clause");
-		return;
-	}
-	cmptype = Compare();
-	generator.Jump(cmptype, labelcount);
-	sprintf(buf, "LL%04X", labelcount+1);
-	generator.LocalLabel(buf);
-	LoopLabelPoint--;
-	if(scanner.GetToken() != TK_DLM){
-		Error("Missing \";\"");
-		return;
-	}
-}
-
-void	Parser::ContinueStatement(CompareType cmptype){
-	int		nest;
-	if(scanner.GetToken() != TK_CONTINUE) return;
-	switch(scanner.GetToken()){
-	  case TK_NUM:
-		nest = scanner.GetNum();
-		if(scanner.GetToken() != TK_DLM){
-			Error("Missing \";\"");
+	generator.Jump(C_JMP, labelcount);			// whileÊñá„ÅÆ„ÅØ„Åò„ÇÅ„Å∏„Ç∏"");
 			return;
 		}
-		break;
-	  case TK_DLM: nest = 1; break;
-	  default:
-		Error("Invalid continue clause or missing \";\"");
+		generator.Seek(linedata1);
+		StatementSequence();
+		generator.Seek(linedata2);
+		generator.Erase(linedata1);
+		generator.Erase(linedata2);
+	}
+	generator.Jump(C_JMP, labelcount);			// loopË≠Å\";\"");
 		return;
 	}
 	nest = LoopLabelPoint - nest;

@@ -1,6 +1,6 @@
 ;	"base.nas" ver.3.1
-;	OSASK—p‚Ìƒu[ƒgƒvƒƒOƒ‰ƒ€
-;	Copyright(C) 2004 H.Kawai (ì‡GÀ)
+;	OSASKç”¨ã®ãƒ–ãƒ¼ãƒˆãƒ—ãƒ­ã‚°ãƒ©ãƒ 
+;	Copyright(C) 2004 H.Kawai (å·åˆç§€å®Ÿ)
 
 ;	TAB = 4
 
@@ -12,19 +12,19 @@
 
 BootMdl		EQU		0
 SysWorkMdl	EQU		(BootSiz + 0x0f) / 16 + BootMdl
-StackMdl	EQU		0 ; (osalink0‚ª’²ß‚µ‚Ä‚­‚ê‚é‚Ì‚Å‹C‚É‚µ‚È‚¢)
+StackMdl	EQU		0 ; (osalink0ãŒèª¿ç¯€ã—ã¦ãã‚Œã‚‹ã®ã§æ°—ã«ã—ãªã„)
 
 ; <header> 30bytes.  0x0000 - 0x001d
 
 header:
 
 	DB	"MZ"
-	DW	0, 0 ; ÅIƒy[ƒWƒTƒCƒYAƒtƒ@ƒCƒ‹ƒy[ƒW” (osalink0‚ª’²ß‚µ‚Ä‚­‚ê‚é‚Ì‚Å‹C‚É‚µ‚È‚¢)
+	DW	0, 0 ; æœ€çµ‚ãƒšãƒ¼ã‚¸ã‚µã‚¤ã‚ºã€ãƒ•ã‚¡ã‚¤ãƒ«ãƒšãƒ¼ã‚¸æ•° (osalink0ãŒèª¿ç¯€ã—ã¦ãã‚Œã‚‹ã®ã§æ°—ã«ã—ãªã„)
 	DW	(relent1-relent0)/4 ; relocation entries
 	DW	0x20 ; header-size / 16
 	DW	StackSiz / 16 ; BSS-size / 16 (== stack-size / 16)
 	DW	0xffff ; MAXALLOC
-	DW	0 ; DOS_SS0 (osalink0‚ª’²ß‚µ‚Ä‚­‚ê‚é‚Ì‚Å‹C‚É‚µ‚È‚¢)
+	DW	0 ; DOS_SS0 (osalink0ãŒèª¿ç¯€ã—ã¦ãã‚Œã‚‹ã®ã§æ°—ã«ã—ãªã„)
 	DW	StackSiz ; DOS_SP0
 	DW	0 ; check-sum (ignore)
 	DW	0 ; DOS_IP0 (entry-offset)
@@ -61,11 +61,11 @@ relent1:
 
 	RESB	header+512-$
 
-	ORG		0x0000 ; NASK‚Í‰½‰ñ‚Å‚àORG‚Å‚«‚é
+	ORG		0x0000 ; NASKã¯ä½•å›ã§ã‚‚ORGã§ãã‚‹
 
 BootBgn:
 Entry:
-	JMP		.entry2 ; 2ƒoƒCƒg
+	JMP		.entry2 ; 2ãƒã‚¤ãƒˆ
 
 	RESB	4-$ ; MASMORG(0x0004)
 
@@ -74,7 +74,7 @@ Entry:
 
 	RESB	8-$ ; MASMORG(0x0008)
 
-; KHBIOS—pƒXƒNƒŠƒvƒg
+; KHBIOSç”¨ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 	DB		0x10,0x89,0x00,0xd8,0x00,0x00
 	DD		0x8000,36
 	DB		0x1a
@@ -100,7 +100,7 @@ Entry:
 .fromdos:
 	SHL		EAX,4
 	ADD		EAX,0xfff;
-	AND		EAX,0xff000	; 4KB’PˆÊ‚É‚·‚é
+	AND		EAX,0xff000	; 4KBå˜ä½ã«ã™ã‚‹
 	MOV		DWORD [bootmalloc_adr1],EAX
 	SUB		ECX,EAX
 	MOV		DWORD [bootmalloc_fre1],ECX
@@ -114,15 +114,15 @@ Entry:
 	#elif (defined(NEC98))
 		MOV		CH,0xC0
 		MOV		AH,0x42
-		INT		0x18 ; 400ƒ‰ƒCƒ“ƒOƒ‰ƒtƒBƒbƒNƒ‚[ƒh(BIOS)
+		INT		0x18 ; 400ãƒ©ã‚¤ãƒ³ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ãƒ¢ãƒ¼ãƒ‰(BIOS)
 		MOV		AH,0x40
-		INT		0x18 ; ƒOƒ‰ƒtƒBƒbƒN‰æ–Ê•\¦(BIOS)
+		INT		0x18 ; ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ç”»é¢è¡¨ç¤º(BIOS)
 		MOV		AH,0x0d
-		INT		0x18 ; ƒeƒLƒXƒg‰æ–Ê”ñ•\¦(BIOS)
+		INT		0x18 ; ãƒ†ã‚­ã‚¹ãƒˆç”»é¢éè¡¨ç¤º(BIOS)
 	;	MOV		AL,0xff
-	;	OUT		0x0002,AL ; Š„‚è‚İƒ}ƒXƒN
+	;	OUT		0x0002,AL ; å‰²ã‚Šè¾¼ã¿ãƒã‚¹ã‚¯
 	;	MOV		AH,0x03
-	;	INT		0x18 ; ƒL[ƒ{[ƒh‰Šú‰»
+	;	INT		0x18 ; ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰åˆæœŸåŒ–
 	#endif
 
 	MOV		AX,[CS:0x0002]
@@ -141,10 +141,10 @@ Entry:
 	;out dx,ax
 	#endif
 
-;	‚±‚±‚ÅA20‚ğ—LŒø‚É‚·‚é
+;	ã“ã“ã§A20ã‚’æœ‰åŠ¹ã«ã™ã‚‹
 
 	#if (defined(PCAT))
-		/* ƒGƒbƒWƒgƒŠƒK‘Îô */
+		/* ã‚¨ãƒƒã‚¸ãƒˆãƒªã‚¬å¯¾ç­– */
 		MOV AL,0xff
 		OUT 0x21,AL
 		NOP
@@ -156,7 +156,7 @@ Entry:
 		OUT 0x0a,AL
 	#endif
 
-	CLI		; IDT‚ªİ’è‚³‚ê‚é‚Ü‚ÅAŠ„‚è‚İ‚ğ‹Ö~‚·‚é
+	CLI		; IDTãŒè¨­å®šã•ã‚Œã‚‹ã¾ã§ã€å‰²ã‚Šè¾¼ã¿ã‚’ç¦æ­¢ã™ã‚‹
 
 	#if (defined(PCAT))
 		CALL	waitkbdout
@@ -166,7 +166,7 @@ Entry:
 		MOV		 AL,0x60	; write mode command
 		OUT		0x64, AL
 		CALL	waitkbdout
-		MOV		 AL,0x47	; ‰º‹LQÆ
+		MOV		 AL,0x47	; ä¸‹è¨˜å‚ç…§
 		OUT		0x60, AL
 	;		// IRQ01 enable, IRQ12 enable, system flag on, keylock enable
 	;		// keyboard interface enable, mouse interface enable, scan code 1(PC format)
@@ -199,14 +199,14 @@ Entry:
 		OUT		0xf2, AL
 	#endif
 
-;	AC = 1‚Æ‚È‚é‚Ì‚ÅASP‚ğdwordƒAƒ‰ƒCƒ“‚µ‚Ä‚¨‚­‚±‚Æ
+;	AC = 1ã¨ãªã‚‹ã®ã§ã€SPã‚’dwordã‚¢ãƒ©ã‚¤ãƒ³ã—ã¦ãŠãã“ã¨
 
 	MOV		 AX,0xff00
 	MOV		 ES, AX
-	MOV		 SS, AX ; ‚±‚êˆÈ~AƒXƒ^ƒbƒN‘€ì‚Í‹Ö~
+	MOV		 SS, AX ; ã“ã‚Œä»¥é™ã€ã‚¹ã‚¿ãƒƒã‚¯æ“ä½œã¯ç¦æ­¢
 
-	MOV		DWORD [ES:0x2000],0x102007	; –Ê“|‚È‚Ì‚ÅPDE,PTE‚àƒLƒƒƒbƒVƒ…‚³‚¹‚Ä‚µ‚Ü‚¤
-;	MOV		DWORD [ES:0x2004],0x103007	;   ‚Ç‚¤‚¹‰¼‚Ì‚à‚Ì‚È‚Ì‚Å‚Ç‚¤‚Á‚Ä‚±‚Æ‚Í‚È‚¢
+	MOV		DWORD [ES:0x2000],0x102007	; é¢å€’ãªã®ã§PDE,PTEã‚‚ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã•ã›ã¦ã—ã¾ã†
+;	MOV		DWORD [ES:0x2004],0x103007	;   ã©ã†ã›ä»®ã®ã‚‚ã®ãªã®ã§ã©ã†ã£ã¦ã“ã¨ã¯ãªã„
 	MOV		EAX,0x101000
 	MOV		CR3,EAX
 	MOV		EAX,7
@@ -223,10 +223,10 @@ Entry:
 	MOV		EAX,CR0
 	OR		EAX,10000000_00000000_00000000_00001101b ; PG,TS,PE
 	AND		EAX,10011111_11111010_11111111_11111011b ; CD,NW,AM,WP,EM
-	MOV		CR0,EAX	; ƒ‚[ƒhˆÚs
+	MOV		CR0,EAX	; ãƒ¢ãƒ¼ãƒ‰ç§»è¡Œ
 	JMP		..$	; for pipeline-flash
 
-;	GDT‚ÉDT‚ğì‚é
+;	GDTã«DTã‚’ä½œã‚‹
 
 ;	int boot32_sel    == 2 * 8, boot32_ent == 1 * 16;
 .boot32_sel	EQU		21 * 8
@@ -254,7 +254,7 @@ Entry:
 waitkbdout:
 	IN		 AL,0x64
 	TEST	 AL,0x02
-	IN		 AL,0x60 ; ‚©‚ç“Ç‚İ(óMƒoƒbƒtƒ@‚ªˆ«‚³‚ğ‚µ‚È‚¢‚æ‚¤‚É)
+	IN		 AL,0x60 ; ã‹ã‚‰èª­ã¿(å—ä¿¡ãƒãƒƒãƒ•ã‚¡ãŒæ‚ªã•ã‚’ã—ãªã„ã‚ˆã†ã«)
 	JNZ		waitkbdout
 	RETN
 #endif
@@ -302,11 +302,11 @@ modulelist:
 #else
 	DD	"towns15 ",0,BootMdl	; 11 * 16
 #endif
-	DD	"ankfont0",0,BootMdl	; 12 * 16 256ƒoƒCƒg‚¾‚¯•K—v
+	DD	"ankfont0",0,BootMdl	; 12 * 16 256ãƒã‚¤ãƒˆã ã‘å¿…è¦
 	DD	"papi0   ",0,BootMdl	; 13 * 16
 	DD	"vesa16  ",0,BootMdl	; 14 * 16
 	DD	"vesa32  ",0,BootMdl	; 15 * 16
-	DD	"boot32  ",0,BootMdl	; 16 * 16 ‚±‚ê‚Í•K‚¸”ñˆ³k
+	DD	"boot32  ",0,BootMdl	; 16 * 16 ã“ã‚Œã¯å¿…ãšéåœ§ç¸®
 	DD	"fdimage ",0,BootMdl	; 17 * 16
 
 loaded_modules	EQU		($ - modulelist) / 16
@@ -321,7 +321,7 @@ alloclist:
 	DD	"freeslot",0,0
 	DD	"stack   ",4096*4,-1
 	DD	"keydata ",4096,-1	; 4
-	DD	"gapidata",4096*176,-1   ; ‹N“®Å’áŒÀ‚µ‚©—pˆÓ‚µ‚È‚¢
+	DD	"gapidata",4096*176,-1   ; èµ·å‹•æœ€ä½é™ã—ã‹ç”¨æ„ã—ãªã„
 	DD	"timerdat",4096*2,-1
 	DD	"tapiwork",0,0 ; for 31 tasks(init, idle, winman0, pokon0).
 	DD	"decodata",4096*6,-1	; 8
@@ -332,7 +332,7 @@ alloclist:
 
 bootmalloc_adr0		DD	0x1000	; (+0x01d4)
 bootmalloc_fre0		DD	0	; (+0x01d8)
-bootmalloc_adr1		DD	0	; LastMdl‚ğw‚· (+0x01dc)
+bootmalloc_adr1		DD	0	; LastMdlã‚’æŒ‡ã™ (+0x01dc)
 bootmalloc_fre1		DD	0	; 636KB - bootmalloc_adr1 (+0x01e0)
 
 FD_motor_init		DB	01ch ; motor on

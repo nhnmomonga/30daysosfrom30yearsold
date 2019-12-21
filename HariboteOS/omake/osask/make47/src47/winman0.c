@@ -1,25 +1,25 @@
-/* "winman0.c":���������d�l�E�B���h�E�}�l�[�W���[ ver.3.9
-		copyright(C) 2004 �썇�G��, I.Tak., �����떾, KIYOTO, nikq
+/* "winman0.c":ぐいぐい仕様ウィンドウマネージャー ver.3.9
+		copyright(C) 2004 川合秀実, I.Tak., 小柳雅明, KIYOTO, nikq
     stack:64k malloc:4272k file:4160k */
 
-/* 2004.08.13 �X�N���[���V���b�g��BMP��
-   8,15,16,32bpp�Ő���ȉ摜������c�c�͂� by I.Tak. */
+/* 2004.08.13 スクリーンショットをBMP化
+   8,15,16,32bppで正常な画像が取れる……はず by I.Tak. */
 
-/* 2004.09.10 ��ʊ֌W��global�ϐ����\���̂ɂ��邼
- * 2004.09.11 �f�R�[�_��DLL�g�p�ɂ��邼�c�c����pokon�����ʂ�tss=4000 EIP=2f10��
- *            page fault����c�cmmarea�����s�����͂�
- *            PICTURE0.BIN��SCRNSHOT.BMP (8bpp) ���f�R�[�h�ł��Ȃ�(T_T
+/* 2004.09.10 画面関係のglobal変数を構造体にするぞ
+ * 2004.09.11 デコーダをDLL使用にするぞ……ぐっpokonが死ぬぞtss=4000 EIP=2f10で
+ *            page faultだよ……mmarea分が不足ぐはあ
+ *            PICTURE0.BINがSCRNSHOT.BMP (8bpp) をデコードできない(T_T
  */
 #define int3 asm(".byte 0xcc")
 #include <guigui00.h>
 #include <sysgg00.h>
-/* sysgg�́A��ʂ̃A�v�������p���Ă͂����Ȃ����C�u����
-   �d�l�����Ȃ藬���I */
+/* sysggは、一般のアプリが利用してはいけないライブラリ
+   仕様もかなり流動的 */
 #include <stdlib.h>
 
-/* �v���v���Z�b�T�̃I�v�V�����ŁA-DPCAT��-DTOWNS���w�肷�邱�� */
+/* プリプロセッサのオプションで、-DPCATか-DTOWNSを指定すること */
 
-/* �n�[�h�R�[�h�Bgas2nask�o�[�W�����A�b�v�҂� */
+/* ハードコード。gas2naskバージョンアップ待ち */
 #define lib_readCSd(ofs)  ({ int _ret;\
  __asm__(".byte 0x2e\n movl %1, %0" : "=r" (_ret) : "m" (*(int*)(ofs)));\
  _ret;})
@@ -32,7 +32,7 @@ static inline void call_dll0207_48(int *env, int *cmd)
      ".byte 0x9a\n"
      ".long 0x48\n"
      ".word 0x207\n"		/* "lcall $0x0207,$0x00000048\n" */
-     "addl $8, %%esp"		/* ������œK���ł��Ȃ��̂��c�O */
+     "addl $8, %%esp"		/* これを最適化できないのが残念 */
      : : "g" (env), "g" (cmd), "m" (*cmd) :"%ecx","%edx","memory");
 }
 
@@ -49,15 +49,15 @@ static void call_dll0207_48i(void *env, int cmd, ...)
 }
 
 #if (defined(TOWNS))
-	/* �}�E�X����flag (FMR<<4)|(R<<2)|L, 0:none,1:mouse,2:pad,3:6pad */
+	/* マウス存在flag (FMR<<4)|(R<<2)|L, 0:none,1:mouse,2:pad,3:6pad */
 	static char townsmouse = 0x04;/* right mouse only */
 	#if (defined(VMODE) || defined(CLGD543X))
-	  #undef TWVSW        /* 1024�łȂ��ƃC���^�[���[�X�ł��Ȃ� */
-	  #define TWVSW 1024  /* �C���^�[���[�X���Ȃ��Ȃ���Ȃ���
-                               * CLGD�ɂ�1024�̃p�����[�^��������ĂȂ� */
+	  #undef TWVSW        /* 1024でないとインターレースできない */
+	  #define TWVSW 1024  /* インターレースしないなら問題ないが
+                               * CLGDには1024のパラメータしか作ってない */
 	#endif
-	#define FMRMOUSE 1    /* FMRMOUSE�ɑΉ� 2004.04.12 by I.Tak. */
-	#define KROM 1        /* font file �������Ƃ���ROM�ő�p���� 2004.04.12 by I.Tak. */
+	#define FMRMOUSE 1    /* FMRMOUSEに対応 2004.04.12 by I.Tak. */
+	#define KROM 1        /* font file が無いときにROMで代用する 2004.04.12 by I.Tak. */
 	#if (!defined(TWVSW))
 		#define	TWVSW		1024
 	#endif
@@ -66,9 +66,9 @@ static void call_dll0207_48i(void *env, int cmd, ...)
 	#define DEFAULTCOLDEP 0
 #endif
 
-/* NEC PC-98 �ł͕ω����Ȃ��ϐ���const����, �œK�������҂��� 
- * �ϐ����̂��͖̂����Ȃ�Ȃ��� (�|�C���^�n�������肤�邽��),
- * �Q�Ɖ񐔂͌���͂����c�c����Ȃ��Ƃ���Ӗ�����̂� */
+/* NEC PC-98 では変化しない変数にconstをつけ, 最適化を期待する 
+ * 変数そのものは無くならないが (ポインタ渡しがありうるため),
+ * 参照回数は減るはずだ……こんなことする意味あるのか */
 #if (defined(PCAT)) || (defined(TOWNS))
 	#define CONST98
 #elif (defined(NEC98))
@@ -101,7 +101,7 @@ static SCREEN screen = {
 	#define	RESERVELINE0		   0
 	#define	RESERVELINE1		  28
 	#if (defined(PCAT) || defined(TOWNS))
-		#define TIMEX				-192	/* 8�̔{�� */
+		#define TIMEX				-192	/* 8の倍数 */
 		#define TIMEY				 -20
 		#define TIMEC				   0
 		#define TIMEBC				   8
@@ -129,7 +129,7 @@ static SCREEN screen = {
 	#define	RESERVELINE0		   0
 	#define	RESERVELINE1		  20
 	#if (defined(PCAT)) || (defined(TOWNS))
-		#define TIMEX				-192	/* 8�̔{�� */
+		#define TIMEX				-192	/* 8の倍数 */
 		#define TIMEY				 -16
 		#define TIMEC				  15
 		#define TIMEBC				   7
@@ -154,7 +154,7 @@ static SCREEN screen = {
 //static int MALLOC_ADDR;
 #define MALLOC_ADDR			j
 #define malloc(bytes)		(void *) (MALLOC_ADDR -= ((bytes) + 7) & ~7)
-#define free(addr)			for (;;); /* free�������Ă͍���̂ŉi�v���[�v */
+#define free(addr)			for (;;); /* freeがあっては困るので永久ループ */
 
 #define	AUTO_MALLOC			   0
 #define NULL				   0
@@ -187,7 +187,7 @@ struct WM0_WINDOW {	// total 108bytes
 	struct SGG_WINDOW sgg; // 68bytes
 //	struct DEFINESIGNAL *ds1;
 	int condition, x0, y0, x1, y1, job_flag0, job_flag1;
-	int tx0, ty0, tx1, ty1; /* �E�B���h�E�ړ��̂��߂̃^�u */
+	int tx0, ty0, tx1, ty1; /* ウィンドウ移動のためのタブ */
 	int flags;
 	struct WM0_WINDOW *up, *down;
 };
@@ -199,15 +199,15 @@ struct SOUNDTRACK {
 struct MOSWINSIG { /* 32bytes */
 	int flags, sig[6];
 	struct WM0_WINDOW *win;
-	/* flags�̉���4bit��len */
-	/* sig[4], sig[5]�͏ꍇ�ɂ���Ă�x0, y0 */
+	/* flagsの下位4bitはlen */
+	/* sig[4], sig[5]は場合によってはx0, y0 */
 };
 
 static struct STR_JOB {
 	int now, movewin4_ready, fontflag;
 	int *list, free, *rp, *wp;
 	int count, int0;
-	int movewin_x, movewin_y, movewin_x0, movewin_y0; /* �ړ���ƈړ��� */
+	int movewin_x, movewin_y, movewin_x0, movewin_y0; /* 移動先と移動元 */
 	int readCSd10;
 	void (*func)(int, int);
 	struct WM0_WINDOW *win;
@@ -234,8 +234,8 @@ int fromboot = 0, winmanerr_time = 0;
 struct {
 	int x, y;
 } windef[MAXWINDEF];
-int mouseaccel = 2;	/* ������傫���Ɖ����x�{�� */
-int mousescale = 3; /* �����X�P�[���ɂ��悤 */
+int mouseaccel = 2;	/* これより大きいと加速度倍増 */
+int mousescale = 3; /* 加速スケールにしよう */
 struct SOUNDTRACK *sndtrk_buf, *sndtrk_active = NULL;
 struct DEFINESIGNAL *defsigbuf;
 struct MOSWINSIG *moswinsig;
@@ -317,11 +317,11 @@ void write_time();
 void winmanerr(const unsigned char *s);
 void winmanerr_clr();
 
-/* �L�[����F
-      F9:��ԉ��̃E�B���h�E��
-      F10:�ォ��Q�Ԗڂ̃E�B���h�E��I��
-      F11:�E�B���h�E�̈ړ�
-      F12:�E�B���h�E�N���[�Y */
+/* キー操作：
+      F9:一番下のウィンドウへ
+      F10:上から２番目のウィンドウを選択
+      F11:ウィンドウの移動
+      F12:ウィンドウクローズ */
 
 //int allclose = 0;
 
@@ -341,7 +341,7 @@ static int tapisigvec[] = {
 #define	NUMLKOF		6	/* 0x0000c072, 0x0012c072 */
 #define ALT			7   /* 0x0040c070 */
 
-/* ���͕��@�e�[�u��(2�ʂ�܂ŃT�|�[�g) */
+/* 入力方法テーブル(2通りまでサポート) */
 static struct KEYTABLE {
 	unsigned char rawcode0, shifttype0;
 	unsigned char rawcode1, shifttype1;
@@ -761,20 +761,20 @@ static struct KEYTABLE {
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xd9' */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xda' */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xdb' */,
-		{ 0x67, NOSHIFT, 0xff, 0xff    } /* '�e�w�V�t�g��' */,
-		{ 0x68, NOSHIFT, 0xff, 0xff    } /* '�e�w�V�t�g�E' */,
+		{ 0x67, NOSHIFT, 0xff, 0xff    } /* '親指シフト左' */,
+		{ 0x68, NOSHIFT, 0xff, 0xff    } /* '親指シフト右' */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xde' */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xdf' */,
-/* e0�`f7�́A���蓖�Ă�̂��ʓ|�ɂȂ����@��ŗL�̃}�C�i�[�L�[ */
-		{ 0x72, NOSHIFT, 0xff, 0xff    } /* ��� */,
-		{ 0x73, NOSHIFT, 0xff, 0xff    } /* ���s */,
-		{ 0x59, NOSHIFT, 0xff, 0xff    } /* ���Ȋ��� */,
+/* e0～f7は、割り当てるのが面倒になった機種固有のマイナーキー */
+		{ 0x72, NOSHIFT, 0xff, 0xff    } /* 取消 */,
+		{ 0x73, NOSHIFT, 0xff, 0xff    } /* 実行 */,
+		{ 0x59, NOSHIFT, 0xff, 0xff    } /* かな漢字 */,
 		{ 0x4a, NOSHIFT, 0xff, 0xff    } /* 000 */,
-		{ 0x6b, NOSHIFT, 0xff, 0xff    } /* �������� */,
-		{ 0x6c, NOSHIFT, 0xff, 0xff    } /* �P�ꖕ�� */,
-		{ 0x6d, NOSHIFT, 0xff, 0xff    } /* �P��o�^ */,
-		{ 0x6a, NOSHIFT, 0xff, 0xff    } /* �p�� */,
-		{ 0x6f, NOSHIFT, 0xff, 0xff    } /* �J�^�J�i/�p������ */,
+		{ 0x6b, NOSHIFT, 0xff, 0xff    } /* 漢字辞書 */,
+		{ 0x6c, NOSHIFT, 0xff, 0xff    } /* 単語抹消 */,
+		{ 0x6d, NOSHIFT, 0xff, 0xff    } /* 単語登録 */,
+		{ 0x6a, NOSHIFT, 0xff, 0xff    } /* 英字 */,
+		{ 0x6f, NOSHIFT, 0xff, 0xff    } /* カタカナ/英小文字 */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xe9' */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xea' */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xeb' */,
@@ -790,31 +790,18 @@ static struct KEYTABLE {
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xf5' */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xf6' */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xf7' */,
-/* f8�`ff�́A�}�C�i�[�V�t�g�L�[ */
-		{ 0x67, NOSHIFT, 0x68, NOSHIFT } /* �e�w�V�t�g('\xf8') */,
+/* f8～ffは、マイナーシフトキー */
+		{ 0x67, NOSHIFT, 0x68, NOSHIFT } /* 親指シフト('\xf8') */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xf9' */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xfa' */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xfb' */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xfc' */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xfd' */,
 		{ 0xff, 0xff,    0xff, 0xff    } /* '\xfe' */,
-		{ 0xff, 0xff,    0xff, 0xff    } /* '\xff' */
-	#endif
-	#if (defined(NEC98))
-		{ 0x34, IGSHIFT, 0xff, 0xff    } /* ' ' */,
-		{ 0x01, SHIFT,   0xff, 0xff    } /* '!' */,
-		{ 0x02, SHIFT,   0xff, 0xff    } /* '\x22' */,
-		{ 0x03, SHIFT,   0xff, 0xff    } /* '#' */,
-		{ 0x04, SHIFT,   0xff, 0xff    } /* '%' */,
-		{ 0x05, SHIFT,   0xff, 0xff    } /* '$' */,
-		{ 0x06, SHIFT,   0xff, 0xff    } /* '&' */,
-		{ 0x07, SHIFT,   0xff, 0xff    } /* '\x27' */,
-		{ 0x08, SHIFT,   0xff, 0xff    } /* '(' */,
-		{ 0x09, SHIFT,   0xff, 0xff    } /* ')' */,
-		{ 0x27, SHIFT,   0x45, NOSHIFT } /* '*' */,
-		{ 0x26, SHIFT,   0x49, NOSHIFT } /* '+' */,
-		{ 0x30, NOSHIFT, 0x4f, NOSHIFT } /* ',' */,
-		{ 0x0b, NOSHIFT, 0x40, NOSHIFT } /* '-' */,
+		{ 0xfff, 0xff,    0xff, 0xff    } /* '\xf5' */,
+		{ 0xff, 0xff,    0xff, 0xff    } /* '\xf6' */,
+		{ 0xff, 0xff,    0xff, 0xff    } /* '\xf7' */,
+/* f8OSHIFT } /* '-' */,
 		{ 0x31, NOSHIFT, 0x50, NOSHIFT } /* '.' */,
 		{ 0x32, NOSHIFT, 0x41, NOSHIFT } /* '/' */,
 		{ 0x0a, NOSHIFT, 0x4e, NOSHIFT } /* '0' */,

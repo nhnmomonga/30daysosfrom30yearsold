@@ -15,10 +15,10 @@ UCHAR **ConvCmdLine1(int *pargc, UCHAR *p);
 void osaunmap();
 
 struct STR_CC1MAIN {
-	UCHAR *cmdlin; /* '\0'‚ÅI‚í‚é */
-	UCHAR *outname; /* '\0'‚ÅI‚í‚é, work‚Ì‚Ç‚±‚©‚Ö‚Ìƒ|ƒCƒ“ƒ^ */
-	UCHAR *dest0, *dest1; /* o—Íƒtƒ@ƒCƒ‹(dest0‚Í‘‚«Š·‚¦‚ç‚ê‚é) */
-	UCHAR *err0, *err1; /* ƒRƒ“ƒ\[ƒ‹ƒƒbƒZ[ƒW(err0‚Í‘‚«Š·‚¦‚ç‚ê‚é) */
+	UCHAR *cmdlin; /* '\0'ã§çµ‚ã‚ã‚‹ */
+	UCHAR *outname; /* '\0'ã§çµ‚ã‚ã‚‹, workã®ã©ã“ã‹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ */
+	UCHAR *dest0, *dest1; /* å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«(dest0ã¯æ›¸ãæ›ãˆã‚‰ã‚Œã‚‹) */
+	UCHAR *err0, *err1; /* ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸(err0ã¯æ›¸ãæ›ãˆã‚‰ã‚Œã‚‹) */
 	UCHAR *work0, *work1;
 	int errcode;
 };
@@ -38,7 +38,7 @@ int cc1main(struct STR_CC1MAIN *str_cc1main)
 	GO_stderr.p1 = str_cc1main->err1;
 	GO_stderr.dummy = ~0;
 
-	/* ‘½dÀs‘j~ (static‚ğÄ‰Šú‰»‚·‚ê‚Î‚Å‚«‚é‚ª) */
+	/* å¤šé‡å®Ÿè¡Œé˜»æ­¢ (staticã‚’å†åˆæœŸåŒ–ã™ã‚Œã°ã§ãã‚‹ãŒ) */
 //	if (execflag)
 //		return 7;
 //	execflag = 1;

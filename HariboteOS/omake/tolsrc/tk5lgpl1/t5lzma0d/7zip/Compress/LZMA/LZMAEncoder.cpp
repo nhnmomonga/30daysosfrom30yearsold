@@ -189,20 +189,20 @@ void CEncoder::Encode(NRangeCoder::CEncoder *rangeEncoder, UInt32 symbol, UInt32
 			_choice2.Encode(rangeEncoder, 0);
 			_midCoder[posState].Encode(rangeEncoder, symbol);
 		} else {
-			/* ˆÈ‰ºKL-01‚ðŽå’£ */
+			/* ä»¥ä¸‹KL-01ã‚’ä¸»å¼µ */
 			symbol -= kNumMidSymbols;
 			_choice2.Encode(rangeEncoder, 1);
 			if (symbol < (1 << kNumHighBits) - 8)
 				_highCoder.Encode(rangeEncoder, symbol);
 			else {
 				int l0, l1;
-				symbol -= (1 << kNumHighBits) - 8 - 1; /* 1ˆÈã */
-				/* ‚±‚Ìsymbol‚ð•\Œ»‚·‚é‚Ì‚É‰½ƒrƒbƒg•K—v‚¾‚ë‚¤‚©H */
+				symbol -= (1 << kNumHighBits) - 8 - 1; /* 1ä»¥ä¸Š */
+				/* ã“ã®symbolã‚’è¡¨ç¾ã™ã‚‹ã®ã«ä½•ãƒ“ãƒƒãƒˆå¿…è¦ã ã‚ã†ã‹ï¼Ÿ */
 				for (l0 = 1; symbol >= (1 << l0); l0++);
-				/* “š‚¦Fl0ƒrƒbƒg(l0=1-255) */
-				/* ‚±‚Ìl0‚ð•\Œ»‚·‚é‚Ì‚É‰½ƒrƒbƒg•K—v‚¾‚ë‚¤‚© */
+				/* ç­”ãˆï¼šl0ãƒ“ãƒƒãƒˆ(l0=1-255) */
+				/* ã“ã®l0ã‚’è¡¨ç¾ã™ã‚‹ã®ã«ä½•ãƒ“ãƒƒãƒˆå¿…è¦ã ã‚ã†ã‹ */
 				for (l1 = 0; l0 >= (2 << l1); l1++);
-				/* “š‚¦F(l1 + 1)ƒrƒbƒg(l1=0-7) */
+				/* ç­”ãˆï¼š(l1 + 1)ãƒ“ãƒƒãƒˆ(l1=0-7) */
 				_highCoder.Encode(rangeEncoder, (1 << kNumHighBits) - 8 + l1);
 				if (l1 > 0)
 					rangeEncoder->EncodeDirectBits(l0, l1);
@@ -1178,10 +1178,8 @@ void CEncoder::WriteEndMarker(UInt32 posState)
 HRESULT CEncoder::CodeReal(ISequentialInStream *inStream,
       ISequentialOutStream *outStream, 
       const UInt64 *inSize, const UInt64 *outSize,
-      ICompressProgressInfo *progress)
-{
-  _needReleaseMFStream = false;
-  CCoderReleaser coderReleaser(this);
+      ICompressProgressI4 *inSize, const UInt64 *outSize,
+      ICompressProgressIeleaser coderReleaser(this);
   RINOK(SetStreams(inStream, outStream, inSize, outSize));
   while(true)
   {

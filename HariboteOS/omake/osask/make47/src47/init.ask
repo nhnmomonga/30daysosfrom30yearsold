@@ -1,13 +1,13 @@
-/* "init.ask" ver.4.0 copyright(C) 2004 H.Kawai(ì‡GÀ), I.Tak., KIYOTO */
+/* "init.ask" ver.4.0 copyright(C) 2004 H.Kawai(å·åˆç§€å®Ÿ), I.Tak., KIYOTO */
 
-/* ƒvƒŠƒvƒƒZƒbƒT‚ÌƒIƒvƒVƒ‡ƒ“‚ÅA-DPCAT‚©-DTOWNS‚ğw’è‚·‚é‚±‚Æ */
+/* ãƒ—ãƒªãƒ—ãƒ­ã‚»ãƒƒã‚µã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã§ã€-DPCATã‹-DTOWNSã‚’æŒ‡å®šã™ã‚‹ã“ã¨ */
 
-#define KROM  /* shellcall2‚Écmd0100‚ğ’Ç‰ÁBŠ¿šROM¨GAPIƒf[ƒ^ƒfƒR[ƒh */
+#define KROM  /* shellcall2ã«cmd0100ã‚’è¿½åŠ ã€‚æ¼¢å­—ROMâ†’GAPIãƒ‡ãƒ¼ã‚¿ãƒ‡ã‚³ãƒ¼ãƒ‰ */
 
 #define	MAXWINDOW		80	/* 1024/32 */
 #define	CALLFAR0(sel)	CALL(sel, 0)
 
-/* 64ƒ^ƒXƒN‚Ü‚Å‚Ì€”õ‚Í‚Å‚«‚Ä‚¢‚é */
+/* 64ã‚¿ã‚¹ã‚¯ã¾ã§ã®æº–å‚™ã¯ã§ãã¦ã„ã‚‹ */
 
 //	#define	CHECK_TSKPTR	1
 
@@ -73,22 +73,22 @@ struct area_man_struct_sub {
 
 struct area_man_struct {
 	char res0[8];
-	unsigned int use, size0; // ’PˆÊ‚ÍƒoƒCƒg
+	unsigned int use, size0; // å˜ä½ã¯ãƒã‚¤ãƒˆ
 	void [16];
 	area_man_struct_sub data0, data[0];
-	/* use < size0 ‚Íí‚É¬—§‚·‚é */
-	/* data[use]‚Í-1,-1‚ğw‚· */
-	/* data0‚Í”Ô•º0,0 */
+	/* use < size0 ã¯å¸¸ã«æˆç«‹ã™ã‚‹ */
+	/* data[use]ã¯-1,-1ã‚’æŒ‡ã™ */
+	/* data0ã¯ç•ªå…µ0,0 */
 };
 
 struct resource_bitmap_struct {
 	int len;
 	int bitmap[0];
-	/* bitmap[len - 4]‚Í0(terminator) */
-	/* ‘SƒTƒCƒY(bytes) * 8 - 64 [ŒÂ]‚ÌŠÇ—‚ª‚Å‚«‚é */
+	/* bitmap[len - 4]ã¯0(terminator) */
+	/* å…¨ã‚µã‚¤ã‚º(bytes) * 8 - 64 [å€‹]ã®ç®¡ç†ãŒã§ãã‚‹ */
 };
 
-struct GUIGUI_window_struct { // Œv32bytes
+struct GUIGUI_window_struct { // è¨ˆ32bytes
 	int status, win_id_task, signal_base, msgbox;
 	int x_size, y_size, x0, y0;
 };
@@ -105,8 +105,8 @@ struct GUIGUI_work { /* SS:0xffffd000; */
 	unsigned int timer_sec4, root_Paddr;
 	unsigned int dosload_phase, dosload_work[16];
 	unsigned int diskcache_Laddr, diskbuf_Paddr, diskbuf_Laddr;
-	unsigned int cacheflags[64 /* 2MB•ª */];
-	unsigned int track[20 /* 160ƒgƒ‰ƒbƒN•ª */];
+	unsigned int cacheflags[64 /* 2MBåˆ† */];
+	unsigned int track[20 /* 160ãƒˆãƒ©ãƒƒã‚¯åˆ† */];
 	unsigned int tapiwork_Laddr, tapiwork_Paddr;
 	resource_bitmap_struct tapiwork_man[32];
 	unsigned int root_size, root_addr;
@@ -114,12 +114,12 @@ struct GUIGUI_work { /* SS:0xffffd000; */
 	unsigned int TAPI_sendmsgofs, TAPI_sendmsgsel;
 	unsigned int cmd0100_buf[64];
 	unsigned int timer_freq;
-	/* 0xffffe000`0xfffff200 */
+	/* 0xffffe000ï½0xfffff200 */
 	area_man_struct virtual_man[2048];
 	GUIGUI_window_struct winlist[1024], [1024], [512];
 };
 
-struct TAPI_TSS386 {  /* ‘S‚ÄTL-0 */
+struct TAPI_TSS386 {  /* å…¨ã¦TL-0 */
 	short BackLink, [2];
 	int stack0_ESP; short stack0_SS, [2];
 	int stack1_ESP; short stack1_SS, [2];
@@ -132,32 +132,32 @@ struct TAPI_TSS386 {  /* ‘S‚ÄTL-0 */
 	short ES, [2], CS, [2], SS, [2];
 	short DS, [2], FS, [2], GS, [2];
 	short LDTR, [2], TaskFlags, IOBitMap;
-	/* ‡Œv104bytes */
+	/* åˆè¨ˆ104bytes */
 };
 
-struct TAPI_GlvPrm { /* Œv64bytes */
+struct TAPI_GlvPrm { /* è¨ˆ64bytes */
 	int run[12];
 //	struct Tss near *Pointer;
 	int pointer;
 	int totalIlv; // +0x10
 	int tasks;
 	int MinIlv, MaxIlv;
-	char flags; /* ƒtƒ‰ƒO‚É‚æ‚Á‚Ä‚ÍAIlv‚ğl—¶‚µ‚È‚¢B */
-	/* bit0:Ilv•ÏXƒtƒ‰ƒO(0‚Å•ÏX‚ ‚è)Abit1:•ªŠ„—}§ƒtƒ‰ƒO(1‚Å—}§)B */
+	char flags; /* ãƒ•ãƒ©ã‚°ã«ã‚ˆã£ã¦ã¯ã€Ilvã‚’è€ƒæ…®ã—ãªã„ã€‚ */
+	/* bit0:Ilvå¤‰æ›´ãƒ•ãƒ©ã‚°(0ã§å¤‰æ›´ã‚ã‚Š)ã€bit1:æ™‚åˆ†å‰²æŠ‘åˆ¶ãƒ•ãƒ©ã‚°(1ã§æŠ‘åˆ¶)ã€‚ */
 	void [31];
 };
 
 struct TAPI_LlvPrm { // 32bytes
 	int run[12];
 	int Glv;
-	int short_run[12]; /* 0x10`0x1b  0x1b‚ª-1‚È‚çAinvalid */
+	int short_run[12]; /* 0x10ï½0x1b  0x1bãŒ-1ãªã‚‰ã€invalid */
 	int Ilv;
 };
 
 struct TAPI_TSS {
-	TAPI_TSS386 tss386;  /* TL-0ƒuƒƒbƒN(104bytes) */
+	TAPI_TSS386 tss386;  /* TL-0ãƒ–ãƒ­ãƒƒã‚¯(104bytes) */
 
-	/* system-signalˆ—‚ÌƒuƒƒbƒN(24bytes) */
+	/* system-signalå‡¦ç†ã®ãƒ–ãƒ­ãƒƒã‚¯(24bytes) */
 	int sysbox_write_free, sysbox_write_ptr, sysbox_write_ptr0, sysbox_write_ptr1;
 	int sysbox_read_ptr;
 	unsigned char msgbox_status, softint_nest, [2];
@@ -165,82 +165,82 @@ struct TAPI_TSS {
 		// bit6 : sysbox empty(0:empty)
 		// bit7 : msgbox empty(0:empty)
 
-	int set[12], tr[4], run[12], ldt_img; /* TL-1ƒuƒƒbƒN(48bytes) */
+	int set[12], tr[4], run[12], ldt_img; /* TL-1ãƒ–ãƒ­ãƒƒã‚¯(48bytes) */
 	int fpu_reg_img, sse_reg_img /* for SSE & SSE2 */;
 //	TAPI_TSS near *back, near *next;
 	int back, next;
 
-	int softint_EIP /* +0x00b0 */; short softint_CS; /* signalˆ—‚ÌƒuƒƒbƒN(48bytes) */
+	int softint_EIP /* +0x00b0 */; short softint_CS; /* signalå‡¦ç†ã®ãƒ–ãƒ­ãƒƒã‚¯(48bytes) */
 	short softint_oldCS;
 	int softint_oldEIP;
-	unsigned char softint_Llv, sysint_Llv /* ‚±‚ÌƒtƒB[ƒ‹ƒh‚Íg‚í‚È‚¢Bsoftint‚Æ‹¤’Ê */, now_Llv, softint_oldLlv;
+	unsigned char softint_Llv, sysint_Llv /* ã“ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã¯ä½¿ã‚ãªã„ã€‚softintã¨å…±é€š */, now_Llv, softint_oldLlv;
 	int msgbox_write_free, msgbox_write_ptr, msgbox_write_ptr0, msgbox_write_ptr1;
 	int msgbox_eom_code, msgbox_rewind_code, [8];
 
-/*	softint_oldLlv‚ÍAƒXƒ^ƒbƒN‚É‚Â‚Ş‚Æ0xff‚É•Ï‰»‚·‚é...‚ÅA0xff‚Ì‚Æ‚«‚ÉAƒXƒgƒA‚³‚ê‚é
-	softint_CS == 0‚Ì‚Æ‚«ACS:EIP‚Ì•Ï‰»–³‚µ
-	softint_Llv == 0‚Ì‚Æ‚«ALlv‚Ì•Ï‰»–³‚µ */
+/*	softint_oldLlvã¯ã€ã‚¹ã‚¿ãƒƒã‚¯ã«ã¤ã‚€ã¨0xffã«å¤‰åŒ–ã™ã‚‹...ã§ã€0xffã®ã¨ãã«ã€ã‚¹ãƒˆã‚¢ã•ã‚Œã‚‹
+	softint_CS == 0ã®ã¨ãã€CS:EIPã®å¤‰åŒ–ç„¡ã—
+	softint_Llv == 0ã®ã¨ãã€Llvã®å¤‰åŒ–ç„¡ã— */
 
-/* TL-2ƒuƒƒbƒN 32bytes */
-//	GlvPrm near *Glv /* +0x00e0 */; /* TapiWorkSel‚Ì’†‚ÌƒIƒtƒZƒbƒg */
-//	LlvPrm near *Llv; /* TapiWorkSel‚Ì’†‚ÌƒIƒtƒZƒbƒg */
-	int Glv, Llv; // 0xe0`0xe7
+/* TL-2ãƒ–ãƒ­ãƒƒã‚¯ 32bytes */
+//	GlvPrm near *Glv /* +0x00e0 */; /* TapiWorkSelã®ä¸­ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ */
+//	LlvPrm near *Llv; /* TapiWorkSelã®ä¸­ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ */
+	int Glv, Llv; // 0xe0ï½0xe7
 	int Ilv, Llv_base; // Inner-level
 	int short_run[12]; // +0x00f0
-	char flags, [3];  /* Set‚ÌÄ•]‰¿—v‹ƒtƒ‰ƒO */
+	char flags, [3];  /* Setã®å†è©•ä¾¡è¦æ±‚ãƒ•ãƒ©ã‚° */
 
 
-/* ‚±‚Ìƒ^ƒXƒN‚Ì‘SÀsŠÔ‚ÍArun‚Å‚Í‚È‚¢Brun‚ÍAŒ»İ‚ÌLlv‚Ìrunningƒ^ƒCƒ€‚ğ¦‚µ‚Ä‚¢‚é‚É‰ß‚¬‚È‚¢B */
-/* Œ»İ‚ÌLlv‚ÌLlvPrm.run‚Í–³ŒøB */
+/* ã“ã®ã‚¿ã‚¹ã‚¯ã®å…¨å®Ÿè¡Œæ™‚é–“ã¯ã€runã§ã¯ãªã„ã€‚runã¯ã€ç¾åœ¨ã®Llvã®runningã‚¿ã‚¤ãƒ ã‚’ç¤ºã—ã¦ã„ã‚‹ã«éããªã„ã€‚ */
+/* ç¾åœ¨ã®Llvã®LlvPrm.runã¯ç„¡åŠ¹ã€‚ */
 
 };
 
-/* ƒ^ƒXƒN‚²‚Æ‚Ì4KB‚Ìg‚¢“¹ */
-/*	(Å‰‚Ì1KB)
+/* ã‚¿ã‚¹ã‚¯ã”ã¨ã®4KBã®ä½¿ã„é“ */
+/*	(æœ€åˆã®1KB)
 	TAPI_TSS			0.25KB
 	LlvPrm				0.25KB(8lv)
-	–¢g—p				 64bytes
-	ƒƒbƒZ[ƒWƒ{ƒbƒNƒX   64bytes
-	FPUƒŒƒWƒXƒ^ƒCƒ[ƒW	108bytes
-	ƒVƒXƒeƒ€ŠÇ——p		 20bytes (+748)
+	æœªä½¿ç”¨				 64bytes
+	ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒœãƒƒã‚¯ã‚¹   64bytes
+	FPUãƒ¬ã‚¸ã‚¹ã‚¿ã‚¤ãƒ¡ãƒ¼ã‚¸	108bytes
+	ã‚·ã‚¹ãƒ†ãƒ ç®¡ç†ç”¨		 20bytes (+748)
 	  tskdir, stack0_size, stack0_addr, stack3_size, stack3_addr
-		ª‚±‚ê‚ç‚ÍAƒŠƒjƒAƒAƒhƒŒƒX‚ğ‚Í‚ª‚·‚½‚ß‚É‹L‰¯‚µ‚Ä‚¢‚éB¡‚Íˆê‘±‚«‚È‚Ì‚Åstack3‚Íg‚Á‚Ä‚¢‚È‚¢B
-	–¢g—p(SSE—p)		0.25KB
-	(c‚è‚Ì3KB)
+		â†‘ã“ã‚Œã‚‰ã¯ã€ãƒªãƒ‹ã‚¢ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’ã¯ãŒã™ãŸã‚ã«è¨˜æ†¶ã—ã¦ã„ã‚‹ã€‚ä»Šã¯ä¸€ç¶šããªã®ã§stack3ã¯ä½¿ã£ã¦ã„ãªã„ã€‚
+	æœªä½¿ç”¨(SSEç”¨)		0.25KB
+	(æ®‹ã‚Šã®3KB)
 	msgbuf				0.50KB
 	sysbuf				0.50KB
 	ldt_img				1.00KB
 	slot_img			1.00KB
 */
 
-/* ƒŠƒjƒAƒAƒhƒŒƒXƒ}ƒbƒv */
-/*	0MB`1MB : 20bitƒƒ‚ƒŠ‹óŠÔ‚Æ‘Î‰
-	1MB`3MB : ƒfƒBƒXƒNƒLƒƒƒbƒVƒ…ŠÇ——p
-	3MB`4MB : ƒvƒƒeƒNƒgƒƒ‚ƒŠƒ`ƒFƒbƒN
-				20bitƒƒ‚ƒŠ‚©‚ç‚Ì“]‘——pƒ}ƒbƒv—Ìˆæ
+/* ãƒªãƒ‹ã‚¢ã‚¢ãƒ‰ãƒ¬ã‚¹ãƒãƒƒãƒ— */
+/*	0MBï½1MB : 20bitãƒ¡ãƒ¢ãƒªç©ºé–“ã¨å¯¾å¿œ
+	1MBï½3MB : ãƒ‡ã‚£ã‚¹ã‚¯ã‚­ãƒ£ãƒƒã‚·ãƒ¥ç®¡ç†ç”¨
+	3MBï½4MB : ãƒ—ãƒ­ãƒ†ã‚¯ãƒˆãƒ¡ãƒ¢ãƒªãƒã‚§ãƒƒã‚¯
+				20bitãƒ¡ãƒ¢ãƒªã‹ã‚‰ã®è»¢é€ç”¨ãƒãƒƒãƒ—é ˜åŸŸ
 
-	4.5MB`20MB : ‘æˆêƒŠƒjƒAƒAƒhƒŒƒX
-	20MB`64MB : ‘æ“ñƒŠƒjƒAƒAƒhƒŒƒX
+	4.5MBï½20MB : ç¬¬ä¸€ãƒªãƒ‹ã‚¢ã‚¢ãƒ‰ãƒ¬ã‚¹
+	20MBï½64MB : ç¬¬äºŒãƒªãƒ‹ã‚¢ã‚¢ãƒ‰ãƒ¬ã‚¹
 */
 
-/* •¨—ƒAƒhƒŒƒXƒ}ƒbƒv */
-/* 	0MB`1MB : 20bitƒƒ‚ƒŠ
-	1MB`0x267fff : ƒfƒBƒXƒNƒLƒƒƒbƒVƒ…
-	2.41MB` : ƒtƒŠ[
+/* ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹ãƒãƒƒãƒ— */
+/* 	0MBï½1MB : 20bitãƒ¡ãƒ¢ãƒª
+	1MBï½0x267fff : ãƒ‡ã‚£ã‚¹ã‚¯ã‚­ãƒ£ãƒƒã‚·ãƒ¥
+	2.41MBï½ : ãƒ•ãƒªãƒ¼
 */
 
 struct GUIGUI_codeheader { /* 32bytes */
 	void [8]; /* for jmp-vector */
 	char signature[8]; /* 'GUIGUI00' */
 	int stack3_size, stack3_reserve, [8];
-	/* reverve‚Ìbit0:
-		0:reserveAstack‚Ì‡
-		1:stackAreserve‚Ì‡(’Êí) */
+	/* reverveã®bit0:
+		0:reserveã€stackã®é †
+		1:stackã€reserveã®é †(é€šå¸¸) */
 };
 
 void far Init()
-/* i“üğŒF
-   DS == syswork_seg, GS == IDT&GDT_seg (‚Ç‚¿‚ç‚àƒZƒŒƒNƒ^‚Å‚Í‚È‚¢‚±‚Æ‚É’ˆÓ‚ª•K—v) */
+/* é€²å…¥æ¡ä»¶ï¼š
+   DS == syswork_seg, GS == IDT&GDT_seg (ã©ã¡ã‚‰ã‚‚ã‚»ãƒ¬ã‚¯ã‚¿ã§ã¯ãªã„ã“ã¨ã«æ³¨æ„ãŒå¿…è¦) */
 {
 	STR_SYSWORK *swork_DS == DS:0;
 	STR_SYSWORK *swork_ES == ES:0;
@@ -248,48 +248,48 @@ void far Init()
 
 	SS0_struct *stack_ESP0 == /* SS:(- sizeof (SS0_struct)) */ SS:0xffffffc0;
 
-	/* GDT‚ğì‚é‚½‚ß‚ÌŠÖ”‚ğ—pˆÓ‚µ‚½•û‚ª‚¢‚¢‚©‚à‚µ‚ê‚È‚¢
-	   GS:EBX‚É‘‚«‚ŞBEDX‚Íƒx[ƒXAECX‚ÍƒTƒCƒYAAX‚ÍƒAƒNƒZƒXƒ‰ƒCƒg
-	   GS:EBXˆÈŠO‚Í”j‰ó */
+	/* GDTã‚’ä½œã‚‹ãŸã‚ã®é–¢æ•°ã‚’ç”¨æ„ã—ãŸæ–¹ãŒã„ã„ã‹ã‚‚ã—ã‚Œãªã„
+	   GS:EBXã«æ›¸ãè¾¼ã‚€ã€‚EDXã¯ãƒ™ãƒ¼ã‚¹ã€ECXã¯ã‚µã‚¤ã‚ºã€AXã¯ã‚¢ã‚¯ã‚»ã‚¹ãƒ©ã‚¤ãƒˆ
+	   GS:EBXä»¥å¤–ã¯ç ´å£Š */
 
 //	EAX = 0xc092 /* unit:page, use32, lv0, RW */;
-//	ECX = 0; /* 0‚Í0x100000000‚ğˆÓ–¡‚·‚é */
+//	ECX = 0; /* 0ã¯0x100000000ã‚’æ„å‘³ã™ã‚‹ */
 //	EDX = 0x00000000;
-//	EBX = 384 /* IDT‚Ì•ª */ + SEL_ALL;
+//	EBX = 384 /* IDTã®åˆ† */ + SEL_ALL;
 //	set_modulesegment();
 
 	#if (defined(PCAT))
 		EAX = 0x4092 /* unit:byte, use32, lv0, RW */;
 		ECX = 0x00010000; /* 64KB */
 		EDX = 0x000a0000;
-		EBX = 384 /* IDT‚Ì•ª */ + SEL_VRAM;
+		EBX = 384 /* IDTã®åˆ† */ + SEL_VRAM;
 		set_modulesegment();
 	#endif
 
 	#if (defined(NEC98))
-	//	AL = 0x06; // ch2‚Ìƒ}ƒXƒN‚ğƒZƒbƒg
+	//	AL = 0x06; // ch2ã®ãƒã‚¹ã‚¯ã‚’ã‚»ãƒƒãƒˆ
 	//	OUT(0x0015, AL);
 		EDX = 0x0439;
 		IN(AL, DX);
 		AL &= 0xfb;
-		OUT(DX, AL); /* DMA‚ÌA20-A23—LŒø */
-	//	AL = 0x06; /* 1MB‹«ŠE, ch2 */
+		OUT(DX, AL); /* DMAã®A20-A23æœ‰åŠ¹ */
+	//	AL = 0x06; /* 1MBå¢ƒç•Œ, ch2 */
 	//	OUT(0x0029, AL);
 	//	EDX = 0x0e09;
 	//	AL = 0;
-	//	OUT(DX, AL); /* ch2‚ÌA31-A24 = 0 */
+	//	OUT(DX, AL); /* ch2ã®A31-A24 = 0 */
 		EAX = 0x4092 /* unit:byte, use32, lv0, RW */;
 		ECX = 0x00040000; /* 256KB */
 		EDX = 0x000a8000;
-		EBX = 384 /* IDT‚Ì•ª */ + SEL_VRAM;
+		EBX = 384 /* IDTã®åˆ† */ + SEL_VRAM;
 		set_modulesegment();
 	#endif
 
-	/* tapiƒR[ƒ‹‚Ìxá‚É‚È‚ç‚È‚¢‚æ‚¤‚ÉAƒ_ƒ~[ƒZƒŒƒNƒ^‚ğì‚é */
+	/* tapiã‚³ãƒ¼ãƒ«ã®æ”¯éšœã«ãªã‚‰ãªã„ã‚ˆã†ã«ã€ãƒ€ãƒŸãƒ¼ã‚»ãƒ¬ã‚¯ã‚¿ã‚’ä½œã‚‹ */
 	EAX = 0xc092 /* unit:page, use32, lv0, RW */;
-	ECX = 0; /* 0‚Í0x100000000‚ğˆÓ–¡‚·‚é */
+	ECX = 0; /* 0ã¯0x100000000ã‚’æ„å‘³ã™ã‚‹ */
 	EDX = 0x00000000;
-	EBX = 384 /* IDT‚Ì•ª */ + SEL_TAPIWORK;
+	EBX = 384 /* IDTã®åˆ† */ + SEL_TAPIWORK;
 	set_modulesegment();
 
 	#if (defined(CHECK_TSKPTR))
@@ -324,13 +324,13 @@ void far Init()
 		asmout("MOV DR7,EAX");
 	#endif
 
-	/* ƒXƒ^ƒbƒN‚àØ‚è‘Ö‚í‚Á‚Ä‚¢‚È‚¢B */
-	/* ƒVƒXƒeƒ€ƒXƒ^ƒbƒN‚ğ‰Ÿ‚µã‚°‚ÄAƒƒ‚ƒŠATAPIworkAGDT‚ÌŠÇ—ƒuƒƒbƒN‚ğì‚éB */
+	/* ã‚¹ã‚¿ãƒƒã‚¯ã‚‚åˆ‡ã‚Šæ›¿ã‚ã£ã¦ã„ãªã„ã€‚ */
+	/* ã‚·ã‚¹ãƒ†ãƒ ã‚¹ã‚¿ãƒƒã‚¯ã‚’æŠ¼ã—ä¸Šã’ã¦ã€ãƒ¡ãƒ¢ãƒªã€TAPIworkã€GDTã®ç®¡ç†ãƒ–ãƒ­ãƒƒã‚¯ã‚’ä½œã‚‹ã€‚ */
 
 //	EAX = SEL_STACK;
 	EDX = 0;
 //	SS = EAX;
-//	ESP = /* (offset) stack_ESP0 */ 0xffffd000; /* ƒXƒ^ƒbƒN‚Ì‰Šú‰» */
+//	ESP = /* (offset) stack_ESP0 */ 0xffffd000; /* ã‚¹ã‚¿ãƒƒã‚¯ã®åˆæœŸåŒ– */
 	EDX -= 0x80; /* EDX = 0xffffff80; */
 	(int) stack_ESP0->ring0_count = EDX /* 0xffffff80 */;
 	(int) stack_ESP0->cli_count   = EDX /* 0xffffff80 */;
@@ -364,7 +364,7 @@ void far Init()
 	ESI = 0x0108;
 	POP(FS);
 
-	/* PAPI‰Šú‰» */
+	/* PAPIåˆæœŸåŒ– */
 	PUSH((int) ECX /* eoc */);
 	PUSH(ECX);
 	PUSH(ECX);
@@ -372,18 +372,18 @@ void far Init()
 	PUSH(0x0100 /* init cmd */);
 	EBX = ESP;
 	CALLFAR0(SEL_PAPI);
-	ESP += 20 - 4; /* eoc‚ªc‚Á‚Ä‚¢‚é */
+	ESP += 20 - 4; /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 
 	#if (defined(PCAT))
 		EAX = 0x1007 /* present, R/W, user, override */;
 		TEST(DL, 0x04);
 		if (!= 0)
-			AL = 0x1f /* VRAM‚ÍƒLƒƒƒbƒVƒ…‚µ‚È‚¢(PCD=1) */;
+			AL = 0x1f /* VRAMã¯ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã—ãªã„(PCD=1) */;
 
 	//	ECX = 0;
 	//	PUSH((int) ECX /* eoc */);
 
-		/* mapping PC-Card Window (0xac000000`0xac3fffff) */
+		/* mapping PC-Card Window (0xac000000ï½0xac3fffff) */
 		PUSH((int) ECX /* addr64(high) */);
 		PUSH((int) 0xac000000 /* addr64(low) */);
 		PUSH((int) ECX /* offset64(high) */);
@@ -394,8 +394,8 @@ void far Init()
 		PUSH((int) EAX /* opt(PCD, present, R/W, user, override) */);
 		PUSH((int) ESI /* cmd(mapping) */);
 
-		/* mapping BIOS (for VESA call) (0x000c0000`0x000fffff) */
-		/* mapping high memory (0x00100000`0x002fffff) */
+		/* mapping BIOS (for VESA call) (0x000c0000ï½0x000fffff) */
+		/* mapping high memory (0x00100000ï½0x002fffff) */
 
 	//	PUSH((int) ECX /* addr64(high) */);
 	//	PUSH((int) 0x000c0000 /* addr64(low) */);
@@ -407,8 +407,8 @@ void far Init()
 	//	PUSH((int) 0x0007 /* opt(present, R/W, user) */);
 	//	PUSH((int) ESI /* cmd(mapping) */);
 
-		/* mapping VRAM (0x000a0000`0x000bffff) & PC-card window & BIOS */
-		/* (0x000a0000`0x000fffff) */
+		/* mapping VRAM (0x000a0000ï½0x000bffff) & PC-card window & BIOS */
+		/* (0x000a0000ï½0x000fffff) */
 
 		PUSH((int) ECX /* addr64(high) */);
 		PUSH((int) 0x000a0000 /* addr64(low) */);
@@ -422,10 +422,10 @@ void far Init()
 
 		EBX = ESP;
 		CALLFAR0(SEL_PAPI);
-		ESP += 36 + 36; /* eoc‚ªc‚Á‚Ä‚¢‚é */
+		ESP += 36 + 36; /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 	#elif (defined(TOWNS))
 		EBX = 0x80100000;
-		IN(AX, 0x0030); /* CPU¯•ÊƒŒƒWƒXƒ^ */
+		IN(AX, 0x0030); /* CPUè­˜åˆ¥ãƒ¬ã‚¸ã‚¹ã‚¿ */
 		AL &= 0x07;
 		CMP(AL, 0x03);
 		if (==) /* i386SX */
@@ -433,12 +433,12 @@ void far Init()
 		TEST(DL, 0x04);
 		EAX = 0x07 /* present, R/W, user */;
 		if (!= 0)
-			AL = 0x1f /* VRAM‚ÍƒLƒƒƒbƒVƒ…‚µ‚È‚¢(PCD=1) */;
+			AL = 0x1f /* VRAMã¯ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã—ãªã„(PCD=1) */;
 
 	//	ECX = 0;
 	//	PUSH((int) ECX /* eoc */);
 
-		/* mapping VRAM (0x80100000`0x80180000) */
+		/* mapping VRAM (0x80100000ï½0x80180000) */
 
 		PUSH((int) ECX /* addr64(high) */);
 		PUSH((int) EBX /* addr64(low) */);
@@ -450,7 +450,7 @@ void far Init()
 		PUSH((int) EAX /* opt(PCD, present, R/W, user) */);
 		PUSH((int) ESI /* cmd(mapping) */);
 
-		/* mapping high memory (0x00100000`0x002fffff) */
+		/* mapping high memory (0x00100000ï½0x002fffff) */
 
 //		PUSH((int) ECX /* addr64(high) */);
 //		PUSH((int) 0x00100000 /* addr64(low) */);
@@ -462,7 +462,7 @@ void far Init()
 //		PUSH((int) 0x0007 /* opt(present, R/W, user) */);
 //		PUSH((int) ESI /* cmd(mapping) */);
 
-		/* mapping RAM (0x000a0000`0x000bffff) */
+		/* mapping RAM (0x000a0000ï½0x000bffff) */
 
 //		PUSH((int) ECX /* addr64(high) */);
 //		PUSH((int) 0x000a0000 /* addr64(low) */);
@@ -476,14 +476,14 @@ void far Init()
 		EBX = ESP;
 		CALLFAR0(SEL_PAPI);
 //		ESP += 112;
-		ESP += 36; /* eoc‚ªc‚Á‚Ä‚¢‚é */
+		ESP += 36; /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 
 		/* mapping PC-Card Window */
-		/* CXˆÈ~‚Ì”ñ386SX‚Å‚ ‚ê‚ÎAEBX‚ğ0xc1000000‚É‚·‚é‚×‚«‚¾ */
+		/* CXä»¥é™ã®é386SXã§ã‚ã‚Œã°ã€EBXã‚’0xc1000000ã«ã™ã‚‹ã¹ãã  */
 
 		PUSH(EAX);
 		EBX = 0xc0000000;
-		IN(AX, 0x0030); /* CPU¯•ÊƒŒƒWƒXƒ^ */
+		IN(AX, 0x0030); /* CPUè­˜åˆ¥ãƒ¬ã‚¸ã‚¹ã‚¿ */
 		AL &= 0x07;
 		CMP(AL, 0x03);
 		if (==) /* i386SX */
@@ -501,7 +501,7 @@ void far Init()
 		PUSH((int) ESI /* cmd(mapping) */);
 		EBX = ESP;
 		CALLFAR0(SEL_PAPI);
-		ESP += 36; /* eoc‚ªc‚Á‚Ä‚¢‚é */
+		ESP += 36; /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 
 	#endif
 
@@ -509,12 +509,12 @@ void far Init()
 		EAX = 0x1007 /* present, R/W, user, override */;
 		TEST(DL, 0x04);
 		if (!= 0)
-			AL = 0x1f /* VRAM‚ÍƒLƒƒƒbƒVƒ…‚µ‚È‚¢(PCD=1) */;
+			AL = 0x1f /* VRAMã¯ã‚­ãƒ£ãƒƒã‚·ãƒ¥ã—ãªã„(PCD=1) */;
 
 	//	ECX = 0;
 	//	PUSH((int) ECX /* eoc */);
 
-		/* mapping high memory (0x00100000`0x002fffff) */
+		/* mapping high memory (0x00100000ï½0x002fffff) */
 
 	//	PUSH((int) ECX /* addr64(high) */);
 	//	PUSH((int) 0x00100000 /* addr64(low) */);
@@ -526,7 +526,7 @@ void far Init()
 	//	PUSH((int) 0x0007 /* opt(present, R/W, user) */);
 	//	PUSH((int) ESI /* cmd(mapping) */);
 
-		/* mapping VRAM (0x000a0000`0x000e7fff) */
+		/* mapping VRAM (0x000a0000ï½0x000e7fff) */
 
 		PUSH((int) ECX /* addr64(high) */);
 		PUSH((int) 0x000a0000 /* addr64(low) */);
@@ -540,12 +540,12 @@ void far Init()
 
 		EBX = ESP;
 		CALLFAR0(SEL_PAPI);
-		ESP += 36; /* eoc‚ªc‚Á‚Ä‚¢‚é */
+		ESP += 36; /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 	#endif
 
 	ECX = swork_ES->bootmalloc_fre1;
 	EAX = swork_ES->bootmalloc_adr1;
-	free_memory(); /* ƒtƒŠ[ƒƒ‚ƒŠ‚Ì“o˜^ */
+	free_memory(); /* ãƒ•ãƒªãƒ¼ãƒ¡ãƒ¢ãƒªã®ç™»éŒ² */
 	ECX = swork_ES->bootmalloc_fre2;
 	if ((unsigned) ECX > 0) {
 		EAX = swork_ES->bootmalloc_adr2;
@@ -557,18 +557,18 @@ void far Init()
 		free_memory();
 	}
 
-//	EAX = 0x1000; /* —]‚Á‚½0x800‚ÍAƒ[ƒNƒGƒŠƒA‚©‚à‚µ‚­‚ÍGlv‚ÉB */
+//	EAX = 0x1000; /* ä½™ã£ãŸ0x800ã¯ã€ãƒ¯ãƒ¼ã‚¯ã‚¨ãƒªã‚¢ã‹ã‚‚ã—ãã¯Glvã«ã€‚ */
 //	ECX = swork_ES->alloclist[ENT_TAPIWORK +  8]; /* size */
 //	ECX -= EAX;
 //	/* ESI = (offset) work->tapiwork_man; */ LEA(ESI, (int) work->tapiwork_man);
-//	free_area(); /* tapiwork‚Ì‹ó‚«—Ìˆæ */
+//	free_area(); /* tapiworkã®ç©ºãé ˜åŸŸ */
 
 //	EAX = freegdt_sel;
 //	ECX = swork_ES->alloclist[ENT_IDTGDT +  8]; /* size */
 //	ECX -= EAX;
-//	ECX -= 0x30 * 8; /* IDT‚Ì•ª‚ğˆø‚­ */
+//	ECX -= 0x30 * 8; /* IDTã®åˆ†ã‚’å¼•ã */
 //	/* ESI = (offset) work->gdt_man; */ LEA(ESI, (int) work->gdt_man);
-//	free_area(); /* –¢g—p‚ÌGDT‚Ì“o˜^ */
+//	free_area(); /* æœªä½¿ç”¨ã®GDTã®ç™»éŒ² */
 
 	EAX = 0;
 	LEA(EBP, work->tapiwork_man.bitmap[0]);
@@ -585,17 +585,17 @@ void far Init()
 	PUSH(SS);
 	POP(DS);
 	EAX = 0x80000000;
-	ECX = 0x7ffffffe; /* 8TBã */
+	ECX = 0x7ffffffe; /* 8TBå¼± */
 	/* ESI = (offset) work->virtual_man; */ LEA(ESI, (int) work->virtual_man);
 	free_area();
 
 	EAX = swork_ES->bootlinear;
 	ECX = 256 * 1024 * 1024;
-	ECX -= EAX; /* 4.5MB`256MB */
+	ECX -= EAX; /* 4.5MBï½256MB */
 	/* ESI = (offset) work->linear_man; */ LEA(ESI, (int) work->linear_man);
 	free_area();
 
-	/* work->winlist‚ğ‰Šú‰»‚·‚é */
+	/* work->winlistã‚’åˆæœŸåŒ–ã™ã‚‹ */
 	/* EBP = (offset) work->winlist; */ LEA(EBP, (int) work->winlist);
 	EAX = 0;
 	ECX = MAXWINDOW * 32 / 4;
@@ -605,7 +605,7 @@ void far Init()
 		ECX--;
 	} while (!= 0);
 
-	/* IDTİ’è */
+	/* IDTè¨­å®š */
 
 	EAX = SEL_IDTGDT;
 	GS = EAX;
@@ -635,13 +635,13 @@ void far Init()
 //	PUSH((int) 0); /* eoc */
 	PUSH(EAX);
 	PUSH(EAX);
-	PUSH((int) 0x0120 /* TAPI_INT07‚ÌƒxƒNƒ^‚ğ—v‹ */);
+	PUSH((int) 0x0120 /* TAPI_INT07ã®ãƒ™ã‚¯ã‚¿ã‚’è¦æ±‚ */);
 	EBX = ESP;
 	CALLFAR0(SEL_TAPI);
 	POP(EDX);
 	EBX = 0x0038 /* int07 */;
 	POP(EAX);
-	POP(ECX); /* eoc‚ªc‚Á‚Ä‚¢‚é */
+	POP(ECX); /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 //	POP(EDX);
 	(short) [DS:EBX + 0] = AX;
 	(unsigned int) EAX >>= 16;
@@ -653,11 +653,11 @@ void far Init()
 	#if (defined(PCAT))
 		PUSH(EAX);
 		PUSH(EAX);
-		PUSH((int) 0x0128 /* MouseIntDrv‚ÌƒxƒNƒ^‚ğ—v‹ */);
+		PUSH((int) 0x0128 /* MouseIntDrvã®ãƒ™ã‚¯ã‚¿ã‚’è¦æ±‚ */);
 	#endif
 	PUSH(EAX);
 	PUSH(EAX);
-	PUSH((int) 0x0124 /* KeyboardIntDrv‚ÌƒxƒNƒ^‚ğ—v‹ */);
+	PUSH((int) 0x0124 /* KeyboardIntDrvã®ãƒ™ã‚¯ã‚¿ã‚’è¦æ±‚ */);
 	EBX = ESP;
 	CALLFAR0(SEL_KEYINT);
 	POP(EDX);
@@ -686,7 +686,7 @@ void far Init()
 //	PUSH((int) 0); /* eoc */
 	PUSH(EAX);
 	PUSH(EAX);
-	PUSH((int) 0x0104 /* FDC_int‚ÌƒxƒNƒ^‚ğ—v‹ */);
+	PUSH((int) 0x0104 /* FDC_intã®ãƒ™ã‚¯ã‚¿ã‚’è¦æ±‚ */);
 	EBX = ESP;
 	CALLFAR0(SEL_FDCDRIVE);
 	POP(EDX);
@@ -713,7 +713,7 @@ void far Init()
 //	PUSH((int) 0); /* eoc */
 //	PUSH(EAX);
 	PUSH(EAX);
-	PUSH((int) 0x0108 /* Keydecode_Main‚Ö‚ÌƒxƒNƒ^æ“¾ */);
+	PUSH((int) 0x0108 /* Keydecode_Mainã¸ã®ãƒ™ã‚¯ã‚¿å–å¾— */);
 	PUSH((int) 0x0100 /* Keydecode_Init */);
 	EBX = ESP;
 	CALLFAR0(SEL_DECODE);
@@ -728,8 +728,8 @@ void far Init()
 //	PUSH((int) 0); /* eoc */
 //	PUSH(EAX);
 //	PUSH(EAX);
-//	PUSH((int) 0x0104 /* PageFaultHandler‚Ö‚ÌƒxƒNƒ^æ“¾ */);
-	(int) [SS:ESP] = 0x0104 /* PageFaultHandler‚Ö‚ÌƒxƒNƒ^æ“¾ */;
+//	PUSH((int) 0x0104 /* PageFaultHandlerã¸ã®ãƒ™ã‚¯ã‚¿å–å¾— */);
+	(int) [SS:ESP] = 0x0104 /* PageFaultHandlerã¸ã®ãƒ™ã‚¯ã‚¿å–å¾— */;
 	EBX = ESP;
 	CALLFAR0(SEL_PAPI);
 	POP(ECX);
@@ -741,9 +741,9 @@ void far Init()
 	(short) [DS:EBX + 2] = CX;
 	(short) [DS:EBX + 4] = 0x8e00;
 	(short) [DS:EBX + 6] = AX;
-	/* eoc‚ªc‚Á‚Ä‚¢‚é */
+	/* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 
-	/* PIC‰Šú‰» */
+	/* PICåˆæœŸåŒ– */
 
 	#if (defined(PCAT))
 		AL = 0x11; /* ICW1 (edge trigger) */
@@ -754,21 +754,21 @@ void far Init()
 		OUT(0x21, AL); /* master */
 		AL = 0x28; /* ICW2(int-no.) */
 		OUT(0xa1, AL); /* slave */
-		AL = 0x04; /* ICW3 slave‚ª‚Â‚È‚ª‚Á‚Ä‚¢‚éIRQ‚Ìbit‚ğ1‚É‚·‚é(bit2 = 1) */
+		AL = 0x04; /* ICW3 slaveãŒã¤ãªãŒã£ã¦ã„ã‚‹IRQã®bitã‚’1ã«ã™ã‚‹(bit2 = 1) */
 		OUT(0x21, AL); /* master */
-		AL = 0x02; /* ICW3 slave‚Ímaster‚Ì‰½”Ô‚ÉÚ‘±‚³‚ê‚Ä‚¢‚é‚©(IRQ 02) */
+		AL = 0x02; /* ICW3 slaveã¯masterã®ä½•ç•ªã«æ¥ç¶šã•ã‚Œã¦ã„ã‚‹ã‹(IRQ 02) */
 		OUT(0xa1, AL); /* slave */
 		AL = 0x01; /* ICW4(non-buf. mode) */
 		OUT(0x21, AL); /* master */
 		AL = 0x01; /* ICW4(non-buf. mode) */
 		OUT(0xa1, AL); /* slave */
-		AL = 0xb9; /* OCW1 keyboard‚Æslave‚ÆFDC‚¾‚¯‚ğ‹–‰Â 10111001 */
+		AL = 0xb9; /* OCW1 keyboardã¨slaveã¨FDCã ã‘ã‚’è¨±å¯ 10111001 */
 		OUT(0x21, AL); /* master */
-		AL = 0xef; /* OCW1  mouse‚¾‚¯‹–‰Â 11101111b */
+		AL = 0xef; /* OCW1  mouseã ã‘è¨±å¯ 11101111b */
 		OUT(0xa1, AL); /* slave */
-		AL = 0x4a; /* OCW3 IRR“Ç‚İ‚İ “Áêƒ}ƒXƒNƒ‚[ƒhƒŠƒZƒbƒg 01001010 */
+		AL = 0x4a; /* OCW3 IRRèª­ã¿è¾¼ã¿ ç‰¹æ®Šãƒã‚¹ã‚¯ãƒ¢ãƒ¼ãƒ‰ãƒªã‚»ãƒƒãƒˆ 01001010 */
 		OUT(0x20, AL); /* master */
-		AL = 0x4b; /* OCW3 ISR“Ç‚İ‚İ “Áêƒ}ƒXƒNƒ‚[ƒhƒŠƒZƒbƒg 01001011 */
+		AL = 0x4b; /* OCW3 ISRèª­ã¿è¾¼ã¿ ç‰¹æ®Šãƒã‚¹ã‚¯ãƒ¢ãƒ¼ãƒ‰ãƒªã‚»ãƒƒãƒˆ 01001011 */
 		OUT(0xa0, AL); /* slave */
 	#endif
 	#if (defined(TOWNS))
@@ -780,21 +780,21 @@ void far Init()
 		OUT(0x02, AL); /* master */
 		AL = 0x28; /* ICW2(int-no.) */
 		OUT(0x12, AL); /* slave */
-		AL = 0x80; /* ICW3 slave‚ª‚Â‚È‚ª‚Á‚Ä‚¢‚éIRQ‚Ìbit‚ğ1‚É‚·‚é(bit7 = 1) */
+		AL = 0x80; /* ICW3 slaveãŒã¤ãªãŒã£ã¦ã„ã‚‹IRQã®bitã‚’1ã«ã™ã‚‹(bit7 = 1) */
 		OUT(0x02, AL); /* master */
-		AL = 0x07; /* ICW3 slave‚Ímaster‚Ì‰½”Ô‚ÉÚ‘±‚³‚ê‚Ä‚¢‚é‚©(IRQ 07) */
+		AL = 0x07; /* ICW3 slaveã¯masterã®ä½•ç•ªã«æ¥ç¶šã•ã‚Œã¦ã„ã‚‹ã‹(IRQ 07) */
 		OUT(0x12, AL); /* slave */
 		AL = 0x1d; /* ICW4(buf.-master mode) */
 		OUT(0x02, AL); /* master */
 		AL = 0x09; /* ICW4(buf.-slave mode) */
 		OUT(0x12, AL); /* slave */
-		AL = 0x3d; /* OCW1 keyboard‚Æslave‚ÆFDC‚¾‚¯‚ğ‹–‰Â 00111101 */
+		AL = 0x3d; /* OCW1 keyboardã¨slaveã¨FDCã ã‘ã‚’è¨±å¯ 00111101 */
 		OUT(0x02, AL); /* master */
-		AL = 0xff; /* OCW1 ‘S‚Äƒ}ƒXƒN */
+		AL = 0xff; /* OCW1 å…¨ã¦ãƒã‚¹ã‚¯ */
 		OUT(0x12, AL); /* slave */
-		AL = 0x4a; /* OCW3 IRR“Ç‚İ‚İ “Áêƒ}ƒXƒNƒ‚[ƒhƒŠƒZƒbƒg 01001010 */
+		AL = 0x4a; /* OCW3 IRRèª­ã¿è¾¼ã¿ ç‰¹æ®Šãƒã‚¹ã‚¯ãƒ¢ãƒ¼ãƒ‰ãƒªã‚»ãƒƒãƒˆ 01001010 */
 		OUT(0x00, AL); /* master */
-		AL = 0x4b; /* OCW3 ISR“Ç‚İ‚İ “Áêƒ}ƒXƒNƒ‚[ƒhƒŠƒZƒbƒg 01001011 */
+		AL = 0x4b; /* OCW3 ISRèª­ã¿è¾¼ã¿ ç‰¹æ®Šãƒã‚¹ã‚¯ãƒ¢ãƒ¼ãƒ‰ãƒªã‚»ãƒƒãƒˆ 01001011 */
 		OUT(0x10, AL); /* slave */
 	#endif
 	#if (defined(NEC98))
@@ -806,28 +806,28 @@ void far Init()
 		OUT(0x02, AL); /* master */
 		AL = 0x28; /* ICW2(int-no.) */
 		OUT(0x0a, AL); /* slave */
-		AL = 0x80; /* ICW3 slave‚ª‚Â‚È‚ª‚Á‚Ä‚¢‚éIRQ‚Ìbit‚ğ1‚É‚·‚é(bit7 = 1) */
+		AL = 0x80; /* ICW3 slaveãŒã¤ãªãŒã£ã¦ã„ã‚‹IRQã®bitã‚’1ã«ã™ã‚‹(bit7 = 1) */
 		OUT(0x02, AL); /* master */
-		AL = 0x07; /* ICW3 slave‚Ímaster‚Ì‰½”Ô‚ÉÚ‘±‚³‚ê‚Ä‚¢‚é‚©(IRQ 07) */
+		AL = 0x07; /* ICW3 slaveã¯masterã®ä½•ç•ªã«æ¥ç¶šã•ã‚Œã¦ã„ã‚‹ã‹(IRQ 07) */
 		OUT(0x0a, AL); /* slave */
 		AL = 0x1d; /* ICW4(buf.-master mode) */
 		OUT(0x02, AL); /* master */
 		AL = 0x09; /* ICW4(buf.-slave mode) */
 		OUT(0x0a, AL); /* slave */
-	//	AL = 0x7d; /* OCW1 keyboard‚Æslave‚¾‚¯‚ğ‹–‰Â 01111101 */
-		AL = 0x7f; /* OCW1 slave‚¾‚¯‚ğ‹–‰Â 01111101 */
+	//	AL = 0x7d; /* OCW1 keyboardã¨slaveã ã‘ã‚’è¨±å¯ 01111101 */
+		AL = 0x7f; /* OCW1 slaveã ã‘ã‚’è¨±å¯ 01111101 */
 		OUT(0x02, AL); /* master */
-		AL = 0xf7; /* OCW1 FDC‚¾‚¯‚ğ‹–‰Â 11110111 */
+		AL = 0xf7; /* OCW1 FDCã ã‘ã‚’è¨±å¯ 11110111 */
 		OUT(0x0a, AL); /* slave */
-		AL = 0x4a; /* OCW3 IRR“Ç‚İ‚İ “Áêƒ}ƒXƒNƒ‚[ƒhƒŠƒZƒbƒg 01001010 */
+		AL = 0x4a; /* OCW3 IRRèª­ã¿è¾¼ã¿ ç‰¹æ®Šãƒã‚¹ã‚¯ãƒ¢ãƒ¼ãƒ‰ãƒªã‚»ãƒƒãƒˆ 01001010 */
 		OUT(0x00, AL); /* master */
-		AL = 0x4b; /* OCW3 ISR“Ç‚İ‚İ “Áêƒ}ƒXƒNƒ‚[ƒhƒŠƒZƒbƒg 01001011 */
+		AL = 0x4b; /* OCW3 ISRèª­ã¿è¾¼ã¿ ç‰¹æ®Šãƒã‚¹ã‚¯ãƒ¢ãƒ¼ãƒ‰ãƒªã‚»ãƒƒãƒˆ 01001011 */
 		OUT(0x08, AL); /* slave */
 	#endif
 
 	STI(); // IF = 1;
 
-	/* ƒtƒHƒ“ƒgƒ[ƒh for debug */
+	/* ãƒ•ã‚©ãƒ³ãƒˆãƒ­ãƒ¼ãƒ‰ for debug */
 	#if (defined(BOCHS))
 	//	PUSH((int) 0x0000);
 		PUSH((int) 7 * 8 /* ankfont-sel */);
@@ -841,17 +841,17 @@ void far Init()
 	//	PUSH(SS);
 	//	POP(FS);
 		CALLFAR0(SEL_GAPI);
-		ESP += 28; /* eoc‚ªc‚Á‚Ä‚¢‚é */
+		ESP += 28; /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 	#endif
 
-	/* ƒL[ƒ{[ƒh‰Šú‰»‚ÆƒvƒƒeƒNƒgƒƒ‚ƒŠ‰Šú‰»‚ğ‚â‚é */
-	/* •½s‚µ‚ÄAFDD‰Šú‰»‚à‚Å‚«‚éB */
+	/* ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰åˆæœŸåŒ–ã¨ãƒ—ãƒ­ãƒ†ã‚¯ãƒˆãƒ¡ãƒ¢ãƒªåˆæœŸåŒ–ã‚’ã‚„ã‚‹ */
+	/* å¹³è¡Œã—ã¦ã€FDDåˆæœŸåŒ–ã‚‚ã§ãã‚‹ã€‚ */
 
 //	PUSH((int) 0); /* eoc */
 	PUSH((int) 0x0104 /* KeyboardReset */);
 	EBX = ESP;
 	CALLFAR0(SEL_KEYINT);
-	POP(EAX); /* eoc‚ªc‚Á‚Ä‚¢‚é */
+	POP(EAX); /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 
 	#if (defined(PCAT))
 	//	PUSH((int) 0); /* eoc */
@@ -860,7 +860,7 @@ void far Init()
 		EBX = ESP;
 		CALLFAR0(SEL_KEYINT);
 		POP(EAX);
-		POP(EAX); /* eoc‚ªc‚Á‚Ä‚¢‚é */
+		POP(EAX); /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 
 	//	PUSH((int) 0); /* eoc */
 		EAX = (unsigned char) swork_ES->boot_keylock;
@@ -869,25 +869,25 @@ void far Init()
 		EBX = ESP;
 		CALLFAR0(SEL_DECODE);
 		POP(EAX);
-		POP(EAX); /* eoc‚ªc‚Á‚Ä‚¢‚é */
+		POP(EAX); /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 	#endif
 
-	/* tapiwork‚Ì‚½‚ß‚Ìƒƒ‚ƒŠ‹óŠÔ‚ğŠm•Û */
+	/* tapiworkã®ãŸã‚ã®ãƒ¡ãƒ¢ãƒªç©ºé–“ã‚’ç¢ºä¿ */
 	PUSH(SS);
 	/* ESI = (offset) work->linear_man; */ LEA(ESI, (int) work->linear_man);
 	POP(DS);
 	ECX = 64 * 4096; /* 256KB */
 	get_area();
 //	if (ZF == 1)
-//		INT(0x03); /* ‚ ‚è‚¦‚È‚¢I */
+//		INT(0x03); /* ã‚ã‚Šãˆãªã„ï¼ */
 	work->tapiwork_Laddr = EAX;
 	EDX = EAX;
 
-	/* ‹¤’Ê•”•ª‚Ì4KB‚¾‚¯ƒƒ‚ƒŠ‚ğŠ„‚è“–‚Ä‚Ä‚â‚é */
+	/* å…±é€šéƒ¨åˆ†ã®4KBã ã‘ãƒ¡ãƒ¢ãƒªã‚’å‰²ã‚Šå½“ã¦ã¦ã‚„ã‚‹ */
 	ECX = 4096;
 	get_memory();
 //	if (ZF == 1)
-//		INT(0x03); /* ‚ ‚è‚¦‚È‚¢I */
+//		INT(0x03); /* ã‚ã‚Šãˆãªã„ï¼ */
 	work->tapiwork_Paddr = EAX;
 
 	EBX = 0;
@@ -903,7 +903,7 @@ void far Init()
 	PUSH((int) 0x0108 /* cmd(mapping) */);
 	EBX = ESP;
 	CALLFAR0(SEL_PAPI);
-	ESP += 36; /* eoc‚ªc‚Á‚Ä‚¢‚é */
+	ESP += 36; /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 
 	PUSH(GS);
 	EBX = 384 + SEL_TAPIWORK;
@@ -931,14 +931,14 @@ PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 1; POP(DS);
 		PUSH(0x0004); /* special */
 		EBX = ESP;
 		CALLFAR0(SEL_TIMERINT);
-		EAX = [SS:ESP + 0x10]; /* mscount—pƒxƒNƒ^ */
+		EAX = [SS:ESP + 0x10]; /* mscountç”¨ãƒ™ã‚¯ã‚¿ */
 		EBX = 0x20 * 8;
 		(short) [DS:EBX + 0] = AX;
 		(unsigned int) EAX >>= 16;
 		(short) [DS:EBX + 4] = 0x8e00;
 		(short) [DS:EBX + 2] = SEL_TIMERINT;
 		(short) [DS:EBX + 6] = AX;
-		ESP += 24; /* ?, ?, eoc‚Íc‚Á‚Ä‚¢‚é */
+		ESP += 24; /* ?, ?, eocã¯æ®‹ã£ã¦ã„ã‚‹ */
 		PUSH(0x000c); /* calc_count1ms */
 		PUSH(0x0004); /* special */
 		EBX = ESP;
@@ -946,20 +946,20 @@ PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 1; POP(DS);
 		POP(EAX);
 		POP(EAX);
 		POP(EDX);
-		POP(EAX); /* eoc‚ªc‚Á‚Ä‚¢‚é */
+		POP(EAX); /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 	#endif
 	#if (defined(QEMU) | 1)
-		/* À‹@‚Å‚Í‚±‚ñ‚ÈƒR[ƒh‚Í—v‚ç‚È‚¢‚Ì‚¾‚ªEEE */
-		/* qemu‚Æbochs‚Ì‚½‚ß‚É */
+		/* å®Ÿæ©Ÿã§ã¯ã“ã‚“ãªã‚³ãƒ¼ãƒ‰ã¯è¦ã‚‰ãªã„ã®ã ãŒãƒ»ãƒ»ãƒ» */
+		/* qemuã¨bochsã®ãŸã‚ã« */
 		if ((signed) EDX <= 15)
-			EDX = 15; /* ‚Ä‚«‚Æ[‚È‚ ‚½‚¢ */
+			EDX = 15; /* ã¦ãã¨ãƒ¼ãªã‚ãŸã„ */
 	#endif
 
 #ifdef DEBUG031127
 PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 2; POP(DS);
 #endif
 
-	/* Timer, TAPI‚ğ‹N“® */
+	/* Timer, TAPIã‚’èµ·å‹• */
 	CLI();
 //	PUSH(0 /* eoc */);
 	PUSH(EAX /* reserve */);
@@ -968,18 +968,18 @@ PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 2; POP(DS);
 	PUSH(4 /* special */);
 	EBX = ESP;
 	CALLFAR0(SEL_TIMERINT);
-	/* 4, 0, ?, ?, eoc‚ªc‚Á‚Ä‚¢‚é */
+	/* 4, 0, ?, ?, eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 
 #ifdef DEBUG031127
 PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 3; POP(DS);
 #endif
 
 	ESP -= 8;
-	PUSH(8 /* intƒnƒ“ƒhƒ‰î•ñ—v‹ */);
+	PUSH(8 /* intãƒãƒ³ãƒ‰ãƒ©æƒ…å ±è¦æ±‚ */);
 	PUSH(4);
 	EBX = ESP;
 	CALLFAR0(SEL_TIMERINT);
-	EAX = [SS:ESP + 8]; /* EAX‚ÉƒIƒtƒZƒbƒg */
+	EAX = [SS:ESP + 8]; /* EAXã«ã‚ªãƒ•ã‚»ãƒƒãƒˆ */
 	EBX = 0x20 * 8;
 	(short) [DS:EBX + 0] = AX;
 	(unsigned int) EAX >>= 16;
@@ -987,19 +987,19 @@ PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 3; POP(DS);
 	(short) [DS:EBX + 2] = SEL_TIMERINT;
 	(short) [DS:EBX + 6] = AX;
 	STI();
-	/* 4, 8, ?, ?, ?, ?, ?, ?, eoc‚ªc‚Á‚Ä‚¢‚é */
+	/* 4, 8, ?, ?, ?, ?, ?, ?, eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 
 #ifdef DEBUG031127
 PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 4; POP(DS);
 #endif
 
-	PUSH(4 /* ˆê”Êî•ñ—v‹ */);
+	PUSH(4 /* ä¸€èˆ¬æƒ…å ±è¦æ±‚ */);
 	PUSH(4);
 	EBX = ESP;
 	CALLFAR0(SEL_TIMERINT);
-	EAX = [SS:ESP + 36]; /* Š„‚è‚İü”g”[Hz] */
-	ECX = [SS:ESP + 28]; /* Š„‚è‚İüŠú[2^-32sec] */
-	ESP += 44 - 4; /* eoc‚ªc‚Á‚Ä‚¢‚é */
+	EAX = [SS:ESP + 36]; /* å‰²ã‚Šè¾¼ã¿å‘¨æ³¢æ•°[Hz] */
+	ECX = [SS:ESP + 28]; /* å‰²ã‚Šè¾¼ã¿å‘¨æœŸ[2^-32sec] */
+	ESP += 44 - 4; /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 	work->timer_freq = EAX;
 	work->timer_sec4 = ECX;
 
@@ -1010,7 +1010,7 @@ PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 5; POP(DS);
 	PUSH((int) 0x0108 /* init */);
 	EBX = ESP;
 	CALLFAR0(SEL_TAPI);
-	POP(EAX); /* eoc‚ªc‚Á‚Ä‚¢‚é */
+	POP(EAX); /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 
 #ifdef DEBUG031127
 PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 6; POP(DS);
@@ -1028,26 +1028,26 @@ PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 7; POP(DS);
 
 	#if (defined(PCAT))
 		AL = swork_DS->FD_motor_init;
-		/* 0x0c(‘Sƒ‚[ƒ^[’â~Aƒhƒ‰ƒCƒu0‘I‘ğ)‚©0x1c(drv0‚Ìƒ‚[ƒ^[‰ñ“]A‘¼‚Í’â~Aƒhƒ‰ƒCƒu0‘I‘ğ) */
+		/* 0x0c(å…¨ãƒ¢ãƒ¼ã‚¿ãƒ¼åœæ­¢ã€ãƒ‰ãƒ©ã‚¤ãƒ–0é¸æŠ)ã‹0x1c(drv0ã®ãƒ¢ãƒ¼ã‚¿ãƒ¼å›è»¢ã€ä»–ã¯åœæ­¢ã€ãƒ‰ãƒ©ã‚¤ãƒ–0é¸æŠ) */
 		PUSH(EAX);
 	#elif (defined(TOWNS))
-		PUSH((int) 0x0300 /* ‘Sƒ‚[ƒ^[’â~Aƒhƒ‰ƒCƒu‘I‘ğ‚È‚µ */);
+		PUSH((int) 0x0300 /* å…¨ãƒ¢ãƒ¼ã‚¿ãƒ¼åœæ­¢ã€ãƒ‰ãƒ©ã‚¤ãƒ–é¸æŠãªã— */);
 	#elif (defined(NEC98))
-		PUSH(0); /* ‘Sƒ‚[ƒ^[’â~ */
+		PUSH(0); /* å…¨ãƒ¢ãƒ¼ã‚¿ãƒ¼åœæ­¢ */
 	#endif
-	PUSH((int) 0x0100 /* ‰Šú‰» */);
+	PUSH((int) 0x0100 /* åˆæœŸåŒ– */);
 	EBX = ESP;
 	CALLFAR0(SEL_FDCDRIVE);
 	POP(EAX);
-	POP(EAX); /* eoc‚ªc‚Á‚Ä‚¢‚é */
+	POP(EAX); /* eocãŒæ®‹ã£ã¦ã„ã‚‹ */
 
-	POP(EAX); /* eoc‚ªc‚Á‚Ä‚È‚¢ */
+	POP(EAX); /* eocãŒæ®‹ã£ã¦ãªã„ */
 
 #ifdef DEBUG031127
 PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 8; POP(DS);
 #endif
 
-	/* PIT2‚Ì‰Šú‰»AÁ‰¹ */
+	/* PIT2ã®åˆæœŸåŒ–ã€æ¶ˆéŸ³ */
 	CLI();
 	#if (defined(PCAT))
 		IN(AL, 0x0061);
@@ -1088,7 +1088,7 @@ PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 8; POP(DS);
 PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 9; POP(DS);
 #endif
 
-	/* rootì¬ */
+	/* rootä½œæˆ */
 	/*	+0000 : header
 		+0200 : tag-buf. area-struct
 		+0400 : root-tags
@@ -1107,7 +1107,7 @@ PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 9; POP(DS);
 	work->root_addr = EDX;
 	work->root_Paddr = EAX;
 	PUSH(SEL_IDTGDT);
-	EBX = 384 /* IDT‚Ì•ª */ + SEL_ROOT;
+	EBX = 384 /* IDTã®åˆ† */ + SEL_ROOT;
 	POP(GS);
 	EAX = 0x4092; /* lv0, Read/Write, use32 */
 	set_modulesegment();
@@ -1134,40 +1134,40 @@ PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 9; POP(DS);
 PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 10; POP(DS);
 #endif
 
-	ECX = 512; /* tag—p‚Ì—Ìˆæ */
+	ECX = 512; /* tagç”¨ã®é ˜åŸŸ */
 	ESI = 512; /* allocator */
 	alloc_tagdir();
 	PUSH(CS);
 	asmout("MOV EBX,OFFSET #rootdir");
 	POP(GS);
-	add_tags(); /* GS:EBX‚ğDS:EDI‚ÖBEDI‚Í•Û‘¶‚³‚ê‚éBEAX, ECX, EDX‚Í”j‰ó */
-	/* "link to directory"ƒ^ƒO‚ğŒ©‚Â‚¯‚é‚ÆA©“®“I‚ÉƒAƒƒP[ƒg‚·‚é */
-	/* ‚±‚±‚Å‚ÍAEDI = 1024‚Æ•ª‚©‚Á‚Ä‚¢‚é‚Ì‚ÅAEDI‚ğ•Û‘¶‚µ‚È‚¢ */
+	add_tags(); /* GS:EBXã‚’DS:EDIã¸ã€‚EDIã¯ä¿å­˜ã•ã‚Œã‚‹ã€‚EAX, ECX, EDXã¯ç ´å£Š */
+	/* "link to directory"ã‚¿ã‚°ã‚’è¦‹ã¤ã‘ã‚‹ã¨ã€è‡ªå‹•çš„ã«ã‚¢ãƒ­ã‚±ãƒ¼ãƒˆã™ã‚‹ */
+	/* ã“ã“ã§ã¯ã€EDI = 1024ã¨åˆ†ã‹ã£ã¦ã„ã‚‹ã®ã§ã€EDIã‚’ä¿å­˜ã—ãªã„ */
 
-	ECX = 512; /* tag—p‚Ì—Ìˆæ */
+	ECX = 512; /* tagç”¨ã®é ˜åŸŸ */
 //	ESI = 512; /* allocator */
 	alloc_tagdir(); /* EDI = 2048 */
 	asmout("MOV EBX,OFFSET #tasksdir");
-	add_tags(); /* GS:EBX‚ğDS:EDI‚ÖBEDI‚Í•Û‘¶‚³‚ê‚éBEAX, ECX, EDX‚Í”j‰ó */
-	/* "link to directory"ƒ^ƒO‚ğŒ©‚Â‚¯‚é‚ÆA©“®“I‚ÉƒAƒƒP[ƒg‚·‚é */
+	add_tags(); /* GS:EBXã‚’DS:EDIã¸ã€‚EDIã¯ä¿å­˜ã•ã‚Œã‚‹ã€‚EAX, ECX, EDXã¯ç ´å£Š */
+	/* "link to directory"ã‚¿ã‚°ã‚’è¦‹ã¤ã‘ã‚‹ã¨ã€è‡ªå‹•çš„ã«ã‚¢ãƒ­ã‚±ãƒ¼ãƒˆã™ã‚‹ */
 	EBX = 1024;
-	regist_module(); /* EBX‚ÌƒfƒBƒŒƒNƒgƒŠ‚ÉEDI‚Ìƒ‚ƒWƒ…[ƒ‹(ƒ^ƒOƒfƒBƒŒƒNƒgƒŠ)‚ğÚ‘±‚·‚é */
+	regist_module(); /* EBXã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«EDIã®ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«(ã‚¿ã‚°ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª)ã‚’æ¥ç¶šã™ã‚‹ */
 
-	ECX = 512; /* tag—p‚Ì—Ìˆæ */
+	ECX = 512; /* tagç”¨ã®é ˜åŸŸ */
 //	ESI = 512; /* allocator */
 	alloc_tagdir(); /* EDI = 3072 */
 	asmout("MOV EBX,.gapidata_mdl");
-	add_tags(); /* GS:EBX‚ğDS:EDI‚ÖBEDI‚Í•Û‘¶‚³‚ê‚éBEAX, ECX, EDX‚Í”j‰ó */
+	add_tags(); /* GS:EBXã‚’DS:EDIã¸ã€‚EDIã¯ä¿å­˜ã•ã‚Œã‚‹ã€‚EAX, ECX, EDXã¯ç ´å£Š */
 	EAX = swork_ES->alloclist[ENT_GAPIDATA + 12];
 	[DS:EDI + 72] = EAX;
 	EBX = 1024;
-	regist_module(); /* EBX‚ÌƒfƒBƒŒƒNƒgƒŠ‚ÉEDI‚Ìƒ‚ƒWƒ…[ƒ‹(ƒ^ƒOƒfƒBƒŒƒNƒgƒŠ)‚ğÚ‘±‚·‚é */
+	regist_module(); /* EBXã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«EDIã®ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«(ã‚¿ã‚°ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª)ã‚’æ¥ç¶šã™ã‚‹ */
 
 #ifdef DEBUG031127
 PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 11; POP(DS);
 #endif
 
-	/* GAPI‚ÌƒtƒHƒ“ƒg—ÌˆæŠÇ—(b’è) */
+	/* GAPIã®ãƒ•ã‚©ãƒ³ãƒˆé ˜åŸŸç®¡ç†(æš«å®š) */
 	area_man_struct *gapifontarea == DS:ESI;
 	(offset) gapifontarea = 0x0e00;
 	PUSH(SEL_GAPIWORK);
@@ -1182,55 +1182,7 @@ PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 11; POP(DS);
 	gapifontarea->data0.addr = EAX;
 	gapifontarea->data[0].size = EDX;
 	gapifontarea->data[0].addr = EDX;
-	EAX = 616 * 1024; /* Å‰‚Ì4KB‚Íƒ[ƒNBŸ‚Ì4KB‚ÍANKBŸ‚Ì608KB‚ÍOSASK‹¤’ÊƒtƒHƒ“ƒgB */
-	ECX = 88 * 1024;
-	free_area();
-
-	PUSH(SEL_SYSWORK);
-	PUSH(SS /* stack_sel */);
-	POP(ES); /* = stack_sel; */
-	POP(GS); /* = syswork_sel; */
-
-#ifdef DEBUG031127
-PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 12; POP(DS);
-#endif
-
-	/* ©•ª©g‚Ìƒ^ƒXƒNî•ñ‚ğ\’z‚·‚é */
-	EDX = 0;
-	PUSH(EDX);
-	PUSH(EDX /* stack3‚Ì•¨—ƒAƒhƒŒƒX(Šm•Û‚µ‚Ä‚¢‚È‚¯‚ê‚Î0xffffffff) */);
-	PUSH(EDX /* stack3‚ÌƒTƒCƒY */);
-	PUSH(EDX /* stack0‚Ì•¨—ƒAƒhƒŒƒX(high) */);
-	PUSH((int) swork_GS->alloclist[ENT_STACK + 12] /* stack0‚Ì•¨—ƒAƒhƒŒƒX(Šm•Û‚µ‚Ä‚¢‚È‚¯‚ê‚Î0xffffffff) */);
-	PUSH((int) swork_GS->alloclist[ENT_STACK +  8] /* stack0‚ÌƒTƒCƒY */);
-	PUSH((int) 0xffffffff /* ƒ^ƒXƒNƒfƒBƒŒƒNƒgƒŠ(high) */);
-	PUSH((int) 0xffffffff /* ƒ^ƒXƒNƒfƒBƒŒƒNƒgƒŠ(low) */);
-//	ESP -= 8;
-	PUSH(EAX);
-	PUSH(EAX);
-	PUSH(EDX);
-	PUSH(EDX);
-	PUSH(EDX);
-	PUSH((int) swork_GS->modulelist[ENT_INIT + 12]);
-	PUSH((int) swork_GS->modulelist[ENT_INIT +  8]);
-	EBX = ESP;
-	/* ES:EBX‚©‚ç‚Ì16ƒoƒCƒg‚ªƒpƒ‰ƒ[ƒ^[(ƒR[ƒhƒTƒCƒYAƒR[ƒhƒ[ƒh•¨—ƒAƒhƒŒƒXAƒwƒbƒ_ƒpƒ‰ƒ[ƒ^[) */
-	/* ‚»‚Ì‚ ‚Æ‚Ì8ƒoƒCƒg‚ªƒŠƒU[ƒuB */
-	/* ‚»‚Ì‚ ‚Æ‚Ì4ƒoƒCƒg‚ÍtskdirBlinear—Ìˆæ‚É•t‚¢‚Ä‚ÍA˜A‘±ˆê–‡‚É‚·‚éB */
-	/* code, stack0, stack3 */
-	/* stack0‚Í•K‚¸•K—vBstack3‚Íƒwƒbƒ_ƒpƒ‰ƒ[ƒ^[‚ğ“Ç‚ß‚Î•K—v‚©‚Ç‚¤‚©‚ª”»’f‚Å‚«‚é */
-	/*	{
-			int codesize, codeaddr[8], header[8], reserve[8];
-			int tskdir[8], stack0size, stack0addr[8], stack3size, stack3addr[8];
-		}; // total 60bytes
-	*/
-#ifdef DEBUG031127
-PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 13; POP(DS);
-#endif
-	create_task();
-	ESP += 60;
-#ifdef DEBUG031127
-PUSH(DS); PUSH(SEL_TAPIWORK); POP(DS); (int) [DS:12] = 14; POP(DS);
+	EAX = 616 * 1024; /* æœ€åˆã®4KBã¯ãƒ¯ãƒ¼ã‚¯ã€‚æ¬¡ã®4KBã¯ANKã€‚æ¬¡ POP(DS);
 #endif
 
 	/* ‚±‚Ìƒ^ƒXƒN‚ÌLlv‚ğ’è‹`‚µATskPointer‚ğİ’è‚µATR‚Ö‘ã“ü‚·‚éB */

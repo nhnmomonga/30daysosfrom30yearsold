@@ -1,156 +1,156 @@
 ---------------------------------------------------------------------
-                  C����^�A�Z���u��"ASKA" Ver1.0��18
+                  C言語型アセンブラ"ASKA" Ver1.0β18
 ---------------------------------------------------------------------
-������F2001/10/01
-����ҁFshoe16(shoe16@wizard.elec.waseda.ac.jp)
-���w���F�썇��
-�C�����F2001/12/06
-�C���ҁFRisaPapa(ringring@zb4.so-net.ne.jp)
+制作日：2001/10/01
+制作者：shoe16(shoe16@wizard.elec.waseda.ac.jp)
+総指揮：川合堂
+修正日：2001/12/06
+修正者：RisaPapa(ringring@zb4.so-net.ne.jp)
 
-�P�DASKA�Ƃ�
+１．ASKAとは
 
-�@�]���^�A�Z���u���̋L�q���A�P�����P���߂�����C����ɂȂ�ׂ��߂�
-���悤�Ƃ����\�z�̉��ɐ��܂ꂽ���̂�ASKA�ł��B
-�@�]���A�A�Z���u���ł�if����loop���Ȃǂł͕s�K�v�Ƀ��x���������Ă���
-���Ǘ������ɑ�ςł����B�܂��\���̂��n��Ȃ��߁A������Ƃ����f�[�^
-�^�����ʂ��悭�T�|�[�g����̂����ɍ���ł����B����ɁA�A�Z���u����
-�t���[�X�^�C���^�̌���ł͂Ȃ����߂ɂP�s�ɂP���߂ƂȂ�s�������ɑ�
-���Ȃ��ăv���O�����̌��ʂ��������Ȃ��Ă��܂����B
-�@���̂悤�Ȗ��ɑΏ�����ׂ��A�J�����ꂽ�̂�ASKA�Ƃ����킯�ł��B
+　従来型アセンブラの記述を、１文＝１命令を守りつつC言語になるべく近づ
+けようという構想の下に生まれたものがASKAです。
+　従来、アセンブラではif文やloop文などでは不必要にラベルが増えてしま
+い管理が非常に大変でした。また構造体が貧弱なため、きちんとしたデータ
+型を見通しよくサポートするのが非常に困難でした。さらに、アセンブラは
+フリースタイル型の言語ではないために１行に１命令となり行数が非常に多
+くなってプログラムの見通しが悪くなっていました。
+　このような問題に対処するべく、開発されたのがASKAというわけです。
 
 
 
-�Q�DASKA�̎g����
+２．ASKAの使い方
 
-�@DOS�̃R�}���h�v�����v�g�ォ��
+　DOSのコマンドプロンプト上から
 
-	ASKA ���̓t�@�C���� �o�̓t�@�C����
+	ASKA 入力ファイル名 出力ファイル名
 
-�Ƃ���Ɠ��̓t�@�C�����R���p�C������386ASM�`���̏o�̓t�@�C���𐶐���
-�܂��B�o�̓t�@�C�����ȗ����Ƃ��ł��܂��B���̏ꍇ�A���̓t�@�C������
-"sample.ask"�Ȃ�Ώo�̓t�@�C������"sample.asm"�ɂȂ�܂��B
+とすると入力ファイルをコンパイルして386ASM形式の出力ファイルを生成し
+ます。出力ファイルを省略こともできます。その場合、入力ファイル名が
+"sample.ask"ならば出力ファイル名は"sample.asm"になります。
 
-��F
+例：
 	C:\ASKA\WORK\>ASKA sample.ask sample.asm
 	C:\ASKA\WORK\>ASKA sample.ask
 
 
-�d�v�F�R�}���h�v�����v�g�̃v���p�e�B�icommand.com�̃V���[�g�J�b�g��
-�@�@�@�v���p�e�B�j�̃������|�v���e�N�g���[�h(DPMI)�������̍��v������
-�@�@�@�łȂ���1024�Ȃǂɂ��Ă��������B�����̂܂܂��Ɠ����܂���B
+重要：コマンドプロンプトのプロパティ（command.comのショートカットの
+　　　プロパティ）のメモリ－プロテクトモード(DPMI)メモリの合計を自動
+　　　でなくて1024などにしてください。自動のままだと動きません。
 
 
-�R�DASKA�̓����I�ȋ@�\
+３．ASKAの特徴的な機能
 
-�@ASKA�ł́A
+　ASKAでは、
 
-�Eif�`else�`�Aloop�`break�Afor�Awhile�Ado�`while�Acontinue���g���܂��B
-�Echar�Ashort�Along�Abyte�Aword�Adword�ŕϐ��錾���o���܂��B
-�E�֐�����static�L�[���[�h���g�����ƂŐÓI�ȕϐ����錾�ł��܂��B
-�E�֐��͖߂�l�A�����Ȃ���void funcname();�Ő錾���o���܂��B
-�E�����ɂ�=�A+=�A-=�A*=�A/=�A&=�A|=�A^=�A<<=�A>>=�A=-�A=~�A���g���܂��B
-�E��r���ɂ�==�A!=�A<�A<=�A>�A>=�A���g���܂��B
-�E�\���̂ɂ��^��`���g���܂��B
-�E�|�C���^��z����g���܂��B
-�Esegment�ɂ��Z�O�����g��`��������Əo���܂��B
-�E���o�[�W������ASKA�ŕ₢����Ă��Ȃ�386ASM�{���̃j�[���j�b�N���߂�
-�@�uasmkeyword(list, ...);�v�ŃT�|�[�g�B
-�E��L�ŏo���Ȃ�".386p"�Ȃǂ�asmout(".386p");�ŃT�|�[�g�B
-�E�G�C���A�X�Ƃ������W�X�^��ϐ��Ɋ��蓖�ĂĎg�������o���܂��B
-�E���[�J���ϐ�����`�ł��܂��B
+・if～else～、loop～break、for、while、do～while、continueが使えます。
+・char、short、long、byte、word、dwordで変数宣言が出来ます。
+・関数内でstaticキーワードを使うことで静的な変数が宣言できます。
+・関数は戻り値、引数なしのvoid funcname();で宣言が出来ます。
+・式文には=、+=、-=、*=、/=、&=、|=、^=、<<=、>>=、=-、=~、が使えます。
+・比較式には==、!=、<、<=、>、>=、が使えます。
+・構造体による型定義が使えます。
+・ポインタや配列も使えます。
+・segmentによるセグメント定義もきちんと出来ます。
+・現バージョンのASKAで補いきれていない386ASM本来のニーモニック命令も
+　「asmkeyword(list, ...);」でサポート。
+・上記で出来ない".386p"などはasmout(".386p");でサポート。
+・エイリアスというレジスタを変数に割り当てて使う事が出来ます。
+・ローカル変数が定義できます。
 
-�@�t�ɁAASKA�ł́A
+　逆に、ASKAでは、
 
-�E���x���̑O���Q�Ƃ��o���܂���B
-�E�֐��Ɉ������������邱�Ƃ��o���܂���B
-
-
-
-�S�D�ȈՌ���d�l
-
-�E�C���N���[�h
-	include "�t�@�C����"
-�Ƃ��邱�ƂŃt�@�C����ǂݍ��ނ��Ƃ��o���܂��B
-�@�܂��Ainclude�̑����#include�ł�������������܂��B
+・ラベルの前方参照が出来ません。
+・関数に引数を持たせることが出来ません。
 
 
-�E�R�����g
-	// �R�����g��
-�Ƃ��鎖��//�ȍ~�A���s�������܂ł̕����R�����g�A�E�g����܂��B����
-��̃R�����g���͐؂�̂Ă��܂��B
-�@�܂��AC������ۂ�/* �` */���T�|�[�g���܂����B�����A�l�X�g�������悤��
-�g��ł���̂Œ��ӂ��K�v�ł��B
+
+４．簡易言語仕様
+
+・インクルード
+	include "ファイル名"
+とすることでファイルを読み込むことが出来ます。
+　また、includeの代わりに#includeでも同じ動作をします。
 
 
-�E���̃p�����[�^
-�@���̃p�����[�^�̓��W�X�^(r)�A�������Q��(m)�A���l(i)�̂R��ނ������
-���B���ꂼ��A
+・コメント
+	// コメント文
+とする事で//以降、改行が現れるまでの文がコメントアウトされます。これ
+らのコメント文は切り捨てられます。
+　また、C言語っぽく/* ～ */もサポートしました。ただ、ネストが効くように
+組んであるので注意が必要です。
+
+
+・式のパラメータ
+　式のパラメータはレジスタ(r)、メモリ参照(m)、即値(i)の３種類がありま
+す。それぞれ、
 	r:EAX, CX, DS, CR0
 	m:data, data[0], [EAX], [DS:EAX+EBX*2+&data+~3], *(EAX+1)
 	i:0xffff,-1,100,0b0011,&DATA,sizeof(TYPE),
-�Ȃǂ̂悤�ɂ����܂��B�܂��A�ϐ��⃁�����Q�Ƃ̃f�[�^�^���ꎞ�I�ɕς�
-�����`����ꍇ�ɂ̓L���X�g���g�����Ƃ��o���܂��B
+などのようにかけます。また、変数やメモリ参照のデータ型を一時的に変え
+たり定義する場合にはキャストを使うことが出来ます。
 
-�������ɃL���X�g�֌W�A���l���Z�֌W�A[]���L�q�����֌W������
+※ここにキャスト関係、即値演算関係、[]内記述方式関係を書く
 
 
-�E����
-�@������
-	rm  = rmi;	��	MOV	rm,rmi
-			��	MOVSX or MOVZX	(�T�C�Y���Ⴄ�Ƃ�)
-	r   =   0;	��	XOR	r ,r
-	rm += rmi;	��	ADD	rm,rmi
-	rm +=   1;	��	INC	rm
-	rm -= rmi;	��	SUB	rm,rmi
-	rm -=   1;	��	DEC	rm
-	rm *=   1;	��	�œK���ɂ��ȗ�
-	reg*=   2;	��	ADD	reg,reg
-	rm *=   2;	��	SHL	rm,2
-	r32*=   3;	��	LEA	r32,[r32 * 2 + r32]
-	rm *=   4;	��	SHL	rm,2
-	r32*=   5;	��	LEA	r32,[r32 * 4 + r32]
-	rm *=   8;	��	SHL	rm,3
-	r32*=   9;	��	LEA	r32,[r32 * 8 + r32]
-	rm *=   1;	��	�œK���ɂ��ȗ�
-	rm *=   2;	��	SAR	rm,1	(unsigned�̎���SHR)
-	rm *=   4;	��	SAR	rm,2	(unsigned�̎���SHR)
-	rm *=   8;	��	SAR	rm,4	(unsigned�̎���SHR)
-	rm &= rmi;	��	AND	rm,rmi
-	rm |= rmi;	��	OR	rm,rmi
-	rm ^= rmi;	��	XOR	rm,rmi
-	rm<<= rmi;	��	SAL	rm,rmi	(unsigned�̎���SHL)
-	reg<<=  1;	��	ADD	reg,reg
-	rm>>= rmi;	��	SAR	rm,rmi	(unsigned�̎���SHR)
-	rm =- rmi;	��	NEG	rm
-	rm =~ rmi;	��	NOT	rm
-	rm++;		��	INC	rm
-	rm--;		��	DEC	rm
-�̂悤�ɂȂ�܂��B�C���N�������g�ƃf�N�������g�ȊO�͍��ɂP�p�����[�^�A
-�E�ɂP�p�����[�^�ł��B�������A=-��=~�͍��ƉE�̃p�����[�^���܂�������
-���łȂ���΂Ȃ�܂���B
-�����o�[�W�����ł̓`�F�b�N�͍s���Ă��܂��񂪁E�E�E
+・式文
+　式文は
+	rm  = rmi;	→	MOV	rm,rmi
+			→	MOVSX or MOVZX	(サイズが違うとき)
+	r   =   0;	→	XOR	r ,r
+	rm += rmi;	→	ADD	rm,rmi
+	rm +=   1;	→	INC	rm
+	rm -= rmi;	→	SUB	rm,rmi
+	rm -=   1;	→	DEC	rm
+	rm *=   1;	→	最適化により省略
+	reg*=   2;	→	ADD	reg,reg
+	rm *=   2;	→	SHL	rm,2
+	r32*=   3;	→	LEA	r32,[r32 * 2 + r32]
+	rm *=   4;	→	SHL	rm,2
+	r32*=   5;	→	LEA	r32,[r32 * 4 + r32]
+	rm *=   8;	→	SHL	rm,3
+	r32*=   9;	→	LEA	r32,[r32 * 8 + r32]
+	rm *=   1;	→	最適化により省略
+	rm *=   2;	→	SAR	rm,1	(unsignedの時はSHR)
+	rm *=   4;	→	SAR	rm,2	(unsignedの時はSHR)
+	rm *=   8;	→	SAR	rm,4	(unsignedの時はSHR)
+	rm &= rmi;	→	AND	rm,rmi
+	rm |= rmi;	→	OR	rm,rmi
+	rm ^= rmi;	→	XOR	rm,rmi
+	rm<<= rmi;	→	SAL	rm,rmi	(unsignedの時はSHL)
+	reg<<=  1;	→	ADD	reg,reg
+	rm>>= rmi;	→	SAR	rm,rmi	(unsignedの時はSHR)
+	rm =- rmi;	→	NEG	rm
+	rm =~ rmi;	→	NOT	rm
+	rm++;		→	INC	rm
+	rm--;		→	DEC	rm
+のようになります。インクリメントとデクリメント以外は左に１パラメータ、
+右に１パラメータです。ただし、=-と=~は左と右のパラメータがまったく同
+じでなければなりません。
+＃現バージョンではチェックは行われていませんが・・・
 
-����ȏꍇ�Ƃ���far*�Ő錾���ꂽ���x������уG�C���A�X�́A+=,-=,++,--
-�Ɍ�����offset�L���X�g�����Ȃ��Ă��f�t�H���g�ŃI�t�Z�b�g�ɉ��Z���{
-����܂��B�܂��A���ӂƉE�ӂœ���̃Z�O�����g���W�X�^���w�肵���G�C��
-�A�X�̏ꍇ�́A�I�t�Z�b�g�݂̂��������܂��B����ɁA���ӂ��G�C���A�X
-�ŉE�ӂ��������̎��͗�̂悤��L(segreg)���߂��g���ăf�R�[�h����܂��B
+特殊な場合としてfar*で宣言されたラベルおよびエイリアスは、+=,-=,++,--
+に限ってoffsetキャストをつけなくてもデフォルトでオフセットに演算が施
+されます。また、左辺と右辺で同一のセグメントレジスタを指定したエイリ
+アスの場合は、オフセットのみが代入されます。さらに、左辺がエイリアス
+で右辺がメモリの時は例のようにL(segreg)命令を使ってデコードされます。
 
-��F
+例：
 	int*	a == DS:EAX;
 	int*	b;
-	a = b			��	LDS	EAX,b
+	a = b			→	LDS	EAX,b
 
 
-�E��r����if�`else��
-�@��r����if()���̒��Ŏg���Ă��܂����A���Z�q���Ⴄ���ƈȊO�͎�����
-�܂����������ł��B�u==�A!=�A<�A<=�A>�A>=�v���g���܂��B
-�@�����A�召�̔�r�̎��ɕ����̂���Ȃ����d�v�ɂȂ��Ă���̂ŁA�ϐ���
-�^�����Ȃ��ꍇ�ɂ̓L���X�g(unsigned)��(signed)�����Ė����I�ɕ�����
-����Ȃ���錾����K�v������܂��B���̂Ƃ��A�K�����̃p�����[�^�̑O��
-����悤�ɂ��Ă��������B����ȊO�̓G���[�ƂȂ�܂��B
+・比較式とif～else文
+　比較式はif()文の中で使われていますが、演算子が違うこと以外は式文と
+まったく同じです。「==、!=、<、<=、>、>=」が使えます。
+　ただ、大小の比較の時に符号のありなしが重要になってくるので、変数の
+型等がない場合にはキャスト(unsigned)か(signed)をつけて明示的に符号の
+ありなしを宣言する必要があります。このとき、必ず左のパラメータの前に
+つけるようにしてください。それ以外はエラーとなります。
 
-��F
+例：
 						cmp	eax,0
 	if((unsigned)EAX > 0){			jbe	#LL0000
 		
@@ -159,16 +159,16 @@
 		
 	}				#LL0001:
 
-�@������if�`goto��if�`break�����if�`continue�̓��x�����œK������ăW
-�����v���Q�񂨂��Ȃ��邱�Ƃ͂���܂���B
+　ただしif～gotoとif～breakおよびif～continueはラベルが最適化されてジ
+ャンプが２回おこなわれることはありません。
 
-��F
+例：
 	if((unsigned)EAX > 0)			cmp	eax,0
 		goto label;			ja	#label
 
-�@�܂��A��r����ۂ�
+　また、比較する際に
 
-��F
+例：
 	if((unsigned)>){			jbe	#LL0000
 		
 						jmp	#LL0001
@@ -176,43 +176,43 @@
 		
 	}				#LL0001:
 
-�̂悤�ɋL�q���邱�Ƃ��ł��܂��B����ɂ���r�͍s��ꂸ�Ƀt���O�ɂ�
-��W�����v�݂̂𐶐����܂��B
+のように記述することもできます。これにより比較は行われずにフラグによ
+るジャンプのみを生成します。
 
-�ȉ��A�Q�l�Ƃ��āA��r���Ŏg�p�ł���`���������܂��B
+以下、参考として、比較文で使用できる形式を書きます。
 
-	a==b, a!=b, a<b, a<=b, a>b, a>=b	�Fcmp�t��
-	==, !=, <, <=, >, >=			�Fcmp����
-	==0, !=0				�Fcmp�����ʃo�[�W����
-	a, !a					�Fa!=0, a==0�̕ʂ̏�����
+	a==b, a!=b, a<b, a<=b, a>b, a>=b	：cmp付き
+	==, !=, <, <=, >, >=			：cmp無し
+	==0, !=0				：cmp無し別バージョン
+	a, !a					：a!=0, a==0の別の書き方
 
 
-�Eloop��
-�@loop���͉i�v���[�v�����o���܂��B�i�v���[�v���甲���邽�߂ɂ�break
-�����g���K�v������܂��B
+・loop文
+　loop文は永久ループを作り出します。永久ループから抜けるためにはbreak
+文を使う必要があります。
 
-��F
+例：
 	loop{				#LL0000:
 		
 						jmp	#LL0000
 	}				#LL0001:
 
 
-�Ebreak��
-�@break����loop�����甲���邽�߂ɂ���܂��B�l�X�g����loop����C�ɔ���
-�邽�߂�break�̂��Ƃɐ��������邱�Ƃ��o���܂��B���̐����͈�C��loop
-���𔲂��鐔��\���܂��B�܂�A���������Ȃ�������break;����'1'����
-������Ă��邱�ƂɂȂ�܂��B
+・break文
+　break文はloop文から抜けるためにあります。ネストしたloopを一気に抜け
+るためにbreakのあとに数字をつけることが出来ます。この数字は一気にloop
+文を抜ける数を表します。つまり、数字をつけないただのbreak;文は'1'が省
+略されていることになります。
 
-��F
+例：
 	break;
 	break 2;
 
 
-�Efor��
-�@���l�ɁAfor���͈ȉ��̂悤�ɂȂ�܂��B
+・for文
+　同様に、for文は以下のようになります。
 
-��F
+例：
 	for(ECX=0; ECX<10; ECX++){		xor	ecx,ecx
 					#LL0000:
 						cmp	ecx,10
@@ -222,14 +222,14 @@
 						jmp	#LL0000
 	}				#LL0001:
 
-���ᕶ�ł�mov r,0  ��  xor r,r�̍œK�������Ă��܂�
+＃例文ではmov r,0  →  xor r,rの最適化をしています
 
 
-�Ewhile��
+・while文
 
-�@���l�ɁAwhile���͈ȉ��̂悤�ɂȂ�܂��B
+　同様に、while文は以下のようになります。
 
-��F
+例：
 	while(EAX == 0){		#LL0000:
 						test	eax,eax
 						jne	#LL0001
@@ -237,59 +237,59 @@
 						jmp	#LL0000
 	}				#LL0001:
 
-���ᕶ�ł�cmp r,0  ��  test r,r�̍œK�������Ă��܂�
+＃例文ではcmp r,0  →  test r,rの最適化をしています
 
 
-�Edo�`while��
+・do～while文
 
-�@���l�ɁAdo�`while���͈ȉ��̂悤�ɂȂ�܂��B
+　同様に、do～while文は以下のようになります。
 
-��F
+例：
 	do{				#LL0000:
 		
 						test	eax,eax
 						je	#LL0000
 	}while(EAX == 0);		#LL0001:
 
-���ᕶ�ł�cmp r,0  ��  test r,r�̍œK�������Ă��܂�
+＃例文ではcmp r,0  →  test r,rの最適化をしています
 
 
-�E�ϐ���`
-�@�ϐ���`��
+・変数定義
+　変数定義は
 
-��F
-	char		a;	���������1�o�C�g
-	short		b;	���������2�o�C�g
-	long		c;	���������4�o�C�g
-	byte		d;	�����Ȃ���1�o�C�g
-	word		e;	�����Ȃ���2�o�C�g
-	dword		f;	�����Ȃ���4�o�C�g
-	long*		g;	�f�t�H���g�ł�far�|�C���^
-	long near *	h;	near�L�[���[�h�������near�|�C���^
-	dword		i[12];	dword�^�̔z��12�o�C�g
-	int		j;	���������4�o�C�g
-	unsigned int	k;	unsigned�ɂ�蕄���Ȃ���4�o�C�g
+例：
+	char		a;	符号ありで1バイト
+	short		b;	符号ありで2バイト
+	long		c;	符号ありで4バイト
+	byte		d;	符号なしで1バイト
+	word		e;	符号なしで2バイト
+	dword		f;	符号なしで4バイト
+	long*		g;	デフォルトではfarポインタ
+	long near *	h;	nearキーワードをつければnearポインタ
+	dword		i[12];	dword型の配列12バイト
+	int		j;	符号ありで4バイト
+	unsigned int	k;	unsignedにより符号なしで4バイト
 
-�̂悤�ɂȂ�܂��B�����Œ��ӂ��ׂ��͔z��ł��傤�B�ʏ��C����ł͔z��
-�́u�^�̗v�f�����m�ۂ��邩�v�ł������AASKA�ł͒P���Ɂu���o�C�g�m��
-���邩�v�Ƃ����Ӗ��ɂȂ�܂��B�܂�A�ᕶ�̈Ӗ��́udword�^�̔z����R
-�v�f�m�ۂ���v�Ƃ����Ӗ��ɂȂ�܂��B
-�@�܂��A���ꂪ�O���[�o���Ȓ�`�Ȃ�Ώ�������������܂��B�������A����
-�ł͍\���̂����������邱�Ƃ͏o���܂���B�z��̏ꍇ��""���g����������
-�̂݉\�ł��B
+のようになります。ここで注意すべきは配列でしょう。通常のC言語では配列
+は「型の要素を何個確保するか」でしたが、ASKAでは単純に「何バイト確保
+するか」という意味になります。つまり、例文の意味は「dword型の配列を３
+要素確保する」という意味になります。
+　また、これがグローバルな定義ならば初期化が許されます。ただし、現在
+では構造体を初期化することは出来ません。配列の場合は""を使った文字列
+のみ可能です。
 
-��F
+例：
 	long	c = 1;
 
-�@�܂��A���[�J���Ȓ�`��������A���݂ł͏������͋�����܂���B
-���[�J���ϐ����g���ꍇ�A���Ȃ萧�񂪂���̂Œ��ӂ��Ă��������B
+　また、ローカルな定義だったら、現在では初期化は許されません。
+ローカル変数を使う場合、かなり制約があるので注意してください。
 
-��F�i�썇�В����j
+例：（川合社長より）
 
 	void function()
 	{
-	    PUSH(EBP);  /* ����́A�g�ݍ��݊֐� */
-	    ESP -= local;  /* local�́AASKA�̓��ʂȕϐ� */
+	    PUSH(EBP);  /* これは、組み込み関数 */
+	    ESP -= local;  /* localは、ASKAの特別な変数 */
 	    EBP = ESP;
 	
 	    int a, b;
@@ -301,30 +301,30 @@
 	    return;
 	}
 
-���̂悤�ɁA�X�^�b�N�̊Ǘ����������肵�Ȃ��Ɩ\�����܂��B
-�\�[�X����local�̓V�X�e���ϐ��ŁA���̊֐��Ŏg���Ă��郍�[�J���ϐ���
-���o�C�g����\���܂��B�܂��A���[�J���ϐ����f�t�H���g��SS:EBP�Ɋ���t������
-�Ȃ��ꍇ�́A
+このように、スタックの管理をしっかりしないと暴走します。
+ソース中のlocalはシステム変数で、この関数で使われているローカル変数の
+総バイト数を表します。また、ローカル変数をデフォルトのSS:EBPに割り付けたく
+ない場合は、
 
-��F
+例：
 	default(local == SS:EBP - local);
 
-�̍\���ŕύX���邱�Ƃ��o���܂��B���Ȃ݂ɁA��L�̕��@��ENTER,LEAVE���g������
-�������ł��B
+の構文で変更することが出来ます。ちなみに、上記の方法はENTER,LEAVEを使う時の
+書き方です。
 
-��default == �̎���A&&�͔p�~����܂����B
+※default == の式や、&&は廃止されました。
 
 
-�@���[�J���Ȓ�`�̃G�C���A�X�ɂ�郌�W�X�^�ւ̊��t�́A
+　ローカルな定義のエイリアスによるレジスタへの割付は、
 
-��F
+例：
 	long	c == EAX;
 
-�@�������邱�ƂŁAc���A�N�Z�X�����EAX���A�N�Z�X����̂Ɠ������ʂ���
-���܂��B�ꌩ���܂�Ӗ������e�Ɏv���܂����A���_�Ƃ��Ĉ�̓��W�X�^
-�ɖ��O��^���鎖���o���邽�߂ɗp�r���͂����肷��̂ƁA������́A
+　こうすることで、cをアクセスするとEAXをアクセスするのと同じ効果が得
+られます。一見あまり意味が内容に思えますが、利点として一つはレジスタ
+に名前を与える事が出来るために用途がはっきりするのと、もう一つは、
 
-��F
+例：
 	struct	Point{
 		long	x;
 		long	y;
@@ -332,100 +332,100 @@
 
 	Point*	p == DS:EAX;
 
-�̂悤�ɍ\���̂��`���Ă��̃|�C���^�̃G�C���A�X����邱�ƂŁA
+のように構造体を定義してそのポインタのエイリアスを作ることで、
 
-��F
+例：
 	p->x = 7;			mov	DS:[EAX],7
 	p->y = 9;			mov	DS:[EAX+4],9
 
-�̂悤�ɍ\���̂ɃA�N�Z�X���邱�Ƃ��o����悤�ɂȂ�܂��B
-�@����́A�ʏ�ϐ��̃|�C���^�͎Q�Ƃł��Ȃ��Ƃ�����_��₤�̂ɏ\����
-�g���ł���ƍl���܂��B�܂��A
+のように構造体にアクセスすることが出来るようになります。
+　これは、通常変数のポインタは参照できないという弱点を補うのに十分な
+拡張であると考えます。また、
 
-��F
+例：
 	void	[2];
 
-�Ŏ蓮�A���C�����s�����Ƃ��o���܂��B
+で手動アラインを行うことが出来ます。
 
-����ɁAstatic�L�[���[�h���g�����ƂŁA�֐����ɐÓI�ϐ������o������
-�o����悤�ɂȂ�܂����B
+さらに、staticキーワードを使うことで、関数内に静的変数を作り出す事が
+出来るようになりました。
 
-��F
+例：
 	static long DATA::staticdata;
 
-��̒ʂ�A�K������t����Z�O�����g���𖾎����Ă��������B
+例の通り、必ず割り付けるセグメント名を明示してください。
 
-�܂��A����static�ϐ��Ƃ������ׂ��A�����񎩓����t���T�|�[�g����܂����B
+また、自動static変数とも言うべき、文字列自動割付がサポートされました。
 
-��F
+例：
 	EAX = DATA::"string\n";
 
-���̂悤�ɁA�֐����ɕ����������t���邱�Ƃ��o���܂��B
+このように、関数中に文字列を割り付けることが出来ます。
 
 
-�E�\���̒�`
-�@�\���̂�C����ƌ������́AC++����ɋ߂���������܂���B��������
-���𒆂Ɋ܂߂���͏o���܂��񂪁Atypedef�ł���������`�����肵�Ȃ��Ă�
-�ǂ��Ƃ��낪C����̍\���̂ɔ�ׂĕ֗��ł��B�����̓G�C���A�X�̏����Q��
-���Ă��������B
+・構造体定義
+　構造体はC言語と言うよりは、C++言語に近いかもしれません。もちろん関
+数を中に含めたりは出来ませんが、typedefでいちいち定義したりしなくても
+良いところがC言語の構造体に比べて便利です。書式はエイリアスの所を参照
+してください。
 
 
-�E�Z�O�����g��`
-�@�֐���ϐ����ǂ̃Z�O�����g�Ɋ���t���邩�͂��������`���Ȃ���΂�
-��܂���B
+・セグメント定義
+　関数や変数をどのセグメントに割り付けるかはしっかり定義しなければな
+りません。
 
-��F
+例：
 	segment DATA(DWORD, PRIVATE, USE32, RW, 'DATA');
 
-�@�����ŁA()���̃p�����[�^�͏����Ɋ֌W����܂���B�D���Ȃ悤�ɏ�����
-���������B�܂��A�O���[�o���ϐ��͂���segment���ߓ��ł����������Ƃ��o��
-�܂���B
+　ここで、()内のパラメータは順序に関係ありません。好きなように書いて
+ください。また、グローバル変数はこのsegment命令内でしか書くことが出来
+ません。
 
-��F
+例：
 	segment DATA(DWORD, PRIVATE, USE32, RW, 'DATA'){
 		long	a = 1;
 		dword	b;
 	}
 
 
-�E�֐���`
-�@�֐��́A�܂����������t����Z�O�����g��������΂Ȃ�܂���B��L��
-segment���߂ɂ���ăZ�O�����g���쐬���Ă��������B
+・関数定義
+　関数は、まずそれを割り付けるセグメントが無ければなりません。上記の
+segment命令によってセグメントを作成してください。
 
-��F
+例：
 	segment CODE(DWORD, PRIVATE, USE32, ER, 'CODE');
 
-���̂��ƁA
+そのあと、
 
-��F
+例：
 	void CODE::func(){
 		
 	}
-		�܂���
+		または
 	void CODE::func(void){
 		
 	}
 
-�Ŋ֐���錾���邱�Ƃ��o���܂��B���̊֐��̒��Ƀv���O�������������Ƃ�
-�Ȃ�܂��B���̂Ƃ��AC����̂悤�Ɏ�����return��t������͂��Ȃ��̂�
-���ӂ��Ă��������B
-�@�܂��AC����Ɠ������A���ʂȊ֐��Ƃ���main()������܂��B���ꂪ�v��
-�O�������ɂ������ꍇ�A�uend main�v���A�Z���u���ւ̓W�J���ɒǉ������
-���B�܂�Amain���G���g���|�C���g�ɂȂ�킯�ł��B
+で関数を宣言することが出来ます。この関数の中にプログラムを書くことに
+なります。このとき、C言語のように自動でreturnを付けたりはしないので
+注意してください。
+　また、C言語と同じく、特別な関数としてmain()があります。これがプロ
+グラム内にあった場合、「end main」がアセンブラへの展開時に追加されま
+す。つまり、mainがエントリポイントになるわけです。
 
-���Ɋ֐��̃v���g�^�C�v�錾���T�|�[�g���Ă܂��̂ŁA
+他に関数のプロトタイプ宣言もサポートしてますので、
 
-��F
+例：
 	void CODE::func();
-		�܂���
+		または
 	void CODE::func(void);
 
-�Ə������Ƃ��ł��܂��B
+と書くこともできます。
 
-�E���x��
-�@���x����
+・ラベル
+　ラベルは
 
-��F
+例：
 label1:
 @label2:
 #label3:
@@ -436,32 +436,32 @@ label4:
 #label6:
 }
 
-�̏�����������܂��B������@�̓O���[�o���X�R�[�v���Ӗ����A#�̓��[�J���X�R�[�v��
-�Ӗ����܂��B�Ȃɂ����Ȃ��ƃf�t�H���g�̈Ӗ��ɂȂ�܂��B
-�������O���[�o���X�R�[�v�Ń��[�J�����x���͒�`�ł��Ȃ��̂ŁAlabel3�̓G���[��
-�Ȃ�܂��B
+の書き方があります。ここで@はグローバルスコープを意味し、#はローカルスコープを
+意味します。なにもつけないとデフォルトの意味になります。
+しかしグローバルスコープでローカルラベルは定義できないので、label3はエラーに
+なります。
 
-���ӂ��Ă������������̂́A���̃��x���̎g�����ł��B����Q�Ƃ���ꍇ�ɂ͎����I��
-�O���[�o�������[�J�������f���Ă����̂ł悢�̂ł����A�O���Q�Ƃ̏ꍇ�ɂ�
-�����I�ɔ��ʂł����A���[�J���X�R�[�v�ɂ��Ă��܂��܂��B
+注意していただきたいのは、このラベルの使い方です。後方参照する場合には自動的に
+グローバルかローカルか判断してくれるのでよいのですが、前方参照の場合には
+自動的に判別できず、ローカルスコープにしてしまいます。
 
 
-�T�D�T���v��
+５．サンプル
 
-�@�\���󂠂�܂���A�܂��o���Ă܂���i��
+　申し訳ありません、まだ出来てません（汗
 
-�U�D�Ɛ�
-�@����̓t���[�\�t�g�ł��B���̃\�t�g���g���ĂȂ�炩�̏�Q���N�������Ƃ��Ă�
-�����͐ӔC���������������܂���B
-�@�܂��A����͓����̊ԓ]�ڋ֎~�ł��B
-�@���̃\�t�g�ɂ͂�˂��炨���񂪍쐬����
-	yaneurao GAME SDK for Windows95/98/NT/2000 version 1.00��4
-�̃X�N���v�g�����̍��i�����A����ю����͕����i�\�[�X�t���[�ł��邽�߁j
-�قڂ��̂܂܎g�킹�Ă��������܂����B
+６．免責
+　これはフリーソフトです。このソフトを使ってなんらかの障害を起こしたとしても
+当方は責任をいっさい負いません。
+　また、これは当分の間転載禁止です。
+　このソフトにはやねうらおさんが作成した
+	yaneurao GAME SDK for Windows95/98/NT/2000 version 1.00α4
+のスクリプト部分の骨格部分、および字句解析部を（ソースフリーであるため）
+ほぼそのまま使わせていただきました。
 
-���\�[�X�t���[�Ƃ͂����K�i�O�̎g�����ł��邽�߁A��˂��炨����̋���
-�@�܂����Ă��Ȃ�����͂Ƃ肠�����Г����J�̂݁B
+※ソースフリーとはいえ規格外の使い方であるため、やねうらおさんの許可を
+　まだ得ていない現状はとりあえず社内公開のみ。
 
-�܂��A��˂��炨�����Web�y�[�W��
+また、やねうらおさんのWebページは
 	http://www.sun-inet.or.jp/~yaneurao/
-�ł��B
+です。

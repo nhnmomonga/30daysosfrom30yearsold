@@ -3,7 +3,7 @@
 
 	usage : >sjisconv [-e] [-s] input-file output-file
 
-	-s:ShiftJISƒ‚[ƒh
+	-s:ShiftJISãƒ¢ãƒ¼ãƒ‰
 */
 
 #include "../drv_w32/windows.h"
@@ -86,6 +86,6 @@ void mainCRTStartup(void)
 }
 
 #include "../drv_w32/msgout_c.c"
-#include "../drv_w32/wfile_b.c" /* write_t‚Íwrite_b‚ğ‚Â‚©‚¤‚©‚ç */
+#include "../drv_w32/wfile_b.c" /* write_tã¯write_bã‚’ã¤ã‹ã†ã‹ã‚‰ */
 #include "../funcs/gostrlen.c"
 #include "../funcs/m_sjiscv.c"

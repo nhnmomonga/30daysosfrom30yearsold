@@ -1,7 +1,7 @@
 @ECHO OFF
-ECHO OSASK‚ðƒfƒBƒXƒN‚ÉƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·
-ECHO Aƒhƒ‰ƒCƒu‚ÉƒfƒBƒXƒN‚ð“ü‚ê‚ÄEnter‚ð‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢
-ECHO ƒCƒ“ƒXƒg[ƒ‹‚ð’†Ž~‚·‚éê‡‚ÍACtrl+C‚ð‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢
+ECHO OSASKã‚’ãƒ‡ã‚£ã‚¹ã‚¯ã«ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¾ã™
+ECHO Aãƒ‰ãƒ©ã‚¤ãƒ–ã«ãƒ‡ã‚£ã‚¹ã‚¯ã‚’å…¥ã‚Œã¦Enterã‚’æŠ¼ã—ã¦ãã ã•ã„
+ECHO ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’ä¸­æ­¢ã™ã‚‹å ´åˆã¯ã€Ctrl+Cã‚’æŠ¼ã—ã¦ãã ã•ã„
 PAUSE
 IMGTOL w -512 A: OSAIMGAT.BIN
-ECHO ƒCƒ“ƒXƒg[ƒ‹‚ðŠ®—¹‚µ‚Ü‚µ‚½
+ECHO ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’å®Œäº†ã—ã¾ã—ãŸ

@@ -1,10 +1,10 @@
-/* "pokon0.c":ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒ‰ƒEƒ“ƒ`ƒƒ[  ver.4.7
-     copyright(C) 2004 I.Tak., ¬–ö‰ë–¾, ì‡GÀ
+/* "pokon0.c":ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ©ã‚¦ãƒ³ãƒãƒ£ãƒ¼  ver.4.7
+     copyright(C) 2004 I.Tak., å°æŸ³é›…æ˜, å·åˆç§€å®Ÿ
      stack:1m malloc:90k file:4096k */
 
 /* scrollbar & mouse by I.Tak. */
-/* ƒVƒOƒiƒ‹óM’Ê’m‚ğ*sbp==0‚Ì‚Æ‚«‚Éˆê‰ñ‚¾‚¯‚·‚écc‚Ù‚Æ‚ñ‚ÇˆÓ–¡–³‚µ
-   •`‰æˆ—‚ğ—}‚¦‚é‚½‚ß‚Ì‘æˆê•à‚Å‚· */
+/* ã‚·ã‚°ãƒŠãƒ«å—ä¿¡é€šçŸ¥ã‚’*sbp==0ã®ã¨ãã«ä¸€å›ã ã‘ã™ã‚‹â€¦â€¦ã»ã¨ã‚“ã©æ„å‘³ç„¡ã—
+   æç”»å‡¦ç†ã‚’æŠ‘ãˆã‚‹ãŸã‚ã®ç¬¬ä¸€æ­©ã§ã™ */
 #define PROCESS_ALL_POOLED_SIGNAL	1
 #if defined(CHO_OSASK)
 	#define LISTX0 16
@@ -48,8 +48,8 @@
 
 #include <guigui00.h>
 #include <sysgg00.h>
-/* sysgg‚ÍAˆê”Ê‚ÌƒAƒvƒŠ‚ª—˜—p‚µ‚Ä‚Í‚¢‚¯‚È‚¢ƒ‰ƒCƒuƒ‰ƒŠ
-   d—l‚à‚©‚È‚è—¬“®“I */
+/* sysggã¯ã€ä¸€èˆ¬ã®ã‚¢ãƒ—ãƒªãŒåˆ©ç”¨ã—ã¦ã¯ã„ã‘ãªã„ãƒ©ã‚¤ãƒ–ãƒ©ãƒª
+   ä»•æ§˜ã‚‚ã‹ãªã‚Šæµå‹•çš„ */
 #include <stdlib.h>
 
 #include "../pokon0.h"
@@ -64,7 +64,7 @@
 //static int MALLOC_ADDR;
 #define MALLOC_ADDR			j
 #define malloc(bytes)		(void *) (MALLOC_ADDR -= ((bytes) + 7) & ~7)
-#define free(addr)			for (;;); /* free‚ª‚ ‚Á‚Ä‚Í¢‚é‚Ì‚Å‰i‹vƒ‹[ƒv */
+#define free(addr)			for (;;); /* freeãŒã‚ã£ã¦ã¯å›°ã‚‹ã®ã§æ°¸ä¹…ãƒ«ãƒ¼ãƒ— */
 
 /* pokon console error message */
 enum {
@@ -154,7 +154,7 @@ int writejob_np(int n, int *p)
 			if (pjob->wp == pjob->list + JOBLIST_SIZE)
 				pjob->wp = pjob->list;
 		} while (--n);
-		*(pjob->wp) = 0; /* ƒXƒgƒbƒp[ */
+		*(pjob->wp) = 0; /* ã‚¹ãƒˆãƒƒãƒ‘ãƒ¼ */
 		return 1;
 	}
 	return 0;
@@ -209,12 +209,12 @@ void unlinkfbuf(struct FILEBUF *fbuf)
 				if (dirslot == -1)
 					sgg_execcmd0(0x0020, 0x80000000 + 5, 0x1244, 0x0134, -1, fbuf->size, fbuf->paddr, 0x0000);
 				else if (writejob_n(4, JOB_FREE_MEMORY, dirslot, fbuf->size, fbuf->paddr) == 0) {
-					/* ‚Ç‚¤‚·‚è‚á‚¢‚¢‚ñ‚¾H */
+					/* ã©ã†ã™ã‚Šã‚ƒã„ã„ã‚“ã ï¼Ÿ */
 				}
 			}
 		}
 		fbuf->dirslot |= -1;
-		sgg_execcmd0(0x0074, 0, fbuf->virtualmodule, 0x0000); /* virtualmodule‚Ì”jŠü */
+		sgg_execcmd0(0x0074, 0, fbuf->virtualmodule, 0x0000); /* virtualmoduleã®ç ´æ£„ */
 		fbuf->readonly = 0;
 	}
 	return;
@@ -227,7 +227,7 @@ struct STR_BANK *searchfrebank()
 
 	for (i = 0; i < MAX_BANK; i++, bank++) {
 		if (bank->tss == 0) {
-			bank->tss |= -1; /* ƒŠƒU[ƒuƒ}[ƒN */
+			bank->tss |= -1; /* ãƒªã‚¶ãƒ¼ãƒ–ãƒãƒ¼ã‚¯ */
 			return bank;
 		}
 	}
@@ -308,7 +308,7 @@ void runjobnext()
 		if ((pjob->now = *(pjob->rp)) == 0)
 			return;
 
-		readjob(); // ‚©‚ç“Ç‚İ
+		readjob(); // ã‹ã‚‰èª­ã¿
 		switch (pjob->now) {
 
 		case JOB_INVALID_DISKCACHE:
@@ -358,7 +358,7 @@ void runjobnext()
 			break;
 
 		case JOB_CHECK_WB_CACHE:
-			if (check_wb_cache(filebuf) == NULL) /* I—¹‚µ‚½‚çNULL‚ğ•Ô‚· */
+			if (check_wb_cache(filebuf) == NULL) /* çµ‚äº†ã—ãŸã‚‰NULLã‚’è¿”ã™ */
 				goto job_end;
 			break;
 
@@ -402,8 +402,8 @@ void runjobnext()
 			break;
 
 		case JOB_RESIZE_FILE:
-			/* 2002.05.28 ƒTƒCƒY0‚Ìƒtƒ@ƒCƒ‹‚ğ’Pƒ‚ÉƒŠƒTƒCƒY‚·‚é‚Æ‚²‚İ‚ğE‚Á‚Ä¬—‚·‚éƒoƒO‚ğ•‚·‚é‚½‚ß‚ÉA
-				2’iŠK‚ÌƒTƒCƒY•ÏX‚ğÀ{B0¨1¨–Ú“IƒTƒCƒYB‚µ‚©‚à1‚Ì‚Æ‚«ƒoƒCƒg‚ğ0xcc‚É‚·‚éB */
+			/* 2002.05.28 ã‚µã‚¤ã‚º0ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å˜ç´”ã«ãƒªã‚µã‚¤ã‚ºã™ã‚‹ã¨ã”ã¿ã‚’æ‹¾ã£ã¦æ··ä¹±ã™ã‚‹ãƒã‚°ã‚’å…‹æœã™ã‚‹ãŸã‚ã«ã€
+				2æ®µéšã®ã‚µã‚¤ã‚ºå¤‰æ›´ã‚’å®Ÿæ–½ã€‚0â†’1â†’ç›®çš„ã‚µã‚¤ã‚ºã€‚ã—ã‹ã‚‚1ã®ã¨ããƒã‚¤ãƒˆã‚’0xccã«ã™ã‚‹ã€‚ */
 			autoreadjob(ppj(prm0), ppj(prm1), ppj(prm2), ppj(prm3), ppj(prm4), ppj(prm6), ppj(prm7), 0);
 				/* filename(0-2), new-size, max-linkcount, task, signal */
 			if ((pjob->fp = searchfid((char *) &pjob->param[0])) == NULL)
@@ -431,7 +431,7 @@ void runjobnext()
 			pjob->jsubfunc = job_resize_sub0;
 			sgg_execcmd0(0x0020, 0x80000000 + 10, 0x1249, 0x0150,
 				pjob->param[0], pjob->param[1], pjob->param[2] >> 8, j, 
-				0x4243 /* to pokon0 */, 0x7f000002, i, 1 /* ³íI—¹‚ª-1‚¾‚©‚ç */, 0x0000);
+				0x4243 /* to pokon0 */, 0x7f000002, i, 1 /* æ­£å¸¸çµ‚äº†ãŒ-1ã ã‹ã‚‰ */, 0x0000);
 			break;
 
 		case JOB_DELETE_FILE:
@@ -467,9 +467,9 @@ void runjobnext()
 				vmr->fbuf = pjob->fbuf;
 				vmr->slot = i;
 				vmr->flags = 1; /* module signal enable */
-				vmr->sigbase = 16; /* b’è */
-				vmr->flushed_size = 0; /* b’è */
-				sgg_directwrite(0, 4, 0, i, /* ƒXƒƒbƒgi‚É“\‚è•t‚¯‚é */
+				vmr->sigbase = 16; /* æš«å®š */
+				vmr->flushed_size = 0; /* æš«å®š */
+				sgg_directwrite(0, 4, 0, i, /* ã‚¹ãƒ­ãƒƒãƒˆiã«è²¼ã‚Šä»˜ã‘ã‚‹ */
 					(0x003c /* slot_sel */ | pjob->bank->tss << 8) + 0xf80000, (int) &pjob->fbuf->virtualmodule, 0x000c);
 			} else {
 lib_putstring_ASCII(0x0000, 0, 0, &selwin0[0].subtitle.tbox, 0, 0, "debug!(2)");
@@ -500,8 +500,8 @@ lib_putstring_ASCII(0x0000, 0, 0, &selwin0[0].subtitle.tbox, 0, 0, "debug!(2)");
 		case JOB_CHANGE_DRIVE:
 			i = readjob();
 			if (need_wb == 0) {
-				sgg_execcmd0(0x009c, 0x190, i, 0x0000); /* –{“–‚Í‚±‚Ì•û–@‚Í—Ç‚­‚È‚¢ */
-					/* ƒAƒNƒZƒX‚ª‹£‡‚·‚é‚©‚à‚µ‚ê‚È‚¢‚©‚çA–{“–‚È‚çƒVƒXƒeƒ€ƒ^ƒXƒN‚ğŒo—R‚·‚é‚×‚« */
+				sgg_execcmd0(0x009c, 0x190, i, 0x0000); /* æœ¬å½“ã¯ã“ã®æ–¹æ³•ã¯è‰¯ããªã„ */
+					/* ã‚¢ã‚¯ã‚»ã‚¹ãŒç«¶åˆã™ã‚‹ã‹ã‚‚ã—ã‚Œãªã„ã‹ã‚‰ã€æœ¬å½“ãªã‚‰ã‚·ã‚¹ãƒ†ãƒ ã‚¿ã‚¹ã‚¯ã‚’çµŒç”±ã™ã‚‹ã¹ã */
 				sgg_format(0x0114, SIGNAL_RELOAD_FAT_COMPLETE); /* INVALID_DISKCACHE */
 				break;
 			}
@@ -511,15 +511,15 @@ lib_putstring_ASCII(0x0000, 0, 0, &selwin0[0].subtitle.tbox, 0, 0, "debug!(2)");
 		case JOB_LOAD_AND_EXEC_PSF:
 			autoreadjob(ppj(prm0), ppj(prm1), ppj(prm2), 0);
 			if (console->curx != -1) {
-				pjob->now = 0; /* ƒRƒ“ƒ\[ƒ‹‚ğŠJ‚¢‚Ä‚¢‚½ */
-				break; /* ƒRƒ“ƒ\[ƒ‹‚ğŠJ‚¢‚½ó‘Ô‚ÅÀs‚·‚é‚Æ‚İ‚Á‚Æ‚à‚È‚¢‚Ì‚Å */
+				pjob->now = 0; /* ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã‚’é–‹ã„ã¦ã„ãŸ */
+				break; /* ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã‚’é–‹ã„ãŸçŠ¶æ…‹ã§å®Ÿè¡Œã™ã‚‹ã¨ã¿ã£ã¨ã‚‚ãªã„ã®ã§ */
 			}
 			if ((pjob->fp = searchfid((char *) &pjob->param[0])) == NULL) {
-				pjob->now = 0; /* ƒtƒ@ƒCƒ‹‚ª‚È‚©‚Á‚½ */
+				pjob->now = 0; /* ãƒ•ã‚¡ã‚¤ãƒ«ãŒãªã‹ã£ãŸ */
 				break;
 			}
 			if ((pjob->fbuf = searchfrefbuf()) == NULL) {
-				pjob->now = 0; /* ƒŠƒ\[ƒX‚ª‚È‚©‚Á‚½ */
+				pjob->now = 0; /* ãƒªã‚½ãƒ¼ã‚¹ãŒãªã‹ã£ãŸ */
 				break;
 			}
 			jsub_fbufready0(job_exec_psf_sub0);
@@ -528,8 +528,8 @@ lib_putstring_ASCII(0x0000, 0, 0, &selwin0[0].subtitle.tbox, 0, 0, "debug!(2)");
 		case JOB_CHANGE_DEVICE:
 			i = readjob();
 			if (need_wb == 0) {
-				sgg_execcmd0(0x009c, 0x194, i, 0x0000); /* –{“–‚Í‚±‚Ì•û–@‚Í—Ç‚­‚È‚¢ */
-					/* ƒAƒNƒZƒX‚ª‹£‡‚·‚é‚©‚à‚µ‚ê‚È‚¢‚©‚çA–{“–‚È‚çƒVƒXƒeƒ€ƒ^ƒXƒN‚ğŒo—R‚·‚é‚×‚« */
+				sgg_execcmd0(0x009c, 0x194, i, 0x0000); /* æœ¬å½“ã¯ã“ã®æ–¹æ³•ã¯è‰¯ããªã„ */
+					/* ã‚¢ã‚¯ã‚»ã‚¹ãŒç«¶åˆã™ã‚‹ã‹ã‚‚ã—ã‚Œãªã„ã‹ã‚‰ã€æœ¬å½“ãªã‚‰ã‚·ã‚¹ãƒ†ãƒ ã‚¿ã‚¹ã‚¯ã‚’çµŒç”±ã™ã‚‹ã¹ã */
 				#if (defined(PCAT))
 					if (0x0200 <= i && i <= 0x0208) {
 						sgg_format(0x0158, SIGNAL_JSUB);
@@ -547,24 +547,24 @@ lib_putstring_ASCII(0x0000, 0, 0, &selwin0[0].subtitle.tbox, 0, 0, "debug!(2)");
 	return;
 }
 
-/* jsubŠÖ” */
+/* jsubé–¢æ•° */
 
 void jsub_fbufready0(void *func)
-/* pjob->fp‚Å¦‚³‚ê‚éƒtƒ@ƒCƒ‹‚ğpjob->fbuf‚ÅƒAƒNƒZƒX‰Â”\‚Èó‘Ô‚É‚·‚é */
-/* ‚È‚¨Šù‚Éfbuf“à‚É‘¶İ‚µ‚Ä‚¢‚½ê‡‚Ípjob->fbuf‚ğ‘‚«Š·‚¦‚é(—\”õ‚Ì‚à‚Ì‚Í©“®ŠJ•ú) */
-/* Š®—¹‚µ‚½‚çpjob->retfunc‚ğŒÄ‚Ô */
-/* ƒGƒ‰[‚Ì‚Æ‚«‚Ícond == 0‚É‚È‚éBƒGƒ‰[‚Ìê‡Aunlink‚Ì•K—v‚Í‚È‚¢ */
-/* ƒGƒ‰[‚É‚Ípjob->fbuf->linkcount = 0;‚É‚È‚Á‚Ä‚¢‚é‚Ì‚ÅA•K—v‚È‚ç-1‚ğÄ‘ã“ü‚·‚é‚±‚Æ */
+/* pjob->fpã§ç¤ºã•ã‚Œã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã‚’pjob->fbufã§ã‚¢ã‚¯ã‚»ã‚¹å¯èƒ½ãªçŠ¶æ…‹ã«ã™ã‚‹ */
+/* ãªãŠæ—¢ã«fbufå†…ã«å­˜åœ¨ã—ã¦ã„ãŸå ´åˆã¯pjob->fbufã‚’æ›¸ãæ›ãˆã‚‹(äºˆå‚™ã®ã‚‚ã®ã¯è‡ªå‹•é–‹æ”¾) */
+/* å®Œäº†ã—ãŸã‚‰pjob->retfuncã‚’å‘¼ã¶ */
+/* ã‚¨ãƒ©ãƒ¼ã®ã¨ãã¯cond == 0ã«ãªã‚‹ã€‚ã‚¨ãƒ©ãƒ¼ã®å ´åˆã€unlinkã®å¿…è¦ã¯ãªã„ */
+/* ã‚¨ãƒ©ãƒ¼æ™‚ã«ã¯pjob->fbuf->linkcount = 0;ã«ãªã£ã¦ã„ã‚‹ã®ã§ã€å¿…è¦ãªã‚‰-1ã‚’å†ä»£å…¥ã™ã‚‹ã“ã¨ */
 {
 	struct STR_JOBLIST *pjob = &job;
 	struct FILEBUF *fbuf;
 	pjob->retfunc = func;
 	if (fbuf = searchfbuf(pjob->fp)) {
-		/* Šm•Û‚µ‚Ä‚¨‚¢‚½‚â‚Â‚ğŠJ•ú */
+		/* ç¢ºä¿ã—ã¦ãŠã„ãŸã‚„ã¤ã‚’é–‹æ”¾ */
 		pjob->fbuf->linkcount = 0;
 		pjob->fbuf = fbuf;
 		fbuf->linkcount++;
-		(*pjob->retfunc)(1); /* ¬Œ÷ */
+		(*pjob->retfunc)(1); /* æˆåŠŸ */
 		return;
 	}
 	pjob->jsubfunc = jsub_fbufready1;
@@ -603,7 +603,7 @@ int jsub_fbufready1(int *sbp)
 			if (size0 < FILEAREA / 2 && size0 >= 20) {
 				static unsigned char signature[15] = "\xff\xff\xff\x01\x00\x00\x00OSASKCMP";
 				fp1 = fp0 + (size0 = ((size0 + 0xfff) & ~0xfff));
-				sgg_execcmd0(0x0080, size0, fbuf->paddr, fp0, 0x0000); /* ƒXƒƒbƒg‚ğg‚í‚È‚¢ƒ}ƒbƒsƒ“ƒO */
+				sgg_execcmd0(0x0080, size0, fbuf->paddr, fp0, 0x0000); /* ã‚¹ãƒ­ãƒƒãƒˆã‚’ä½¿ã‚ãªã„ãƒãƒƒãƒ”ãƒ³ã‚° */
 				for (i = 0; i < 15; i++)
 					j |= fp0[i + 1] ^ signature[i];
 				if (j == 0 && (fp0[0] == 0x82 || fp0[0] == 0x83 || fp0[0] == 0x85 || fp0[0] == 0x89)) {
@@ -612,14 +612,14 @@ int jsub_fbufready1(int *sbp)
 					else
 						size1 = gets7s(&p);
 					if (size0 + size1 <= FILEAREA) {
-						if ((i = sgg_execcmd1(2 * 4 + 12, 0x0084, size1, 0, 0x0000)) != -1) { /* ƒƒ‚ƒŠ‚ğ‚à‚ç‚¤ */
-							sgg_execcmd0(0x0080, size1, i, fp1, 0x0000); /* ƒXƒƒbƒg‚ğg‚í‚È‚¢ƒ}ƒbƒsƒ“ƒO */
+						if ((i = sgg_execcmd1(2 * 4 + 12, 0x0084, size1, 0, 0x0000)) != -1) { /* ãƒ¡ãƒ¢ãƒªã‚’ã‚‚ã‚‰ã† */
+							sgg_execcmd0(0x0080, size1, i, fp1, 0x0000); /* ã‚¹ãƒ­ãƒƒãƒˆã‚’ä½¿ã‚ãªã„ãƒãƒƒãƒ”ãƒ³ã‚° */
 							if (fp0[0] == 0x82)
 								lib_decodetek0(size1, (int) (fp0 + 20), 0x000c, (int) fp1, 0x000c);
 							else
 								lib_execcmd0(0x007c, 0xfffffff9, fp1, 0xfffffff7, fp0 + fbuf->size,
 									*(int *) &fp0[0], size1, p, 0x000c, 0x0000, 0x0000);
-							/* «ˆ³k‚³‚ê‚½ƒCƒ[ƒW‚ğÌ‚Ä‚é */
+							/* â†“åœ§ç¸®ã•ã‚ŒãŸã‚¤ãƒ¡ãƒ¼ã‚¸ã‚’æ¨ã¦ã‚‹ */
 							sgg_execcmd0(0x0020, 0x80000000 + 5, 0x1244, 0x0134, -1, fbuf->size, fbuf->paddr, 0x0000);
 							fbuf->readonly = 1;
 							fbuf->paddr = i;
@@ -627,16 +627,16 @@ int jsub_fbufready1(int *sbp)
 						}
 					}
 				}
-				/* unmap‚·‚é */
+				/* unmapã™ã‚‹ */
 			}
 		}
 
 		size0 = fbuf->size;
 		if (size0 < FILEAREA && size0 >= 16) {
 			fp1 = fp0 + (size0 = ((size0 + 0xfff) & ~0xfff));
-			sgg_execcmd0(0x0080, size0, fbuf->paddr, fp0, 0x0000); /* ƒXƒƒbƒg‚ğg‚í‚È‚¢ƒ}ƒbƒsƒ“ƒO */
+			sgg_execcmd0(0x0080, size0, fbuf->paddr, fp0, 0x0000); /* ã‚¹ãƒ­ãƒƒãƒˆã‚’ä½¿ã‚ãªã„ãƒãƒƒãƒ”ãƒ³ã‚° */
 			fbuf->readonly |= osarjc(fbuf->size, fp0);
-			/* unmap‚·‚é */
+			/* unmapã™ã‚‹ */
 		}
 
 		if (auto_dearc) {
@@ -644,7 +644,7 @@ int jsub_fbufready1(int *sbp)
 			struct STR_ARCBUF *abuf;
 			size0 = fbuf->size;
 			if (size0 < FILEAREA) {
-				sgg_execcmd0(0x0080, FILEAREA, fbuf->paddr, fp0, 0x0000); /* ƒXƒƒbƒg‚ğg‚í‚È‚¢ƒ}ƒbƒsƒ“ƒO */
+				sgg_execcmd0(0x0080, FILEAREA, fbuf->paddr, fp0, 0x0000); /* ã‚¹ãƒ­ãƒƒãƒˆã‚’ä½¿ã‚ãªã„ãƒãƒƒãƒ”ãƒ³ã‚° */
 				if (size0 >= 23 && (*(int *) &fp0[16]) == 0x484b0072 && (fp0[14] | fp0[15] << 8 | fp0[20] << 16 | fp0[21] << 24) == 0x30426173 && fp0[22] == 0x01) {
 					p = fp0 + (14 + 9);
 					goto sar;
@@ -657,7 +657,7 @@ int jsub_fbufready1(int *sbp)
 						for (i = 0; i < 5; i++)
 							gets7s(&p);
 						align = (1 << gets7s(&p)) - 1;
-						if (align >= 0xfff) { /* 4KBˆÈã‚ÌƒAƒ‰ƒCƒ“‚ª•K—v */
+						if (align >= 0xfff) { /* 4KBä»¥ä¸Šã®ã‚¢ãƒ©ã‚¤ãƒ³ãŒå¿…è¦ */
 							j = gets7s(&p);
 							q = fp0 + (((p - fp0) + align) & ~align) + j * (align + 1);
 							j &= 0;
@@ -665,7 +665,7 @@ int jsub_fbufready1(int *sbp)
 								j |= q[i] ^ signature[i];
 							for (i = 0; i < 8; i++)
 								j |= (q[i + 0x030] ^ '0') | (q[i + 0x050] ^ '0');
-							if (j == 0 && (q[0x0b5] & 0x01) != 0) { /* Å‰‚ÌƒGƒ“ƒgƒŠ‚ª•K‚¸åƒtƒ@ƒCƒ‹ */
+							if (j == 0 && (q[0x0b5] & 0x01) != 0) { /* æœ€åˆã®ã‚¨ãƒ³ãƒˆãƒªãŒå¿…ãšä¸»ãƒ•ã‚¡ã‚¤ãƒ« */
 								abuf = arcsub_srchdslt(fbuf->dirslot);
 								if (abuf) {
 									abuf->linkcount++;
@@ -684,12 +684,12 @@ int jsub_fbufready1(int *sbp)
 										abuf->clu2  = q - fp0;
 										abuf->flags = k + k; /* bit0 : 0=sar, bit1:link */
 										abuf->align = align;
-										/* ‚±‚±‚ÅƒA[ƒJƒCƒu“à‚Ì‘S‚Ä‚Ìƒtƒ@ƒCƒ‹‚É‘Î‚µ‚ÄAosarjc‚·‚é */
+										/* ã“ã“ã§ã‚¢ãƒ¼ã‚«ã‚¤ãƒ–å†…ã®å…¨ã¦ã®ãƒ•ã‚¡ã‚¤ãƒ«ã«å¯¾ã—ã¦ã€osarjcã™ã‚‹ */
 										while ((i = gets7s(&p)) != 0) {
-											p += i; /* ƒtƒ@ƒCƒ‹–¼ƒXƒLƒbƒv */
-											i = gets7s(&p); /* ‘®« */
+											p += i; /* ãƒ•ã‚¡ã‚¤ãƒ«åã‚¹ã‚­ãƒƒãƒ— */
+											i = gets7s(&p); /* å±æ€§ */
 											if ((i & 0x20) == 0)
-												gets7s(&p); /* “ú */
+												gets7s(&p); /* æ—¥æ™‚ */
 											if (k & 1) {
 												j = gets7s(&p);
 												if (j & 1)
@@ -697,7 +697,7 @@ int jsub_fbufready1(int *sbp)
 												j >>= 1;
 												q += j * (align + 1);
 											}
-											j = gets7s(&p); /* ƒTƒCƒY */
+											j = gets7s(&p); /* ã‚µã‚¤ã‚º */
 											if ((i & 0x1f) == 0)
 												osarjc(j, q);
 											q += j;
@@ -722,7 +722,7 @@ int jsub_fbufready1(int *sbp)
 						j |= fp0[i + 0x00050000] ^ signature[i];
 					for (i = 0; i < 8; i++)
 						j |= (fp0[i + 0x00050030] ^ '0') | (fp0[i + 0x00050050] ^ '0');
-					if (j == 0 && (fp0[0x000500b5] & 0x01) != 0) { /* Å‰‚ÌƒGƒ“ƒgƒŠ‚ª•K‚¸åƒtƒ@ƒCƒ‹ */
+					if (j == 0 && (fp0[0x000500b5] & 0x01) != 0) { /* æœ€åˆã®ã‚¨ãƒ³ãƒˆãƒªãŒå¿…ãšä¸»ãƒ•ã‚¡ã‚¤ãƒ« */
 						abuf = arcsub_srchdslt(fbuf->dirslot);
 						if (abuf) {
 							abuf->linkcount++;
@@ -741,7 +741,7 @@ int jsub_fbufready1(int *sbp)
 								abuf->clu2  = 0x00050000;
 								abuf->flags |= 1; /* bit0 : 1=SF16 */
 								abuf->align = fp0[0x0d];
-								/* ‚±‚±‚ÅƒA[ƒJƒCƒu“à‚Ì‘S‚Ä‚Ìƒtƒ@ƒCƒ‹‚É‘Î‚µ‚ÄAosarjc‚·‚é */
+								/* ã“ã“ã§ã‚¢ãƒ¼ã‚«ã‚¤ãƒ–å†…ã®å…¨ã¦ã®ãƒ•ã‚¡ã‚¤ãƒ«ã«å¯¾ã—ã¦ã€osarjcã™ã‚‹ */
 								for (p = fp0 + abuf->dir0; *p != 0; p += 32) {
 									if (*p == 0xe5)
 										continue;
@@ -759,7 +759,7 @@ int jsub_fbufready1(int *sbp)
 						}
 					}
 				}
-				/* unmap‚·‚é */
+				/* unmapã™ã‚‹ */
 			}
 		}
 
@@ -771,8 +771,8 @@ int jsub_fbufready1(int *sbp)
 }
 
 void jsub_create_task0()
-/* pjob->bank‚Ì‚İQÆ */
-/* ƒGƒ‰[‚É‚Íbank->tss‚ª0‚É‚È‚Á‚Ä‚¢‚é‚Ì‚ÅA•K—v‚È‚ç-1‚ğ‘ã“ü‚·‚é‚±‚Æ */
+/* pjob->bankã®ã¿å‚ç…§ */
+/* ã‚¨ãƒ©ãƒ¼æ™‚ã«ã¯bank->tssãŒ0ã«ãªã£ã¦ã„ã‚‹ã®ã§ã€å¿…è¦ãªã‚‰-1ã‚’ä»£å…¥ã™ã‚‹ã“ã¨ */
 {
 	struct STR_JOBLIST *pjob = &job;
 	struct FILEBUF *fbuf = pjob->bank->fbuf;
@@ -789,22 +789,22 @@ int jsub_create_task1(int *sbp)
 	if (bank->tss = tss = sbp[1]) {
 		retcond++;
 		sgg_settasklocallevel(tss,
-			0 * 32 /* local level 0 (ƒXƒŠ[ƒvƒŒƒxƒ‹) */,
-			27 * 64 + 0x0100 /* global level 27 (ƒXƒŠ[ƒv) */,
+			0 * 32 /* local level 0 (ã‚¹ãƒªãƒ¼ãƒ—ãƒ¬ãƒ™ãƒ«) */,
+			27 * 64 + 0x0100 /* global level 27 (ã‚¹ãƒªãƒ¼ãƒ—) */,
 			-1 /* Inner level */
 		);
 		bank->Llv[0].global = 27;
 		bank->Llv[0].inner  |= -1;
 		sgg_settasklocallevel(tss,
-			1 * 32 /* local level 1 (‹N“®EƒVƒXƒeƒ€ˆ—ƒŒƒxƒ‹) */,
-			12 * 64 + 0x0100 /* global level 12 (ˆê”ÊƒAƒvƒŠƒP[ƒVƒ‡ƒ“) */,
+			1 * 32 /* local level 1 (èµ·å‹•ãƒ»ã‚·ã‚¹ãƒ†ãƒ å‡¦ç†ãƒ¬ãƒ™ãƒ«) */,
+			12 * 64 + 0x0100 /* global level 12 (ä¸€èˆ¬ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³) */,
 			i = defaultIL /* Inner level */
 		);
 		bank->Llv[1].global = 12;
 		bank->Llv[1].inner  = i;
 		sgg_settasklocallevel(tss,
-			2 * 32 /* local level 2 (’Êíˆ—ƒŒƒxƒ‹) */,
-			12 * 64 + 0x0100 /* global level 12 (ˆê”ÊƒAƒvƒŠƒP[ƒVƒ‡ƒ“) */,
+			2 * 32 /* local level 2 (é€šå¸¸å‡¦ç†ãƒ¬ãƒ™ãƒ«) */,
+			12 * 64 + 0x0100 /* global level 12 (ä¸€èˆ¬ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³) */,
 			i /* Inner level */
 		);
 		bank->Llv[2].global = 12;
@@ -818,13 +818,13 @@ int jsub_create_task1(int *sbp)
 	return 2; /* siglen */
 }
 
-/* jobŠÖ” */
+/* jobé–¢æ•° */
 
 void job_view_file0(int cond)
 {
 	struct STR_JOBLIST *pjob = &job;
 	if (cond == 0) { /* error */
-	//	pjob->fbuf->linkcount = 0; /* ŠJ•ú */
+	//	pjob->fbuf->linkcount = 0; /* é–‹æ”¾ */
 		pjob->now = 0;
 		return;
 	}
@@ -840,14 +840,14 @@ void job_view_file1(int cond)
 	struct STR_OPEN_ORDER *order = pjob->order;
 	if (cond == 0) { /* error */
 		unlinkfbuf(pjob->fbuf);
-	//	pjob->bank->tss = 0; /* ŠJ•ú */
+	//	pjob->bank->tss = 0; /* é–‹æ”¾ */
 	} else if (pjob->param[7] == 1) {
 		while (order->task);
 		order->task = pjob->bank->tss;
 		order->num = pjob->param[0];
 		order->fp = (struct SGG_FILELIST *) pjob->param[1];
 		if (pjob->param[2]) {
-			/* ƒVƒOƒiƒ‹‚ğ‘—‚é */
+			/* ã‚·ã‚°ãƒŠãƒ«ã‚’é€ã‚‹ */
 			sendsignal1dw(pjob->bank->tss, pjob->param[4]);
 		}
 #if 0
@@ -858,12 +858,12 @@ void job_view_file1(int cond)
 		struct FILEBUF *fbuf;
 		struct VIRTUAL_MODULE_REFERENCE *vmr;
 
-		/* ƒ‚ƒWƒ…[ƒ‹‚ğì‚é */
+		/* ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚’ä½œã‚‹ */
 		fbuf = searchfrefbuf();
 		if (fbuf == NULL)
 			goto error;
 		fbuf->size = 13;
-		if ((fbuf->paddr = sgg_execcmd1(2 * 4 + 12, 0x0084, fbuf->size, 0, 0x0000)) == -1) /* ƒƒ‚ƒŠ‚ğ‚à‚ç‚¤ */
+		if ((fbuf->paddr = sgg_execcmd1(2 * 4 + 12, 0x0084, fbuf->size, 0, 0x0000)) == -1) /* ãƒ¡ãƒ¢ãƒªã‚’ã‚‚ã‚‰ã† */
 			goto error;
 		fbuf->linkcount = 1;
 		fbuf->dirslot = -1;
@@ -875,14 +875,14 @@ void job_view_file1(int cond)
 		vmr->fbuf = fbuf;
 		vmr->slot = 0x0200;
 
-		sgg_directwrite(0, 4, 0, 0x0200, /* ƒXƒƒbƒg0x0200‚É“\‚è•t‚¯‚é */
+		sgg_directwrite(0, 4, 0, 0x0200, /* ã‚¹ãƒ­ãƒƒãƒˆ0x0200ã«è²¼ã‚Šä»˜ã‘ã‚‹ */
 			(0x003c /* slot_sel */ | pjob->bank->tss << 8) + 0xf80000, (int) &fbuf->virtualmodule, 0x000c);
 
-		sgg_execcmd0(0x0080, 13, fbuf->paddr, fp0, 0x0000); /* ƒXƒƒbƒg‚ğg‚í‚È‚¢ƒ}ƒbƒsƒ“ƒO */
+		sgg_execcmd0(0x0080, 13, fbuf->paddr, fp0, 0x0000); /* ã‚¹ãƒ­ãƒƒãƒˆã‚’ä½¿ã‚ãªã„ãƒãƒƒãƒ”ãƒ³ã‚° */
 		for (i = 0; i < 14; i++)
 			fp0[i] = "This is test.\n"[i];
 
-		/* ƒVƒOƒiƒ‹‚ğ‘—‚é */
+		/* ã‚·ã‚°ãƒŠãƒ«ã‚’é€ã‚‹ */
 		sgg_execcmd0(0x0020, 0x80000000 + 5, pjob->bank->tss | 0x0244, 0x7f000003, 16, 14, 0, 0x0000);
 		sgg_execcmd0(0x0020, 0x80000000 + 4, pjob->bank->tss | 0x0243, 0x7f000002, 17, 14, 0x0000);
 #endif
@@ -912,7 +912,7 @@ err:
 		lib_putstring_ASCII(0x0000, 0, 0, &selwin0[0].subtitle.tbox, 0, 0, "< Load Systemimage >");
 		pjob->now = 0;
 	} else {
-		pjob->param[0] = (int) fbuf; /* ƒLƒƒƒbƒVƒ…ƒqƒbƒg‚©‚à‚µ‚ê‚È‚¢‚©‚çXV */
+		pjob->param[0] = (int) fbuf; /* ã‚­ãƒ£ãƒƒã‚·ãƒ¥ãƒ’ãƒƒãƒˆã‹ã‚‚ã—ã‚Œãªã„ã‹ã‚‰æ›´æ–° */
 		pjob->fbuf = (struct FILEBUF *) pjob->param[1];
 	//	pjob->retfunc = job_create_sysdisk1;
 		jsub_fbufready0(job_create_sysdisk1);
@@ -927,14 +927,14 @@ void job_create_sysdisk1(int cond)
 	struct FILESELWIN *win = pjob->win;
 	int i;
 	if (cond == 0) { /* error */
-	//	pjob->fbuf->linkcount = 0; /* ŠJ•ú */
+	//	pjob->fbuf->linkcount = 0; /* é–‹æ”¾ */
 		unlinkfbuf((struct FILEBUF *) pjob->param[0]);
 		*pfmode = STATUS_MAKE_PLAIN_BOOT_DISK;
 		lib_putstring_ASCII(0x0000, 0, 0, &selwin0[0].subtitle.tbox, 0, 0, "< Load Systemimage >");
 		pjob->now = 0;
 	} else {
-		pjob->param[1] = (int) pjob->fbuf; /* ƒLƒƒƒbƒVƒ…ƒqƒbƒg‚©‚à‚µ‚ê‚È‚¢‚©‚çXV */
-		*pfmode = STATUS_LOAD_BOOT_SECTOR_CODE_COMPLETE; /* 'S'‚Æ'Enter'‚Æ'F'‚Æ'R'‚µ‚©“ü—Í‚Å‚«‚È‚¢ */
+		pjob->param[1] = (int) pjob->fbuf; /* ã‚­ãƒ£ãƒƒã‚·ãƒ¥ãƒ’ãƒƒãƒˆã‹ã‚‚ã—ã‚Œãªã„ã‹ã‚‰æ›´æ–° */
+		*pfmode = STATUS_LOAD_BOOT_SECTOR_CODE_COMPLETE; /* 'S'ã¨'Enter'ã¨'F'ã¨'R'ã—ã‹å…¥åŠ›ã§ããªã„ */
 		for (i = 0; i < LIST_HEIGHT; i++)
 			putselector0(win, i, "                ");
 		putselector0(win, 1, "    Loaded.     ");
@@ -984,14 +984,14 @@ void job_load_file0(int cond)
 	struct FILEBUF *fbuf = pjob->fbuf;
 	int i, task = pjob->param[0];
 	if (task == 0) {
-		/* resize‚©‚ç‚ÌˆøŒp‚¬ */
+		/* resizeã‹ã‚‰ã®å¼•ç¶™ã */
 		task = win->task;
 		win->sig[1] += pjob->param[7];
 	}
 	if (cond == 0) { /* error */
-	//	fbuf->linkcount = 0; /* ŠJ•ú */
+	//	fbuf->linkcount = 0; /* é–‹æ”¾ */
 		if (win->mdlslot != -1) {
-			/* ƒGƒ‰[ƒVƒOƒiƒ‹‚ğ‘—M */
+			/* ã‚¨ãƒ©ãƒ¼ã‚·ã‚°ãƒŠãƒ«ã‚’é€ä¿¡ */
 			sendsignal1dw(task, win->sig[1] + 1);
 		}
 	} else if (win->mdlslot == -1) {
@@ -1000,7 +1000,7 @@ void job_load_file0(int cond)
 		job_load_file1(win, fbuf, task);
 	}
 	win->mdlslot = -2;
-	if (win->lp /* NULL‚È‚çƒNƒ[ƒYˆ—’† */) {
+	if (win->lp /* NULLãªã‚‰ã‚¯ãƒ­ãƒ¼ã‚ºå‡¦ç†ä¸­ */) {
 		win->task = 0;
 		(*pselwincount)--;
 	}
@@ -1012,7 +1012,7 @@ int job_resize_sub0(int *sbp)
 {
 	struct STR_JOBLIST *pjob = &job;
 	if (sbp[1] != 0) {
-		/* ƒŠƒTƒCƒY¸”s */
+		/* ãƒªã‚µã‚¤ã‚ºå¤±æ•— */
 		pjob->param[7]++;
 		if (pjob->param[6])
 			sendsignal1dw(pjob->param[6], pjob->param[7]);
@@ -1030,8 +1030,8 @@ void job_resize_sub1(int cond)
 	struct STR_JOBLIST *pjob = &job;
 	struct FILEBUF *fbuf = pjob->fbuf;
 	if (cond == 0) {
-		/* ƒŠƒTƒCƒY¸”s(ƒ[ƒh¸”s) */
-	//	pjob->fbuf = 0; /* ŠJ•ú */
+		/* ãƒªã‚µã‚¤ã‚ºå¤±æ•—(ãƒ­ãƒ¼ãƒ‰å¤±æ•—) */
+	//	pjob->fbuf = 0; /* é–‹æ”¾ */
 		pjob->param[7]++;
 		if (pjob->param[6])
 			sendsignal1dw(pjob->param[6], pjob->param[7]);
@@ -1039,16 +1039,16 @@ void job_resize_sub1(int cond)
 		pjob->now = 0;
 	} else {
 		unsigned char *fp0 = (char *) readCSd10;
-		sgg_execcmd0(0x0080, FILEAREA, fbuf->paddr, fp0, 0x0000); /* ƒXƒƒbƒg‚ğg‚í‚È‚¢ƒ}ƒbƒsƒ“ƒO */
-		*fp0 = 0xcc; /* ‘‚«Š·‚¦ */
-		/* unmap‚·‚é */
-		/* è“®unlink (writeback) */
+		sgg_execcmd0(0x0080, FILEAREA, fbuf->paddr, fp0, 0x0000); /* ã‚¹ãƒ­ãƒƒãƒˆã‚’ä½¿ã‚ãªã„ãƒãƒƒãƒ”ãƒ³ã‚° */
+		*fp0 = 0xcc; /* æ›¸ãæ›ãˆ */
+		/* unmapã™ã‚‹ */
+		/* æ‰‹å‹•unlink (writeback) */
 		sgg_execcmd0(0x0020, 0x80000000 + 5, 0x1244, 0x0134, fbuf->dirslot, fbuf->size, fbuf->paddr, 0x0000);
 		fbuf->dirslot |= -1;
-		fbuf->linkcount &= 0; /* ŠJ•ú */
+		fbuf->linkcount &= 0; /* é–‹æ”¾ */
 		sgg_execcmd0(0x0020, 0x80000000 + 10, 0x1249, 0x0150,
 			pjob->param[0], pjob->param[1], pjob->param[2] >> 8, pjob->param[3], 
-			0x4243 /* to pokon0 */, 0x7f000002, SIGNAL_REFRESH_FLIST0, 1 /* ³íI—¹‚ª-1‚¾‚©‚ç */, 0x0000);
+			0x4243 /* to pokon0 */, 0x7f000002, SIGNAL_REFRESH_FLIST0, 1 /* æ­£å¸¸çµ‚äº†ãŒ-1ã ã‹ã‚‰ */, 0x0000);
 	}
 	return;
 }
@@ -1057,9 +1057,9 @@ void job_resize_sub2(int cond)
 {
 	struct STR_JOBLIST *pjob = &job;
 	if (cond == 0) {
-		/* ƒ[ƒh¸”s */
-	//	pjob->fbuf = 0; /* ŠJ•ú */
-		/* ƒAƒvƒŠ‚©‚ç‚Å‚Í‚È‚¢‚Ì‚ÅƒVƒOƒiƒ‹‚Í‘—‚ç‚È‚¢ */
+		/* ãƒ­ãƒ¼ãƒ‰å¤±æ•— */
+	//	pjob->fbuf = 0; /* é–‹æ”¾ */
+		/* ã‚¢ãƒ—ãƒªã‹ã‚‰ã§ã¯ãªã„ã®ã§ã‚·ã‚°ãƒŠãƒ«ã¯é€ã‚‰ãªã„ */
 		pjob->now = 0;
 	} else {
 		if (pjob->fbuf->readonly)
@@ -1073,7 +1073,7 @@ void job_resize_sub2(int cond)
 			pjob->jsubfunc = job_resize_sub0;
 			sgg_execcmd0(0x0020, 0x80000000 + 10, 0x1249, 0x0150,
 				pjob->param[0], pjob->param[1], pjob->param[2] >> 8, j, 
-				0x4243 /* to pokon0 */, 0x7f000002, i, 1 /* ³íI—¹‚ª-1‚¾‚©‚ç */, 0x0000);
+				0x4243 /* to pokon0 */, 0x7f000002, i, 1 /* æ­£å¸¸çµ‚äº†ãŒ-1ã ã‹ã‚‰ */, 0x0000);
 		}
 		unlinkfbuf(pjob->fbuf);
 	}
@@ -1086,7 +1086,7 @@ void job_exec_psf_sub0(int cond)
 	if (cond) {
 		unsigned char *fp = (unsigned char *) readCSd10, *fp1 = fp + pjob->fbuf->size;
 		static unsigned char cmdline0[1024], *p;
-		sgg_execcmd0(0x0080, FILEAREA, pjob->fbuf->paddr, fp, 0x0000); /* ƒXƒƒbƒg‚ğg‚í‚È‚¢ƒ}ƒbƒsƒ“ƒO */
+		sgg_execcmd0(0x0080, FILEAREA, pjob->fbuf->paddr, fp, 0x0000); /* ã‚¹ãƒ­ãƒƒãƒˆã‚’ä½¿ã‚ãªã„ãƒãƒƒãƒ”ãƒ³ã‚° */
 		while (fp < fp1) {
 			p = cmdline0;
 			while (fp < fp1 && *fp <= ' ')
@@ -1097,61 +1097,18 @@ void job_exec_psf_sub0(int cond)
 				*p++ = *fp++;
 			*p = '\0';
 			poko_exec_cmd(cmdline0);
-		}
-		unlinkfbuf(pjob->fbuf);
-	}
-	pjob->now = 0;
-	return;
-}
-
-#if (defined(PCAT))
-
-int job_chgdev_sub0(int *sbp)
-{
-	sgg_format(0x0114, SIGNAL_RELOAD_FAT_COMPLETE); /* INVALID_DISKCACHE */
-	return 1; /* siglen */
-}
-
-#endif
-
-void poko_exec_cmd(const char *p)
-{
-	while (*p != '\0' && *p <= ' ')
-		p++;
-	if (*p != '\0' && *p != '/') {
-		int status = -ERR_BAD_COMMAND;
-		static struct STR_POKON_CMDLIST {
-			int (*fnc)(const char *);
-			const char *cmd;
-			char skip, prmflg;
-		} cmdlist[] = {
-			poko_memory,		"memory", 6, 0,
-			poko_color,			"color", 5, 1,
-			poko_cls,			"cls", 3, 0,
-		/*	poko_mousespeed,	"mousespeed", 10, 1, */
-			poko_mouseaccel,	"mouseaccel", 10, 1,
-			poko_setdefaultIL,	"setdefaultIL", 12, 1,
-			poko_tasklist,		"tasklist", 8, 0,
-			poko_sendsignalU,	"sendsignalU", 11, 1,
-			poko_LLlist,		"LLlist", 6, 1,
-			poko_setIL,			"setIL", 5, 1,
-			poko_create,		"create", 6, 1,
-			poko_delete,		"delete", 6, 1,
-			poko_rename,		"rename", 6, 1,
-			poko_resize,		"resize", 6, 1,
-			poko_nfname,		"nfname", 6, 1,
-			poko_autodecomp,	"autodecomp", 10, 1,
-			poko_sortmode,		"sortmode", 8, 1,
-			poko_kill,			"kill", 4, 1,
-			#if (defined(PCAT))
-				poko_vesalist,		"vesalist", 8, 1,
-				poko_setvesa,		"setvesa", 7, 1,
-				poko_detectpcivga,	"detectpcivga", 12, 2,
-			#endif
-			poko_defkeybind,	"defkeybind", 10, 1,
-			poko_defspkeybind,	"defspkeybind", 12, 1,
-			poko_setwindef,		"setwindef", 9, 1,
-			poko_run,			"run", 3, 1,
+		if (pjob->fbuf->readonly)
+			pjob->now = 0;
+		else {
+			int i = SIGNAL_REFRESH_FLIST0, j = pjob->param[3];
+			if (pjob->fp->size == 0) {
+				i = SIGNAL_JSUB;
+				j = 1;
+			}
+			pjob->jsubfunc = job_resize_sub0;
+			sgg_execcmd0(0x0020, 0x80000000 + 10, 0x1249, 0x0150,
+				pjob->param[0], pjob->param[1], pjob->param[2] >> 8, j, 
+				0x4243 /* to pokon0 */, 0x7f000002, i, 1 /* è±ï½£èŸ¶ï½¸é‚¨ã‚†ï½º", 3, 1,
 			#if (defined(PCAT) | defined(TOWNS))
 				poko_drvfd,			"drvfd", 5, 1,
 				poko_drvcf,			"drvcf", 5, 1,

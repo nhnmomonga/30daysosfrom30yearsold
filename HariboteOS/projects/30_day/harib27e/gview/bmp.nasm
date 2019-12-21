@@ -50,7 +50,7 @@ section .text align=1
 
 %if 0
 int info_BMP(struct DLL_STRPICENV *env, int *info, int size, UCHAR *fp);
-/* À®¸ù¤·¤¿¤é1 (Èó0?), ¼ºÇÔ¤·¤¿¤é0 */
+/* ï¾€ï½®ï½¸î›¿ï½·ï½¤ï½¿ï½¤¤·¤¿¤é0 */
 int decode0_BMP(struct DLL_STRPICENV *env, int size, UCHAR *fp,
                 int b_type, UCHAR *buf, int skip);
 /* ¥¨¥é¡¼¥³¡¼¥É¤òÊÖ¤¹¡£¤È¤ê¤¢¤¨¤ºÈó0¤Ë¤·¤Æ¤ë¤À¤± */

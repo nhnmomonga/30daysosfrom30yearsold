@@ -18,7 +18,7 @@
 
 //#define DEBUGMSG		1
 
-/* +0x10 : ‘DS/SSƒTƒCƒY */
+/* +0x10 : ç·DS/SSã‚µã‚¤ã‚º */
 /* +0x14 : file */
 /* +0x18 : reserve */
 /* +0x1c : reserve */
@@ -31,7 +31,7 @@ typedef unsigned char UCHAR;
 
 #define TEK1_BT_NODES0	4400 * 2
 #define TEK1_BT_NODES1	65536 * 2
-	/* maxdis:1MB—p(10MB‚­‚ç‚¢•K—v‚É‚È‚é) */
+	/* maxdis:1MBç”¨(10MBãã‚‰ã„å¿…è¦ã«ãªã‚‹) */
 
 static unsigned char *putb_buf, *putb_overbuf;
 static int putb_ptr;
@@ -59,21 +59,21 @@ void tek1_puts7(unsigned int i);
 unsigned int tek1_getnum_s7s(UCHAR **pp);
 
 #define TEK1_BT_MAXLEV		10
-#define TEK1_BT_NODESIZ		32	/* •K‚¸2‚Ì”{” */
+#define TEK1_BT_NODESIZ		32	/* å¿…ãš2ã®å€æ•° */
 
-/* “o˜^‚µ‚½‚¢”/16‚Ìƒm[ƒh1 */
-/* “o˜^‚µ‚½‚¢”/256+“o˜^‚µ‚½‚¢”/4096+“o˜^‚µ‚½‚¢”/65536+...‚Ìƒm[ƒh1 */
-/* 1/256(16/15)=1/240 ‚¾‚©‚ç“o˜^‚µ‚½‚¢”/240‚Ìƒm[ƒh0 */
-/* 1MB‚¾‚Æ‚·‚é‚ÆAƒm[ƒh1‚Í65536ŒÂAƒm[ƒh0‚Í4400ŒÂ */
+/* ç™»éŒ²ã—ãŸã„æ•°/16ã®ãƒãƒ¼ãƒ‰1 */
+/* ç™»éŒ²ã—ãŸã„æ•°/256+ç™»éŒ²ã—ãŸã„æ•°/4096+ç™»éŒ²ã—ãŸã„æ•°/65536+...ã®ãƒãƒ¼ãƒ‰1 */
+/* 1/256(16/15)=1/240 ã ã‹ã‚‰ç™»éŒ²ã—ãŸã„æ•°/240ã®ãƒãƒ¼ãƒ‰0 */
+/* 1MBã ã¨ã™ã‚‹ã¨ã€ãƒãƒ¼ãƒ‰1ã¯65536å€‹ã€ãƒãƒ¼ãƒ‰0ã¯4400å€‹ */
 
-struct STR_BT_NODE0 { /* 260ƒoƒCƒg */
+struct STR_BT_NODE0 { /* 260ãƒã‚¤ãƒˆ */
 	int nodes, skiplen;
 	void *pkey[TEK1_BT_NODESIZ];
 	void *node[TEK1_BT_NODESIZ];
-	 /* pkey‚ÍŠeƒm[ƒh‚ÌÅ’á’li—×‚Ìƒm[ƒh‚ÌÅ‘å’l‚æ‚è‚à¬‚³‚¯‚ê‚ÎAÅ’á’l‚æ‚è‚³‚ç‚É¬‚³‚­‚Ä‚à‚æ‚¢j */
+	 /* pkeyã¯å„ãƒãƒ¼ãƒ‰ã®æœ€ä½å€¤ï¼ˆéš£ã®ãƒãƒ¼ãƒ‰ã®æœ€å¤§å€¤ã‚ˆã‚Šã‚‚å°ã•ã‘ã‚Œã°ã€æœ€ä½å€¤ã‚ˆã‚Šã•ã‚‰ã«å°ã•ãã¦ã‚‚ã‚ˆã„ï¼‰ */
 };
 
-struct STR_BT_NODE1 { /* 132ƒoƒCƒg */
+struct STR_BT_NODE1 { /* 132ãƒã‚¤ãƒˆ */
 	int nodes, skiplen;
 	void *pkey[TEK1_BT_NODESIZ];
 };
@@ -190,7 +190,7 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
-	/* ƒpƒ‰ƒ[ƒ^[‰ğÍ */
+	/* ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼è§£æ */
 	for (argv++, i = 1; i < argc; argv++, i++) {
 		UCHAR *s = *argv;
 		if (strncmp(s, "malloc:", 7) == 0)
@@ -260,8 +260,8 @@ int main(int argc, char **argv)
 		else if (strncmp(s, "hint:", 5) == 0)
 			hint = fopen(s + 5, "rb");
 		else if (strncmp(s, "clv:", 4) == 0) {
-		//	static UCHAR table_clv[10] = { }; /* 10’iŠK */
-		//	5‚ª\•ªA3‚ª’†ŠÔA1‚ªƒfƒtƒHƒ‹ƒgA0‚ª‚à‚Á‚Æ‚àã‚¢A9‚ªÅ‹­(99)
+		//	static UCHAR table_clv[10] = { }; /* 10æ®µéš */
+		//	5ãŒååˆ†ã€3ãŒä¸­é–“ã€1ãŒãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã€0ãŒã‚‚ã£ã¨ã‚‚å¼±ã„ã€9ãŒæœ€å¼·(99)
 		//	10-99 -> 00-88, 90
 			complev = getnum(s + 4);
 			if (complev > 9)
@@ -428,14 +428,14 @@ int main(int argc, char **argv)
 	}
 	if (outtype == 1 || outtype == 4) { /* exe512 | bin0 */
 		if (outtype == 1 /* exe512 */) {
-			/* ƒwƒbƒ_[(512ƒoƒCƒg)‚ÌƒJƒbƒg */
+			/* ãƒ˜ãƒƒãƒ€ãƒ¼(512ãƒã‚¤ãƒˆ)ã®ã‚«ãƒƒãƒˆ */
 			filesize -= 512;
 			for (i = 0; i < filesize; i++)
 				buf[i] = buf[i + 512];
 		}
-		if (compress == -1) /* ’P‚È‚éƒwƒbƒ_ƒJƒbƒg */
+		if (compress == -1) /* å˜ãªã‚‹ãƒ˜ãƒƒãƒ€ã‚«ãƒƒãƒˆ */
 			goto write;
-		/* ƒXƒ^ƒeƒBƒbƒNƒf[ƒ^[ƒCƒ[ƒWˆ³k */
+		/* ã‚¹ã‚¿ãƒ†ã‚£ãƒƒã‚¯ãƒ‡ãƒ¼ã‚¿ãƒ¼ã‚¤ãƒ¡ãƒ¼ã‚¸åœ§ç¸® */
 		data_begin = get32(&buf[filesize - 4]);
 		datasize = filesize - 4 - data_begin;
 		if (compress < 3) {
@@ -511,7 +511,7 @@ int main(int argc, char **argv)
 			if (compress == 1)
 				lzcompress_l2d3(buf + data_begin, datasize, 0, SIZEOFOVERBUF - 8, maxdis);
 			if (compress == 2) {
-				buf[0x35] = 0x82; /* tek0ˆ³kƒf[ƒ^[“WŠJ */
+				buf[0x35] = 0x82; /* tek0åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ãƒ¼å±•é–‹ */
 				lzcompress_tek0(prm0, buf + data_begin, datasize, 0, SIZEOFOVERBUF - 8, maxdis);
 			}
 			if (putb_ptr < datasize) {
@@ -523,23 +523,23 @@ int main(int argc, char **argv)
 		} else {
 			UCHAR *work = malloc(i = 257 * 1024 + (bsiz + 272) * 8);
 			if (compress == 3) {
-				buf[0x35] = 0x83; /* tek1ˆ³kƒf[ƒ^[“WŠJ */
+				buf[0x35] = 0x83; /* tek1åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ãƒ¼å±•é–‹ */
 				j = lzcompress_tek1(datasize, buf + data_begin, SIZEOFOVERBUF - 8, overbuf, i, work, bsiz, 0, opt, prm0, maxdis, submaxdis);
 			}
 			if (compress == 4) {
-				buf[0x35] = 0x85; /* tek2ˆ³kƒf[ƒ^[“WŠJ */
+				buf[0x35] = 0x85; /* tek2åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ãƒ¼å±•é–‹ */
 				j = lzcompress_tek1(datasize, buf + data_begin, SIZEOFOVERBUF - 8, overbuf, i, work, bsiz, 1, opt, prm0, maxdis, submaxdis);
 			}
 		//	if (compress == 5) {
-		//		buf[0x35] = 0x86; /* tek3ˆ³kƒf[ƒ^[“WŠJ */
+		//		buf[0x35] = 0x86; /* tek3åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ãƒ¼å±•é–‹ */
 		//		j = lzcompress_tek3(datasize, buf + data_begin, SIZEOFOVERBUF - 8, overbuf, i, work, bsiz, 0, opt, prm0, maxdis, submaxdis);
 		//	}
 		//	if (compress == 6) {
-		//		buf[0x35] = 0x87; /* tek3ˆ³kƒf[ƒ^[“WŠJ */
+		//		buf[0x35] = 0x87; /* tek3åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ãƒ¼å±•é–‹ */
 		//		j = lzcompress_tek3(datasize, buf + data_begin, SIZEOFOVERBUF - 8, overbuf, i, work, bsiz, 1, opt, prm0, maxdis, submaxdis);
 		//	}
 			if (compress == 7) {
-				buf[0x35] = 0x89; /* tek5ˆ³kƒf[ƒ^[“WŠJ */
+				buf[0x35] = 0x89; /* tek5åœ§ç¸®ãƒ‡ãƒ¼ã‚¿ãƒ¼å±•é–‹ */
 				j = lzcompress_tek5(datasize, buf + data_begin, SIZEOFOVERBUF - 8, overbuf, i, work, argv0, eopt, bsiz, 1, opt, prm0, maxdis, submaxdis);
 			}
 			free(work);
@@ -607,7 +607,7 @@ int main(int argc, char **argv)
 		for (i = 0; i < 0x48; i++)
 			buf[i] = header0[i];
 		if (v48 & 2) {
-			/* code_end, datasize‚Ì16ƒoƒCƒgƒAƒ‰ƒCƒ“ */
+			/* code_end, datasizeã®16ãƒã‚¤ãƒˆã‚¢ãƒ©ã‚¤ãƒ³ */
 			for (i = datasize - 1; i >= 0; i--)
 				buf[data_begin + i + 16] = buf[data_begin + i];
 			data_begin += 16;
@@ -657,14 +657,14 @@ const int search0a(int prm0, unsigned char *buf, unsigned char *buf0, const int 
 	unsigned char *s;
 	unsigned char c = buf[0];
 
-	/* ƒAƒNƒZƒX‚µ‚Ä‚Í‚¢‚¯‚È‚¢ƒAƒhƒŒƒX : buf + max0 */
+	/* ã‚¢ã‚¯ã‚»ã‚¹ã—ã¦ã¯ã„ã‘ãªã„ã‚¢ãƒ‰ãƒ¬ã‚¹ : buf + max0 */
 	for (s = buf - 1; s >= buf0; s--) {
 		if (*s == c) {
-			for (l = max; l > 0; l--) { /* ‚‘¬‰»‚Ì‚½‚ßAŒã‚ë‚©‚ç”äŠr */
+			for (l = max; l > 0; l--) { /* é«˜é€ŸåŒ–ã®ãŸã‚ã€å¾Œã‚ã‹ã‚‰æ¯”è¼ƒ */
 				if (buf[l] != s[l])
 					goto nextloop;
 			}
-			/* ˆê’v’·‚ğZo, ‚½‚¾‚µmax0‚É‚È‚Á‚½‚ç‘Å‚¿~‚ß */
+			/* ä¸€è‡´é•·ã‚’ç®—å‡º, ãŸã ã—max0ã«ãªã£ãŸã‚‰æ‰“ã¡æ­¢ã‚ */
 			for (l = max; buf[l] == s[l]; ) {
 				if (++l >= max0) {
 					*p = s - buf;
@@ -672,7 +672,7 @@ const int search0a(int prm0, unsigned char *buf, unsigned char *buf0, const int 
 				}
 			}
 
-/* distance‚Ì‘‰Á—Ê‚ªl‚Ì‘‰Á—Ê‚Ìp”{‚ğ’´‚¦‚Ä‚¢‚é‚æ‚¤‚È‚çA‘¹‚Å‚ ‚é‚Ì‚ÅÌ—p‚µ‚È‚¢ */
+/* distanceã®å¢—åŠ é‡ãŒlã®å¢—åŠ é‡ã®på€ã‚’è¶…ãˆã¦ã„ã‚‹ã‚ˆã†ãªã‚‰ã€æã§ã‚ã‚‹ã®ã§æ¡ç”¨ã—ãªã„ */
 
 			d = s - buf;
 			if (d == -1)
@@ -707,9 +707,9 @@ int search(unsigned char *buf, unsigned char *buf0, const int max0, int *p)
 }
 
 int search0b_sub(struct STR_BTREE *btree, struct STR_BT_HANDLE *handle, int *lenhis, UCHAR *s, UCHAR *s1, int len)
-/* 0:ŠY“–‚È‚µ */
-/* ˆê’v’·len‚Ì’†‚Åˆê”Ô‹ß‚¢‚à‚Ì‚ğ•Ô‚· */
-/* handle‚ÍŸè‚É“®‚©‚· */
+/* 0:è©²å½“ãªã— */
+/* ä¸€è‡´é•·lenã®ä¸­ã§ä¸€ç•ªè¿‘ã„ã‚‚ã®ã‚’è¿”ã™ */
+/* handleã¯å‹æ‰‹ã«å‹•ã‹ã™ */
 {
 	int max = -0x7fffffff;
 	int i;
@@ -748,10 +748,10 @@ int search0c(int prm0, UCHAR *buf, UCHAR *buf0, int max0, int *p, const int *tab
 
 	t = l1table[*buf];
 	if (t == NULL)
-		 goto fin; /* 1•¶šˆê’v‚·‚ç‚à‚Í‚â‚Ç‚±‚É‚à‘¶İ‚µ‚È‚¢ */
+		 goto fin; /* 1æ–‡å­—ä¸€è‡´ã™ã‚‰ã‚‚ã¯ã‚„ã©ã“ã«ã‚‚å­˜åœ¨ã—ãªã„ */
 	if (t < buf0) {
-		l1table[*buf] = NULL; /* ¡Œã–Ê“|‚É‚µ‚È‚¢‚½‚ß */
-		goto fin; /* ˆê”Ô‹ß‚­‚Ä‚à‚»‚ê‚Å‚àmaxdis‚æ‚è‰“‚¢‚ç‚µ‚¢‚Ì‚Å‚±‚ê‚à‚¨‚µ‚Ü‚¢ */
+		l1table[*buf] = NULL; /* ä»Šå¾Œé¢å€’ã«ã—ãªã„ãŸã‚ */
+		goto fin; /* ä¸€ç•ªè¿‘ãã¦ã‚‚ãã‚Œã§ã‚‚maxdisã‚ˆã‚Šé ã„ã‚‰ã—ã„ã®ã§ã“ã‚Œã‚‚ãŠã—ã¾ã„ */
 	}
 	dd = t - buf;
 	if (dd >= table[0]) {
@@ -765,7 +765,7 @@ int search0c(int prm0, UCHAR *buf, UCHAR *buf0, int max0, int *p, const int *tab
 		search0(&btree[tree], &handle[0], buf, s1);
 		l = matchlen_bt(buf, handle[0].pkey, s1);
 		handle[1] = handle[0];
-		search_next(&btree[tree], &handle[1]); /* —×‚àŒ©‚é */
+		search_next(&btree[tree], &handle[1]); /* éš£ã‚‚è¦‹ã‚‹ */
 		d = matchlen_bt(buf, handle[1].pkey, s1);
 		if (l >= d)
 			handle[1] = handle[0];
@@ -777,15 +777,15 @@ int search0c(int prm0, UCHAR *buf, UCHAR *buf0, int max0, int *p, const int *tab
 		if (l <= 1)
 			continue;
 		d = search0b_sub(&btree[tree], handle, lenhis, buf, s1, l);
-		ld = search0b_calcld(d) - search0b_calcld(dd); /* distance‚É‚æ‚Á‚Ä‚Ç‚Ì‚­‚ç‚¢ƒrƒbƒg”‚ª•Ï‚í‚é‚© */
+		ld = search0b_calcld(d) - search0b_calcld(dd); /* distanceã«ã‚ˆã£ã¦ã©ã®ãã‚‰ã„ãƒ“ãƒƒãƒˆæ•°ãŒå¤‰ã‚ã‚‹ã‹ */
 		l0 = l - (ld + prm0 - 1) / prm0;
 		while ((l - l0) * prm0 - ld > 0)
 			l0++;
 
 		if (l0 < 2)
-			l0 = 2; /* Å¬’·1‚ÍŠù‚Éˆ—Ï‚İ */
+			l0 = 2; /* æœ€å°é•·1ã¯æ—¢ã«å‡¦ç†æ¸ˆã¿ */
 		ld = search0b_calcld(d);
-		if ((max - l) * prm0 + ld - ld0 < 0) { /* max‚æ‚è’·‚­‚È‚ê‚é‚©H */
+		if ((max - l) * prm0 + ld - ld0 < 0) { /* maxã‚ˆã‚Šé•·ããªã‚Œã‚‹ã‹ï¼Ÿ */
 			if (l > 10) {
 				max = l;
 				*p = d;
@@ -801,7 +801,7 @@ int search0c(int prm0, UCHAR *buf, UCHAR *buf0, int max0, int *p, const int *tab
 			if (d >= 0)
 				continue;
 			ld = search0b_calcld(d);
-			if ((max - l) * prm0 + ld - ld0 < 0) { /* max‚æ‚è’·‚­‚È‚ê‚é‚©H */
+			if ((max - l) * prm0 + ld - ld0 < 0) { /* maxã‚ˆã‚Šé•·ããªã‚Œã‚‹ã‹ï¼Ÿ */
 				if (l > 10) {
 					max = l;
 					*p = d;
@@ -817,22 +817,22 @@ int search0c(int prm0, UCHAR *buf, UCHAR *buf0, int max0, int *p, const int *tab
 fin:
 
 #if 0
-	/* ƒoƒO‚É‚æ‚é‹•‹U•ñ‚ª‚È‚¢‚©Šm”F */
-//	if (max > max0) { puts("len-max err!"); exit(1); } /* ‚±‚ê‚Í‚¢‚Â‚àOK */
+	/* ãƒã‚°ã«ã‚ˆã‚‹è™šå½å ±å‘ŠãŒãªã„ã‹ç¢ºèª */
+//	if (max > max0) { puts("len-max err!"); exit(1); } /* ã“ã‚Œã¯ã„ã¤ã‚‚OK */
 //	for (l = 0; l < max; l++)
-//		if (buf[*p+l] != buf[l]) { puts("string mismatch err!"); exit(1); } /* ‚±‚ê‚à‚¢‚Â‚àOK */
+//		if (buf[*p+l] != buf[l]) { puts("string mismatch err!"); exit(1); } /* ã“ã‚Œã‚‚ã„ã¤ã‚‚OK */
 	if (buf + *p < buf0 && max > 0) { printf("distance err!(%d:%d) ", *p, max); max = 0; }
 #endif
 
 	return max;
 
-/* distance‚Ì‘‰Á—Ê‚ªl‚Ì‘‰Á—Ê‚Ìp”{‚ğ’´‚¦‚Ä‚¢‚é‚æ‚¤‚È‚çA‘¹‚Å‚ ‚é‚Ì‚ÅÌ—p‚µ‚È‚¢ */
-/* ‚±‚ê‚ğ‘‰Á—Ê‚Å‚Í‚È‚­Œ¸­—Ê‚©‚ç‹t„’è */
-/* distance‚ÉŠî‚Ã‚«Alen‚Í‚Ç‚±‚Ü‚ÅŒ¸‚ç‚¹‚é‚©‚ğ„’è */
-/* distance‚ÌÅ¬’l(l1‚Ì‚Æ‚«)‚Íˆêu‚Åo‚¹‚é */
+/* distanceã®å¢—åŠ é‡ãŒlã®å¢—åŠ é‡ã®på€ã‚’è¶…ãˆã¦ã„ã‚‹ã‚ˆã†ãªã‚‰ã€æã§ã‚ã‚‹ã®ã§æ¡ç”¨ã—ãªã„ */
+/* ã“ã‚Œã‚’å¢—åŠ é‡ã§ã¯ãªãæ¸›å°‘é‡ã‹ã‚‰é€†æ¨å®š */
+/* distanceã«åŸºã¥ãã€lenã¯ã©ã“ã¾ã§æ¸›ã‚‰ã›ã‚‹ã‹ã‚’æ¨å®š */
+/* distanceã®æœ€å°å€¤(l1ã®ã¨ã)ã¯ä¸€ç¬ã§å‡ºã›ã‚‹ */
 
-/* 1.‚Ü‚¸distance‚ÌÅ¬’l‚ğ‹‚ß‚é */
-/* 2.Ÿ‚Édistance‚ÌÅ‘å’l‚ğ‹‚ß‚é */
+/* 1.ã¾ãšdistanceã®æœ€å°å€¤ã‚’æ±‚ã‚ã‚‹ */
+/* 2.æ¬¡ã«distanceã®æœ€å¤§å€¤ã‚’æ±‚ã‚ã‚‹ */
 /* 3. */
 
 }
@@ -857,7 +857,7 @@ void putbc(const int bits, int mask)
 void flushb()
 {
 	if (putb_count != 8) {
-		putb_byte = putb_byte << 1 | 1; /* "1"‚ğ‘—‚é */
+		putb_byte = putb_byte << 1 | 1; /* "1"ã‚’é€ã‚‹ */
 		if (--putb_count)
 			putb_byte <<= putb_count;
 		if (putb_ptr < 0)
@@ -873,7 +873,7 @@ void flushb()
 void flushb0()
 {
 	if (putb_count != 8) {
-		putb_byte = putb_byte << 1 | 0; /* "0"‚ğ‘—‚é */
+		putb_byte = putb_byte << 1 | 0; /* "0"ã‚’é€ã‚‹ */
 		if (--putb_count)
 			putb_byte <<= putb_count;
 		if (putb_ptr < 0)
@@ -906,7 +906,7 @@ const int getbc(int bits)
 }
 
 const int getbc0(int bits, int ret)
-/* ‰Šú’l•t‚« */
+/* åˆæœŸå€¤ä»˜ã */
 {
 	do {
 		if (putb_count == 8) {
@@ -956,7 +956,7 @@ UCHAR *get_subbuf(UCHAR *subbuf, int *t, int *d, int *l)
 }
 
 const int get_subbuflen(unsigned char *subbuf, int *pt, int j)
-/* ƒŠƒs[ƒg’·‚ğŒŸo */
+/* ãƒªãƒ”ãƒ¼ãƒˆé•·ã‚’æ¤œå‡º */
 {
 	int l, d, t, len = 0;
 
@@ -995,8 +995,8 @@ const int get_subbuflen(unsigned char *subbuf, int *pt, int j)
 }
 
 void lzcmp_putnum1(int i)
-/* 19 <= i <= 273 ‚¾‚Æ14bitƒR[ƒh‚É‚È‚é */
-/* 2-4-8-16Œ`®‚Åo—Í */
+/* 19 <= i <= 273 ã ã¨14bitã‚³ãƒ¼ãƒ‰ã«ãªã‚‹ */
+/* 2-4-8-16å½¢å¼ã§å‡ºåŠ› */
 {
 	if (i <= 4 - 1)
 		putbc(i - 1 + 1, 0x2); /* 2bit */
@@ -1021,7 +1021,7 @@ void lzcmp_putnum1(int i)
 
 void putnum_l1a(unsigned int i)
 /* must i >= 1 */
-/* sxsxsxsxsŒ`®‚Åo—Í */
+/* sxsxsxsxså½¢å¼ã§å‡ºåŠ› */
 {
 	int j;
 	if (i == 1) {
@@ -1034,7 +1034,7 @@ void putnum_l1a(unsigned int i)
 		j--;
 	}
 	do {
-		i <<= 1; /* Å‰‚Ì1‚ÍÌ‚Ä‚é */
+		i <<= 1; /* æœ€åˆã®1ã¯æ¨ã¦ã‚‹ */
 		if (i & 0x80000000)
 			putbc(0x1, 0x2); /* sx */
 		else
@@ -1046,22 +1046,22 @@ void putnum_l1a(unsigned int i)
 
 void putnum_l1b(unsigned int i)
 /* must i >= 1 */
-/* ‚¨‚»‚ç‚­Al2a‚âl2b‚æ‚è‚à—D‚ê‚Ä‚¢‚é */
+/* ãŠãã‚‰ãã€l2aã‚„l2bã‚ˆã‚Šã‚‚å„ªã‚Œã¦ã„ã‚‹ */
 {
 	if (i <= 2) {
 		putbc(i + 1, 0x2); /* "10" or "11" */
 		return;
 	}
-	putnum_l1a(i - 1); /* 3‚ğ2‚É‚·‚é */
+	putnum_l1a(i - 1); /* 3ã‚’2ã«ã™ã‚‹ */
 	return;
 }
 
 void putnum_df(int d, unsigned int s)
-/* s‚Ìbit‚ª1‚¾‚ÆA‚»‚±‚Ü‚Åo—Í‚µ‚½‚ ‚Æ‚ÉAsƒrƒbƒg‚ğo—Í */
+/* sã®bitãŒ1ã ã¨ã€ãã“ã¾ã§å‡ºåŠ›ã—ãŸã‚ã¨ã«ã€sãƒ“ãƒƒãƒˆã‚’å‡ºåŠ› */
 {
 	int len;
 	unsigned int i = 1;
-//	if (d == 0) { /* ƒŠƒs[ƒgƒ}[ƒNo—Í */
+//	if (d == 0) { /* ãƒªãƒ”ãƒ¼ãƒˆãƒãƒ¼ã‚¯å‡ºåŠ› */
 //		for (i = 1; (i & s) == 0; i <<= 1)
 //			putbc(1, 1);
 //		putbc(0x2, 0x2); /* "10" */
@@ -1071,7 +1071,7 @@ void putnum_df(int d, unsigned int s)
 	i = 31;
 	while (i > 0 && (d & (1 << i)) != 0)
 		i--;
-	/* i = d‚Ì0‚ªŒ©•t‚©‚Á‚½ƒrƒbƒgˆÊ’u(0`31) */
+	/* i = dã®0ãŒè¦‹ä»˜ã‹ã£ãŸãƒ“ãƒƒãƒˆä½ç½®(0ï½31) */
 
 	len = -1;
 	do {
@@ -1092,10 +1092,10 @@ void putnum_df(int d, unsigned int s)
 			continue;
 		if (len < 0)
 			break;
-		putbc(0, 1); /* Œp‘±bit */
+		putbc(0, 1); /* ç¶™ç¶šbit */
 	}
 	if (s)
-		putbc(1, 1); /* ”ñŒp‘±bit */
+		putbc(1, 1); /* éç¶™ç¶šbit */
 	return;
 }
 
@@ -1125,13 +1125,13 @@ void putnum_l0a(int i, int z)
 	z = l[z];
 	if (i <= z) {
 		while (--i)
-			putbc(0x0, 0x1); /* (i - 1)ŒÂ‚Ì"0" */
+			putbc(0x0, 0x1); /* (i - 1)å€‹ã®"0" */
 		putbc(0x1, 0x1);
 		return;
 	}
 	j = z;
 	do {
-		putbc(0x0, 0x1); /* zŒÂ‚Ì"0" */
+		putbc(0x0, 0x1); /* zå€‹ã®"0" */
 	} while (--j);
 	putnum_l1b(i - z);
 	return;
@@ -1220,7 +1220,7 @@ const int getnum_l0a(int z)
 
 const int calclen_l1a(unsigned int i)
 /* must i >= 1 */
-/* sxsxsxsxsŒ`®‚Åo—Í */
+/* sxsxsxsxså½¢å¼ã§å‡ºåŠ› */
 {
 	int j, l = 0;
 	if (i == 1)
@@ -1231,7 +1231,7 @@ const int calclen_l1a(unsigned int i)
 		j--;
 	}
 	do {
-		i <<= 1; /* Å‰‚Ì1‚ÍÌ‚Ä‚é */
+		i <<= 1; /* æœ€åˆã®1ã¯æ¨ã¦ã‚‹ */
 		l += 2;
 	} while (--j);
 	return l + 1;
@@ -1239,19 +1239,19 @@ const int calclen_l1a(unsigned int i)
 
 const int calclen_l1b(unsigned int i)
 /* must i >= 1 */
-/* sxsxsxsxsŒ`®‚Åo—Í */
+/* sxsxsxsxså½¢å¼ã§å‡ºåŠ› */
 {
 	if (i <= 2)
 		return 2;
-	return calclen_l1a(i - 1); /* 3‚ğ2‚É‚·‚é */
+	return calclen_l1a(i - 1); /* 3ã‚’2ã«ã™ã‚‹ */
 }
 
 const int calclen_df(int d, unsigned int s)
-/* s‚Ìbit‚ª1‚¾‚ÆA‚»‚±‚Ü‚Åo—Í‚µ‚½‚ ‚Æ‚ÉAsƒrƒbƒg‚ğo—Í */
+/* sã®bitãŒ1ã ã¨ã€ãã“ã¾ã§å‡ºåŠ›ã—ãŸã‚ã¨ã«ã€sãƒ“ãƒƒãƒˆã‚’å‡ºåŠ› */
 {
 	int len, l = 0;
 	unsigned int i = 1;
-//	if (d == 0) { /* ƒŠƒs[ƒgƒ}[ƒNo—Í */
+//	if (d == 0) { /* ãƒªãƒ”ãƒ¼ãƒˆãƒãƒ¼ã‚¯å‡ºåŠ› */
 //		for (i = 1; (i & s) == 0; i <<= 1)
 //			l++;
 //		l += 2;
@@ -1261,7 +1261,7 @@ const int calclen_df(int d, unsigned int s)
 	i = 31;
 	while (i > 0 && (d & (1 << i)) != 0)
 		i--;
-	/* i = d‚Ì0‚ªŒ©•t‚©‚Á‚½ƒrƒbƒgˆÊ’u(0`31) */
+	/* i = dã®0ãŒè¦‹ä»˜ã‹ã£ãŸãƒ“ãƒƒãƒˆä½ç½®(0ï½31) */
 
 	len = -1;
 	do {
@@ -1279,10 +1279,10 @@ const int calclen_df(int d, unsigned int s)
 			continue;
 		if (len < 0)
 			break;
-		l++;/* Œp‘±bit */
+		l++;/* ç¶™ç¶šbit */
 	}
 	if (s)
-		l++; /* ”ñŒp‘±bit */
+		l++; /* éç¶™ç¶šbit */
 	return l;
 }
 
@@ -1296,7 +1296,7 @@ int calclen_l0a(unsigned int i, int z)
 	return z + calclen_l1b(i - z);
 }
 
-/* l2d3ƒGƒ“ƒR[ƒh */
+/* l2d3ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‰ */
 
 int lzcompress_l2d3(unsigned char *buf, int k, int i, int outlimit, int maxdis)
 {
@@ -1346,99 +1346,41 @@ int lzcompress_l2d3(unsigned char *buf, int k, int i, int outlimit, int maxdis)
 			putbc(0, 0x1);
 			lzcmp_putnum1(len);
 
-			/* ãˆÊ‚©‚ço—Í‚¹‚æ */
+			/* ä¸Šä½ã‹ã‚‰å‡ºåŠ›ã›ã‚ˆ */
 
 #if 1
 #define	DLEN	3
-			/* 2GBˆÈã‚É‚Í‘Î‰‚µ‚Ä‚¢‚È‚¢ */
+			/* 2GBä»¥ä¸Šã«ã¯å¯¾å¿œã—ã¦ã„ãªã„ */
 			for (j = 31 / DLEN; j >= 1 && (distance >> (j * DLEN)) == -1; j--);
 			if (j >= 0) {
 			//	putbc(1, 0x1); /* 1bit */
 				while (j) {
-					putbc((distance >> (DLEN * j - 1)) | 1, 1 << DLEN); /* DLEN bit */
-					j--;
-				}
-				putbc(distance << 1, 1 << DLEN); /* DLEN bit */
-			} else
-				putbc(0, 0x1); /* 1bit */
-
-#endif
-
-		}
-	}
-
-	flushb();
-
-//	printf("%d -> %d (%f%%)\n", k, putb_ptr - ptr0, (double) (putb_ptr - ptr0) * 100 / k);
-
-	return k;
-}
-
-/* l2d3ƒfƒR[ƒh */
-
-int lzrestore_l2d3(unsigned char *buf, int k, int i, int outlimit)
-{
-	int len, distance, j;
-
-	i = 0;
-	for (;;) {
-		j = getbc(1);
-		if (j < 0)
-			return i;
-		if (j > 0) {
-			j = getbc(8);
-			if (j < 0)
-				return i;
-			buf[i++] = j;
-			continue;
-		}
-		/* len */
-		j = getbc(2);
-//		if (j < 0)
-//			return i;
-		len = j;
-		if (j == 0) {
-			j = getbc(4);
-			len = j + 3;
-			if (j == 0) {
-				j = getbc(8);
-				len = j + 18;
-				if (j == 0) {
-					j = getbc(16);
-					len = j;
-					if (j <= 127)
-						len = getbc0(j, 1); /* Å‰‚Ìbit‚Í1‚ÉŒˆ‚Ü‚Á‚Ä‚¢‚é‚©‚ç */
-				}
+					putbc((distance >> (DLEN * j - k - i;
+			distance = srchlogdis;
+			if ((len = srchloglen) < 0)
+				len = search(buf + i,  buf + range, maxlen, &distance);
+			srchloglen = -1;
+			if (len >= 2) {
+				range = i + 1 - maxdis;
+				if (range < 0)
+					range = 0;
+				srchloglen = search(buf + i + 1,  buf + range, maxlen - 1, &srchlogdis);
+				if (len < srchloglen)
+					len = 0;
 			}
 		}
-		distance = -1;
-		do {
-			distance = getbc0(3, distance);
-			j = getbc(1);
-//			if (j < 0)
-//				return i;
-		} while (j);
-		do {
-			buf[i] = buf[i + distance];
+
+		if (len < 1) {
+			putbc(0x100 | buf[i], 0x100); /* "1" + buf[i] */
 			i++;
-		} while (--len);
-	}
-}
+		} else {
+			i += len;
+			if (len >= 2)
+				srchloglen = -1;
+			putbc(0, 0x1);
+			lzcmp_putnum1(len);
 
-/* tek0ŠÖŒW */
-
-struct STR_STATISTICS {
-	unsigned int count, code;
-};
-
-#define STAT_TABLE_SIZE		1024 * 1024	* 2 /* 4MB(8MB) */
-
-
-int setstatistics0(int siz, struct STR_STATISTICS *stat, unsigned int len, unsigned int *dat, int tablesize)
-/* code‚Åƒ\[ƒg‚³‚ê‚é */
-{
-	unsigned int *count0, i = 0, k;
-	int j, l, min, max, middle;
+			/* è³è´‹ï½½é˜ªÂ°ç¹§ç‰™, min, max, middle;
 	count0 = malloc(tablesize * sizeof (int));
 	for (j = 0; j < tablesize; j++)
 		count0[j] = 0;

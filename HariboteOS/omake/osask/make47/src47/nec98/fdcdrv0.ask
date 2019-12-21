@@ -1,55 +1,55 @@
-// "fdcdrv0.ask" for NEC98 ver.2.1 copyright(C) 2003 H.Kawai(ì‡GÀ)
+// "fdcdrv0.ask" for NEC98 ver.2.1 copyright(C) 2003 H.Kawai(å·åˆç§€å®Ÿ)
 
 #include "osaskinc.ask"
 
 segment CODE(USE32, PARA);
 default(code == CODE);
 
-#define	ROOT_ENTRY0		0x101400	/* 1.44MB‚Å‚Í0x102600, 1.2MB‚Å‚Í0x101400 */
-#define	ROOT_ENTRY1		0x102c00	/* 1.44MB‚Å‚Í0x104200, 1.2MB‚Å‚Í0x102c00 */
-#define	TRACK0_ADDR0	0x100000	/* 1.44MB‚Å‚Í0x100000, 1.2MB‚Å‚Í0x100000 */
-#define	TRACK1_ADDR0	0x102000	/* 1.44MB‚Å‚Í0x102400, 1.2MB‚Å‚Í0x102000 */
-#define FAT0_ADDR0		0x100400	/* 1.44MB‚Å‚Í0x100200, 1.2MB‚Å‚Í0x100400 */
-#define FAT1_ADDR0		0x100c00	/* 1.44MB‚Å‚Í0x101400, 1.2MB‚Å‚Í0x100c00 */
-#define	FAT01_WBFS_BITS	0x0000001e	/* 1.44MB‚Å‚Í0x0007fffe(1-18), 1.2MB‚Å‚Í0x0000001e(1-4) */
-#define	SECTOR_BYTES	1024		/* 1.44MB‚Å‚Í512, 1.2MB‚Å‚Í1024 */
-#define	SYSTEM_SECTORS	9			/* 1.44MB‚Å‚Í31, 1.2MB‚Å‚Í9 */
-#define	TOTAL_CLUSTERS	1223		/* 1.44MB‚Å‚Í2849(=2880-31), 1.2MB‚Å‚Í1223(=1232-9) */
-#define	FAT_BYTES		2048		/* 1.44MB‚Å‚Í4608(=9*512), 1.2MB‚Å‚Í2048(=2*1024) */
-#define	TOTAL_SECTORS	1232		/* 1.44MB‚Å‚Í2880, 1.2MB‚Å‚Í1232 */
+#define	ROOT_ENTRY0		0x101400	/* 1.44MBã§ã¯0x102600, 1.2MBã§ã¯0x101400 */
+#define	ROOT_ENTRY1		0x102c00	/* 1.44MBã§ã¯0x104200, 1.2MBã§ã¯0x102c00 */
+#define	TRACK0_ADDR0	0x100000	/* 1.44MBã§ã¯0x100000, 1.2MBã§ã¯0x100000 */
+#define	TRACK1_ADDR0	0x102000	/* 1.44MBã§ã¯0x102400, 1.2MBã§ã¯0x102000 */
+#define FAT0_ADDR0		0x100400	/* 1.44MBã§ã¯0x100200, 1.2MBã§ã¯0x100400 */
+#define FAT1_ADDR0		0x100c00	/* 1.44MBã§ã¯0x101400, 1.2MBã§ã¯0x100c00 */
+#define	FAT01_WBFS_BITS	0x0000001e	/* 1.44MBã§ã¯0x0007fffe(1-18), 1.2MBã§ã¯0x0000001e(1-4) */
+#define	SECTOR_BYTES	1024		/* 1.44MBã§ã¯512, 1.2MBã§ã¯1024 */
+#define	SYSTEM_SECTORS	9			/* 1.44MBã§ã¯31, 1.2MBã§ã¯9 */
+#define	TOTAL_CLUSTERS	1223		/* 1.44MBã§ã¯2849(=2880-31), 1.2MBã§ã¯1223(=1232-9) */
+#define	FAT_BYTES		2048		/* 1.44MBã§ã¯4608(=9*512), 1.2MBã§ã¯2048(=2*1024) */
+#define	TOTAL_SECTORS	1232		/* 1.44MBã§ã¯2880, 1.2MBã§ã¯1232 */
 
 struct FDC_WORK {
 	int MC_ptr, MC_free, jmpvec_fdcint /* 0x0008 */;
-	char motor, motor2 /* off‘Ò‚¿ƒtƒ‰ƒO */, [2];
+	char motor, motor2 /* offå¾…ã¡ãƒ•ãƒ©ã‚° */, [2];
 	int TimerCmd[8]; // 0x0010
-	int timer_cmd0 /* ƒƒbƒZ[ƒWƒZƒbƒg (11 * 4) */, timer_node0, timer_msglen, timer_msg /* 0x0024 */; // 0x0018
-	int timer_cmd1 /* Œ»İƒZƒbƒg (7 * 4) */, timer_node1; // 0x0028
-	int timer_cmd2 /* ‰ÁZ (8 * 4) */, timer_node2, time_add0, time_add4, time_add8; // 0x0030
-	int timer_cmd3 /* ƒxƒNƒ^ƒZƒbƒg (10 * 4) */, timer_node3, jmpvec_timer_EIP /* 0x004c */, jmpvec_timer_CS; // 0x0044
-	int timer_cmd4 /* ƒ^ƒCƒ}[“o˜^ (4 * 4) */, timer_node4; // 0x0054
+	int timer_cmd0 /* ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚»ãƒƒãƒˆ (11 * 4) */, timer_node0, timer_msglen, timer_msg /* 0x0024 */; // 0x0018
+	int timer_cmd1 /* ç¾åœ¨æ™‚åˆ»ã‚»ãƒƒãƒˆ (7 * 4) */, timer_node1; // 0x0028
+	int timer_cmd2 /* æ™‚åˆ»åŠ ç®— (8 * 4) */, timer_node2, time_add0, time_add4, time_add8; // 0x0030
+	int timer_cmd3 /* ãƒ™ã‚¯ã‚¿ã‚»ãƒƒãƒˆ (10 * 4) */, timer_node3, jmpvec_timer_EIP /* 0x004c */, jmpvec_timer_CS; // 0x0044
+	int timer_cmd4 /* ã‚¿ã‚¤ãƒãƒ¼ç™»éŒ² (4 * 4) */, timer_node4; // 0x0054
 	int timer_cmd5; // 0x005c
-	int timer_cmd6 /* ƒ^ƒCƒ}[æ‚èÁ‚µ (5 * 4) */, timer_node5; // 0x0060
+	int timer_cmd6 /* ã‚¿ã‚¤ãƒãƒ¼å–ã‚Šæ¶ˆã— (5 * 4) */, timer_node5; // 0x0060
 	int timer_cmd7; // 0x0068
-	int wait0_0, wait0_4, wait0_8; /* ƒ‚[ƒ^[ON‚É‚µ‚Ä‚©‚çAƒAƒNƒZƒX‚Ü‚Å‚ÌƒEƒFƒCƒg(0x006c) */
-	int wait1_0, wait1_4, wait1_8; /* ÅŒã‚ÌƒAƒNƒZƒX‚©‚çAƒAƒNƒZƒX‚Ü‚Å‚ÌƒEƒFƒCƒg(0x0078) */
+	int wait0_0, wait0_4, wait0_8; /* ãƒ¢ãƒ¼ã‚¿ãƒ¼ONã«ã—ã¦ã‹ã‚‰ã€ã‚¢ã‚¯ã‚»ã‚¹ã¾ã§ã®ã‚¦ã‚§ã‚¤ãƒˆ(0x006c) */
+	int wait1_0, wait1_4, wait1_8; /* æœ€å¾Œã®ã‚¢ã‚¯ã‚»ã‚¹ã‹ã‚‰ã€ã‚¢ã‚¯ã‚»ã‚¹ã¾ã§ã®ã‚¦ã‚§ã‚¤ãƒˆ(0x0078) */
 	char cylinder[4];
 	int track[20], dosload_phase, dosload_name[12], dosload_addr; // 0x0088
 	int dosload_sigtmp, dosload_sigfin, dosload_FAT, dosload_size0, dosload_size1; // 0x00b0
 	int TAPI_sendsignalofs, TAPI_sendsignalsel; // 0x00c4
 	int dostmp[32], ret_EIP, [16];
 
-	/* 0x0100`0x03ff : ƒ}ƒCƒNƒƒRƒ}ƒ“ƒhƒLƒ…[(0.75KB)...192DW */
+	/* 0x0100ï½0x03ff : ãƒã‚¤ã‚¯ãƒ­ã‚³ãƒãƒ³ãƒ‰ã‚­ãƒ¥ãƒ¼(0.75KB)...192DW */
 
-	/* 0x0400`0x5ff */
+	/* 0x0400ï½0x5ff */
 	void [512];
 
- 	/* 360ƒoƒCƒg‚Ìƒtƒ‰ƒO—Ìˆæ‚ª•K—v(dirty bits) */
-	char WBF[4]; /* ƒhƒ‰ƒCƒu’PˆÊ */
-	int WBFS[360]; /* ƒZƒNƒ^’PˆÊ */ /* 1.2MB‚Å‚Í160ƒoƒCƒg, 1.44MB‚Å‚Í360ƒoƒCƒg */
+ 	/* 360ãƒã‚¤ãƒˆã®ãƒ•ãƒ©ã‚°é ˜åŸŸãŒå¿…è¦(dirty bits) */
+	char WBF[4]; /* ãƒ‰ãƒ©ã‚¤ãƒ–å˜ä½ */
+	int WBFS[360]; /* ã‚»ã‚¯ã‚¿å˜ä½ */ /* 1.2MBã§ã¯160ãƒã‚¤ãƒˆ, 1.44MBã§ã¯360ãƒã‚¤ãƒˆ */
 
 	void [148];
 
-	/* 0x0800`0xfff */
+	/* 0x0800ï½0xfff */
 	void [2048];
 };
 
@@ -99,9 +99,9 @@ nextcmd:
 	if (EAX == 0x010c)
 		goto cmd010c; // FDC_diskcache0
 	if (EAX == 0x0100)
-		goto cmd0100; /* ‰Šú‰» */
+		goto cmd0100; /* åˆæœŸåŒ– */
 	if (EAX == 0x0104)
-		goto cmd0104; /* FDC_int‚ÌƒxƒNƒ^’ñ‹Ÿ */
+		goto cmd0104; /* FDC_intã®ãƒ™ã‚¯ã‚¿æä¾› */
 	if (EAX == 0x011c)
 		goto cmd011c; // FDC_format
 	if (EAX == 0x0120)
@@ -113,7 +113,7 @@ nextcmd:
 	if (EAX == 0x012c)
 		goto cmd012c; // FDC_writeIPL(512)
 	if (EAX == 0x0018)
-		goto cmd0018; /* ƒo[ƒWƒ‡ƒ“—v‹ */
+		goto cmd0018; /* ãƒãƒ¼ã‚¸ãƒ§ãƒ³è¦æ±‚ */
 	if (EAX == 0x0134)
 		goto cmd0134; /* doswrite */
 	if (EAX == 0x0138)
@@ -140,7 +140,7 @@ cmd0000:
 	return;
 
 cmd0100:
-	/* ‰Šú‰» */
+	/* åˆæœŸåŒ– */
 	PUSH((offset) cmd);
 	AL = cmd[4];
 	FDC_Init();
@@ -149,7 +149,7 @@ cmd0100:
 	goto nextcmd;
 
 cmd0104:
-	/* FDC_int‚ÌƒxƒNƒ^’ñ‹Ÿ */
+	/* FDC_intã®ãƒ™ã‚¯ã‚¿æä¾› */
 	asmout("MOV DWORD PTR FS:[EBX+4],OFFSET FDC_int");
 	(short) cmd[8] = CS;
 	(offset) cmd += 12;
@@ -179,7 +179,7 @@ cmd0138:
 
 cmd010c:
 	/* FDC_diskcache0 */
-	/* ƒLƒƒƒbƒVƒ…ƒtƒ‰ƒO‚Ì‘€ì */
+	/* ã‚­ãƒ£ãƒƒã‚·ãƒ¥ãƒ•ãƒ©ã‚°ã®æ“ä½œ */
 	EAX = 0;
 	ECX = cmd[4];
 	(offset) cmd += 8;
@@ -193,7 +193,7 @@ cmd010c:
 
 #if 0
 	// FDC_diskcache1
-	/* ’¼Ú‹N“®ƒfƒBƒXƒN‚ÌIPL‚ª“Ç‚İ‚ñ‚¾ƒf[ƒ^[‚ğƒLƒƒƒbƒVƒ…ƒoƒbƒtƒ@‚É“]‘— */
+	/* ç›´æ¥èµ·å‹•ãƒ‡ã‚£ã‚¹ã‚¯ã®IPLãŒèª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿ãƒ¼ã‚’ã‚­ãƒ£ãƒƒã‚·ãƒ¥ãƒãƒƒãƒ•ã‚¡ã«è»¢é€ */
 	PUSH(DS);
 	EAX = all_sel;
 	DS = AX;
@@ -208,7 +208,7 @@ cmd010c:
 		ECX--;
 	} while (!= 0);
 	POP(DS);
-	work->track[0] |= 0x03; // track0‚Ætrack1
+	work->track[0] |= 0x03; // track0ã¨track1
 	(offset) cmd += 4;
 	goto nextcmd;
 #endif
@@ -216,8 +216,8 @@ cmd010c:
 cmd0110:
 	// FDC_loadFAT
 	PUSH((offset) cmd);
-	EDX = cmd[4]; /* EDX:Š®—¹‚ÌƒVƒOƒiƒ‹ */
-	ECX = cmd[8]; /* ECX:ì‹Æ’†‚ÌƒVƒOƒiƒ‹ */
+	EDX = cmd[4]; /* EDX:å®Œäº†ã®ã‚·ã‚°ãƒŠãƒ« */
+	ECX = cmd[8]; /* ECX:ä½œæ¥­ä¸­ã®ã‚·ã‚°ãƒŠãƒ« */
 	FDC_loadFAT();
 	POP((offset) cmd);
 	(offset) cmd += 12;
@@ -236,10 +236,10 @@ cmd0118:
 	// FDC_dosload
 	PUSH(GS);
 	PUSH((offset) cmd);
-	asmout("LGS ESI,DWORD FS:[EBX+4]"); /* ƒfƒBƒŒƒNƒgƒŠƒGƒ“ƒgƒŠ */
-	EAX = cmd[12]; /* ƒ[ƒhƒAƒhƒŒƒXi‚SƒoƒCƒgƒAƒ‰ƒCƒ“j */
-	EDX = cmd[16]; /* Š®—¹ƒVƒOƒiƒ‹ */
-	ECX = cmd[20]; /* ì‹Æ’†‚ÌƒVƒOƒiƒ‹ */
+	asmout("LGS ESI,DWORD FS:[EBX+4]"); /* ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚¨ãƒ³ãƒˆãƒª */
+	EAX = cmd[12]; /* ãƒ­ãƒ¼ãƒ‰ã‚¢ãƒ‰ãƒ¬ã‚¹ï¼ˆï¼”ãƒã‚¤ãƒˆã‚¢ãƒ©ã‚¤ãƒ³ï¼‰ */
+	EDX = cmd[16]; /* å®Œäº†ã‚·ã‚°ãƒŠãƒ« */
+	ECX = cmd[20]; /* ä½œæ¥­ä¸­ã®ã‚·ã‚°ãƒŠãƒ« */
 	FDC_dosload();
 	POP((offset) cmd);
 	POP(GS);
@@ -249,8 +249,8 @@ cmd0118:
 cmd011c:
 	// FDC_format
 	PUSH((offset) cmd);
-	EDX = cmd[4]; /* EDX:Š®—¹‚ÌƒVƒOƒiƒ‹ */
-	ECX = cmd[8]; /* ECX:ì‹Æ’†‚ÌƒVƒOƒiƒ‹ */
+	EDX = cmd[4]; /* EDX:å®Œäº†ã®ã‚·ã‚°ãƒŠãƒ« */
+	ECX = cmd[8]; /* ECX:ä½œæ¥­ä¸­ã®ã‚·ã‚°ãƒŠãƒ« */
 	FDC_format();
 	POP((offset) cmd);
 	(offset) cmd += 12;
@@ -259,8 +259,8 @@ cmd011c:
 cmd0120:
 	// FDC_writeIPL
 	PUSH((offset) cmd);
-	EDX = cmd[20]; // EDX:Š®—¹‚ÌƒVƒOƒiƒ‹
-	ECX = cmd[24]; // ECX:ì‹Æ’†‚ÌƒVƒOƒiƒ‹
+	EDX = cmd[20]; // EDX:å®Œäº†ã®ã‚·ã‚°ãƒŠãƒ«
+	ECX = cmd[24]; // ECX:ä½œæ¥­ä¸­ã®ã‚·ã‚°ãƒŠãƒ«
 	FDC_writeIPL();
 	POP((offset) cmd);
 	(offset) cmd += 12 + 16;
@@ -269,7 +269,7 @@ cmd0120:
 cmd0124:
 	// FDC motor control
 	unsigned int cmd0124_fdc_control == 0x03f2;
-		/* bit7-4‚Ímotor§Œä(1‚ÅON)Abit3‚ÍDMA‹–‰ÂAbit2‚ÍFDCƒŠƒZƒbƒg(0‚ÅƒŠƒZƒbƒg)Abit1-0‚Íƒhƒ‰ƒCƒu”Ô† */
+		/* bit7-4ã¯motoråˆ¶å¾¡(1ã§ON)ã€bit3ã¯DMAè¨±å¯ã€bit2ã¯FDCãƒªã‚»ãƒƒãƒˆ(0ã§ãƒªã‚»ãƒƒãƒˆ)ã€bit1-0ã¯ãƒ‰ãƒ©ã‚¤ãƒ–ç•ªå· */
 	AL = cmd[4];
 	EDX = cmd0124_fdc_control;
 	work->motor = AL;
@@ -280,8 +280,8 @@ cmd0124:
 cmd0128:
 	// FDC_format 512
 	PUSH((offset) cmd);
-	EDX = cmd[4]; // EDX:Š®—¹‚ÌƒVƒOƒiƒ‹
-	ECX = cmd[8]; // ECX:ì‹Æ’†‚ÌƒVƒOƒiƒ‹
+	EDX = cmd[4]; // EDX:å®Œäº†ã®ã‚·ã‚°ãƒŠãƒ«
+	ECX = cmd[8]; // ECX:ä½œæ¥­ä¸­ã®ã‚·ã‚°ãƒŠãƒ«
 	FDC_format2();
 	POP((offset) cmd);
 	(offset) cmd += 12;
@@ -290,16 +290,16 @@ cmd0128:
 cmd012c:
 	// FDC_writeIPL 512
 	PUSH((offset) cmd);
-	EDX = cmd[20]; // EDX:Š®—¹‚ÌƒVƒOƒiƒ‹
-	ECX = cmd[24]; // ECX:ì‹Æ’†‚ÌƒVƒOƒiƒ‹
+	EDX = cmd[20]; // EDX:å®Œäº†ã®ã‚·ã‚°ãƒŠãƒ«
+	ECX = cmd[24]; // ECX:ä½œæ¥­ä¸­ã®ã‚·ã‚°ãƒŠãƒ«
 	FDC_writeIPL2();
 	POP((offset) cmd);
 	(offset) cmd += 12 + 16;
 	goto nextcmd;
 
 cmd0018:
-	// ƒo[ƒWƒ‡ƒ“—v‹
-	// –{—ˆ‚ÍAcmd[4]‚ª0‚Å‚ ‚é‚±‚Æ‚ğŠm”F‚µ‚È‚¯‚ê‚Î‚¢‚¯‚È‚¢
+	// ãƒãƒ¼ã‚¸ãƒ§ãƒ³è¦æ±‚
+	// æœ¬æ¥ã¯ã€cmd[4]ãŒ0ã§ã‚ã‚‹ã“ã¨ã‚’ç¢ºèªã—ãªã‘ã‚Œã°ã„ã‘ãªã„
 	cmd[ 8] = 900; // ver.0.90
 	cmd[12] = 0;
 	cmd[16] = 0;
@@ -311,8 +311,8 @@ cmd0134:
 	// FDC_doswrite
 	PUSH(GS);
 	PUSH((offset) cmd);
-	asmout("LGS ESI,DWORD FS:[EBX+4]"); // ƒfƒBƒŒƒNƒgƒŠƒGƒ“ƒgƒŠ
-	EAX = cmd[12]; // ƒ‰ƒCƒgƒoƒbƒN“à—eƒAƒhƒŒƒXi‚SƒoƒCƒgƒAƒ‰ƒCƒ“j
+	asmout("LGS ESI,DWORD FS:[EBX+4]"); // ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚¨ãƒ³ãƒˆãƒª
+	EAX = cmd[12]; // ãƒ©ã‚¤ãƒˆãƒãƒƒã‚¯å†…å®¹ã‚¢ãƒ‰ãƒ¬ã‚¹ï¼ˆï¼”ãƒã‚¤ãƒˆã‚¢ãƒ©ã‚¤ãƒ³ï¼‰
 	FDC_doswrite();
 	POP((offset) cmd);
 	POP(GS);
@@ -322,9 +322,9 @@ cmd0134:
 cmd0180: /* create file */
 	PUSH(GS);
 	PUSH((offset) cmd);
-	asmout("LGS ESI,DWORD FS:[EBX+4]"); // ƒfƒBƒŒƒNƒgƒŠƒGƒ“ƒgƒŠ
-	EDX = cmd[12]; // Š®—¹ƒVƒOƒiƒ‹
-	ECX = cmd[16]; // ì‹Æ’†‚ÌƒVƒOƒiƒ‹
+	asmout("LGS ESI,DWORD FS:[EBX+4]"); // ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚¨ãƒ³ãƒˆãƒª
+	EDX = cmd[12]; // å®Œäº†ã‚·ã‚°ãƒŠãƒ«
+	ECX = cmd[16]; // ä½œæ¥­ä¸­ã®ã‚·ã‚°ãƒŠãƒ«
 	FDC_createfile();
 	POP((offset) cmd);
 	POP(GS);
@@ -334,9 +334,9 @@ cmd0180: /* create file */
 cmd0184: /* delete file */
 	PUSH(GS);
 	PUSH((offset) cmd);
-	asmout("LGS ESI,DWORD FS:[EBX+4]"); // ƒfƒBƒŒƒNƒgƒŠƒGƒ“ƒgƒŠ
-	EDX = cmd[12]; // Š®—¹ƒVƒOƒiƒ‹
-	ECX = cmd[16]; // ì‹Æ’†‚ÌƒVƒOƒiƒ‹
+	asmout("LGS ESI,DWORD FS:[EBX+4]"); // ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚¨ãƒ³ãƒˆãƒª
+	EDX = cmd[12]; // å®Œäº†ã‚·ã‚°ãƒŠãƒ«
+	ECX = cmd[16]; // ä½œæ¥­ä¸­ã®ã‚·ã‚°ãƒŠãƒ«
 	FDC_deletefile();
 	POP((offset) cmd);
 	POP(GS);
@@ -346,9 +346,9 @@ cmd0184: /* delete file */
 cmd0188: /* rename file */
 	PUSH(GS);
 	PUSH((offset) cmd);
-	asmout("LGS ESI,DWORD FS:[EBX+4]"); // ƒfƒBƒŒƒNƒgƒŠƒGƒ“ƒgƒŠ
-	EDX = cmd[12]; // Š®—¹ƒVƒOƒiƒ‹
-	ECX = cmd[16]; // ì‹Æ’†‚ÌƒVƒOƒiƒ‹
+	asmout("LGS ESI,DWORD FS:[EBX+4]"); // ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚¨ãƒ³ãƒˆãƒª
+	EDX = cmd[12]; // å®Œäº†ã‚·ã‚°ãƒŠãƒ«
+	ECX = cmd[16]; // ä½œæ¥­ä¸­ã®ã‚·ã‚°ãƒŠãƒ«
 	FDC_renamefile();
 	POP((offset) cmd);
 	POP(GS);
@@ -358,10 +358,10 @@ cmd0188: /* rename file */
 cmd018c: /* resize file */
 	PUSH(GS);
 	PUSH((offset) cmd);
-	asmout("LGS ESI,DWORD FS:[EBX+4]"); // ƒfƒBƒŒƒNƒgƒŠƒGƒ“ƒgƒŠ
-	EAX = cmd[12]; /* VƒTƒCƒY */
-	EDX = cmd[16]; // Š®—¹ƒVƒOƒiƒ‹
-	ECX = cmd[20]; // ì‹Æ’†‚ÌƒVƒOƒiƒ‹
+	asmout("LGS ESI,DWORD FS:[EBX+4]"); // ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚¨ãƒ³ãƒˆãƒª
+	EAX = cmd[12]; /* æ–°ã‚µã‚¤ã‚º */
+	EDX = cmd[16]; // å®Œäº†ã‚·ã‚°ãƒŠãƒ«
+	ECX = cmd[20]; // ä½œæ¥­ä¸­ã®ã‚·ã‚°ãƒŠãƒ«
 	FDC_resizefile();
 	POP((offset) cmd);
 	POP(GS);
@@ -371,8 +371,8 @@ cmd018c: /* resize file */
 cmd013c: /* writeback cache */
 //	PUSH(GS);
 	PUSH((offset) cmd);
-	EDX = cmd[4]; // Š®—¹ƒVƒOƒiƒ‹
-	ECX = cmd[8]; // ì‹Æ’†‚ÌƒVƒOƒiƒ‹
+	EDX = cmd[4]; // å®Œäº†ã‚·ã‚°ãƒŠãƒ«
+	ECX = cmd[8]; // ä½œæ¥­ä¸­ã®ã‚·ã‚°ãƒŠãƒ«
 	FDC_writebackcache();
 	POP((offset) cmd);
 //	POP(GS);
@@ -385,23 +385,23 @@ cmd0190: /* change drive */
 }
 
 
-// O6B#‚Å604AO7B#‚Å302AO8B#‚Å151B
+// O6B#ã§604ã€O7B#ã§302ã€O8B#ã§151ã€‚
 
-// ƒ}ƒCƒNƒƒRƒ}ƒ“ƒhƒtƒH[ƒ}ƒbƒgF
-//	EƒRƒ}ƒ“ƒh‘—M cmd_ofs, bytes, ..., bytes‚ğƒAƒ‰ƒCƒ“‚·‚é
-//	EFDC‚©‚ç‚ÌIRQ‚ğ‘Ò‚Â cmd_ofs‚Ì‚İB
-//	EƒXƒe[ƒ^ƒXƒŠ[ƒh cmd_ofs, óM‚·‚éƒoƒCƒg”A‚VƒoƒCƒg‚ÌƒXƒe[ƒ^ƒXî•ñ‚ğŠi”[‚·‚éƒAƒhƒŒƒXiFDC_WORK“à‚ÉŒÀ’èj
-//	Eƒhƒ‰ƒCƒuƒŒƒfƒB[(‚±‚ÌƒRƒ}ƒ“ƒh‚ÍAƒ‚[ƒ^[‰ñ“]‚ğ•ÛØ‚·‚é)
-//	Eƒhƒ‰ƒCƒu‰ğ•úi‚±‚ÌƒRƒ}ƒ“ƒh‚ª‰ß‚¬‚Ä‚©‚çˆê’èŠÔŒã‚Éƒ‚[ƒ^[‚ª~‚Ü‚éj
-//	EƒƒCƒNƒVƒOƒiƒ‹(ƒƒbƒZ[ƒW‚Í16bytesŒÅ’è) ofs‚Ì‚ ‚Æ‚ÉƒƒbƒZ[ƒWƒƒ“ƒO(DW’PˆÊ)A‚WƒoƒCƒgƒxƒNƒ^AƒƒbƒZ[ƒW
-//	EDMAƒZƒbƒg
+// ãƒã‚¤ã‚¯ãƒ­ã‚³ãƒãƒ³ãƒ‰ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆï¼š
+//	ãƒ»ã‚³ãƒãƒ³ãƒ‰é€ä¿¡ cmd_ofs, bytes, ..., bytesã‚’ã‚¢ãƒ©ã‚¤ãƒ³ã™ã‚‹
+//	ãƒ»FDCã‹ã‚‰ã®IRQã‚’å¾…ã¤ cmd_ofsã®ã¿ã€‚
+//	ãƒ»ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒªãƒ¼ãƒ‰ cmd_ofs, å—ä¿¡ã™ã‚‹ãƒã‚¤ãƒˆæ•°ã€ï¼—ãƒã‚¤ãƒˆã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æƒ…å ±ã‚’æ ¼ç´ã™ã‚‹ã‚¢ãƒ‰ãƒ¬ã‚¹ï¼ˆFDC_WORKå†…ã«é™å®šï¼‰
+//	ãƒ»ãƒ‰ãƒ©ã‚¤ãƒ–ãƒ¬ãƒ‡ã‚£ãƒ¼(ã“ã®ã‚³ãƒãƒ³ãƒ‰ã¯ã€ãƒ¢ãƒ¼ã‚¿ãƒ¼å›è»¢ã‚’ä¿è¨¼ã™ã‚‹)
+//	ãƒ»ãƒ‰ãƒ©ã‚¤ãƒ–è§£æ”¾ï¼ˆã“ã®ã‚³ãƒãƒ³ãƒ‰ãŒéãã¦ã‹ã‚‰ä¸€å®šæ™‚é–“å¾Œã«ãƒ¢ãƒ¼ã‚¿ãƒ¼ãŒæ­¢ã¾ã‚‹ï¼‰
+//	ãƒ»ãƒ¡ã‚¤ã‚¯ã‚·ã‚°ãƒŠãƒ«(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯16byteså›ºå®š) ofsã®ã‚ã¨ã«ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ãƒ­ãƒ³ã‚°(DWå˜ä½)ã€ï¼˜ãƒã‚¤ãƒˆãƒ™ã‚¯ã‚¿ã€ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
+//	ãƒ»DMAã‚»ãƒƒãƒˆ
 
 void FDC_MC_ReadStatus()
-//	ƒRƒ}ƒ“ƒhofs
-//	ƒŠ[ƒh‚·‚éƒoƒCƒg”
-//	ƒoƒbƒtƒ@ƒAƒhƒŒƒX
+//	ã‚³ãƒãƒ³ãƒ‰ofs
+//	ãƒªãƒ¼ãƒ‰ã™ã‚‹ãƒã‚¤ãƒˆæ•°
+//	ãƒãƒƒãƒ•ã‚¡ã‚¢ãƒ‰ãƒ¬ã‚¹
 {
-//	unsigned int fdc_control == 0x03f2; // bit7-4‚Ímotor§Œä(1‚ÅON)Abit3‚ÍDMA‹–‰ÂAbit2‚ÍFDCƒŠƒZƒbƒg(0‚ÅƒŠƒZƒbƒg)Abit1-0‚Íƒhƒ‰ƒCƒu”Ô†
+//	unsigned int fdc_control == 0x03f2; // bit7-4ã¯motoråˆ¶å¾¡(1ã§ON)ã€bit3ã¯DMAè¨±å¯ã€bit2ã¯FDCãƒªã‚»ãƒƒãƒˆ(0ã§ãƒªã‚»ãƒƒãƒˆ)ã€bit1-0ã¯ãƒ‰ãƒ©ã‚¤ãƒ–ç•ªå·
 	unsigned int fdc_status == 0x0090, fdc_data == 0x0092;
 
 	int *cmd == DS:EBX, cmd_free == EBP;
@@ -413,7 +413,7 @@ void FDC_MC_ReadStatus()
 	(offset) cmd += 12;
 	do {
 		do {
-			//	status‚Ìbit6‚ª1‚ÅAbit7‚ª1‚É‚È‚é‚Ì‚ğ‘Ò‚ÂB
+			//	statusã®bit6ãŒ1ã§ã€bit7ãŒ1ã«ãªã‚‹ã®ã‚’å¾…ã¤ã€‚
 			IN(AL, fdc_status);
 			AL &= 0xc0;
 		} while (AL != 0xc0);
@@ -426,18 +426,18 @@ void FDC_MC_ReadStatus()
 }
 
 void FDC_MC_SendCommand()
-//	ƒRƒ}ƒ“ƒhofs
-//	ƒ‰ƒCƒg‚·‚éƒoƒCƒg”
-//	busyƒ`ƒFƒbƒNƒ}ƒXƒNƒoƒCƒgAƒRƒ}ƒ“ƒh
+//	ã‚³ãƒãƒ³ãƒ‰ofs
+//	ãƒ©ã‚¤ãƒˆã™ã‚‹ãƒã‚¤ãƒˆæ•°
+//	busyãƒã‚§ãƒƒã‚¯ãƒã‚¹ã‚¯ãƒã‚¤ãƒˆã€ã‚³ãƒãƒ³ãƒ‰
 {
-//	unsigned int fdc_control == 0x03f2; // bit7-4‚Ímotor§Œä(1‚ÅON)Abit3‚ÍDMA‹–‰ÂAbit2‚ÍFDCƒŠƒZƒbƒg(0‚ÅƒŠƒZƒbƒg)Abit1-0‚Íƒhƒ‰ƒCƒu”Ô†
+//	unsigned int fdc_control == 0x03f2; // bit7-4ã¯motoråˆ¶å¾¡(1ã§ON)ã€bit3ã¯DMAè¨±å¯ã€bit2ã¯FDCãƒªã‚»ãƒƒãƒˆ(0ã§ãƒªã‚»ãƒƒãƒˆ)ã€bit1-0ã¯ãƒ‰ãƒ©ã‚¤ãƒ–ç•ªå·
 	unsigned int fdc_status == 0x0090, fdc_data == 0x0092;
 
 	int *cmd == DS:EBX, cmd_free == EBP;
 	char *status_buf == DS:EDI;
 
 	EAX = cmd[4];
-	// ‚±‚ê‚É1‚ğ‰Á‚¦A‚»‚ÌŒã‚É3‚ğ‰Á‚¦A4‚ÅŠ„‚é
+	// ã“ã‚Œã«1ã‚’åŠ ãˆã€ãã®å¾Œã«3ã‚’åŠ ãˆã€4ã§å‰²ã‚‹
 	(offset) cmd += 9;
 	SHR(EAX, 2);
 	/* cmd_free += EAX + 3 */ asmout("LEA EBP,[EBP+EAX+3]");
@@ -448,7 +448,7 @@ void FDC_MC_SendCommand()
 	ECX = cmd[4 - 9];
 	do {
 		do {
-			//	status‚Ìbit6‚ª1‚ÅAbit7‚ª1‚É‚È‚é‚Ì‚ğ‘Ò‚ÂB
+			//	statusã®bit6ãŒ1ã§ã€bit7ãŒ1ã«ãªã‚‹ã®ã‚’å¾…ã¤ã€‚
 			IN(AL, fdc_status);
 			AL &= 0xc0;
 		} while (AL != 0x80);
@@ -470,7 +470,7 @@ void far FDC_int()
 	unsigned short PIC_slave_OCW2 == 0x0008, PIC_slave_ISR == 0x0008, PIC_slave_OCW3 == 0x0008;
 
 	PUSHAD();
-	IN(AL, 0x0090); /* Š„‚è‚İ‚ğI—¹‚³‚¹‚é‚½‚ß‚ÉAƒXƒe[ƒ^ƒX‚ğ“Ç‚Ş */
+	IN(AL, 0x0090); /* å‰²ã‚Šè¾¼ã¿ã‚’çµ‚äº†ã•ã›ã‚‹ãŸã‚ã«ã€ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’èª­ã‚€ */
 	DL = AL;
 	MOV(ECX, CS);
 	PUSH(DS);
@@ -479,25 +479,25 @@ void far FDC_int()
 	DS = CX;	
 	asmout("INC BYTE PTR SS:[0FFFFFFF0H]");
 
-	AL = 0x63 /* IRQ-11‚ğI—¹ */;
+	AL = 0x63 /* IRQ-11ã‚’çµ‚äº† */;
 	OUT(PIC_slave_OCW2, AL);
-	AL = 0x4b; /* ISR“Ç‚İ‚İ */
+	AL = 0x4b; /* ISRèª­ã¿è¾¼ã¿ */
 	OUT(PIC_slave_OCW3, AL);
 	NOP();
 	IN(AL, PIC_slave_ISR);
 	if (AL == 0) {
-		AL = 0x67 /* IRQ-7‚ğI—¹ */;
+		AL = 0x67 /* IRQ-7ã‚’çµ‚äº† */;
 		OUT(PIC_mastar_OCW2, AL);
 	}
 
-	/* EAX‚Ì’l‚Å‚Í‚È‚­ADL & 0xc0‚Ì’l‚É‚æ‚Á‚ÄU‚è•ª‚¯‚½•û‚ª‚¢‚¢‚©‚à‚µ‚ê‚È‚¢ ¨ ‚»‚Ì‚Æ‚¨‚èI */
-	/* 0x80‚È‚çƒZƒ“ƒX‚·‚é */
+	/* EAXã®å€¤ã§ã¯ãªãã€DL & 0xc0ã®å€¤ã«ã‚ˆã£ã¦æŒ¯ã‚Šåˆ†ã‘ãŸæ–¹ãŒã„ã„ã‹ã‚‚ã—ã‚Œãªã„ â†’ ãã®ã¨ãŠã‚Šï¼ */
+	/* 0x80ãªã‚‰ã‚»ãƒ³ã‚¹ã™ã‚‹ */
 
-	// FDC_MC‚ğÀs’†‚ÍACLI();‚µ‚Ä‚¨‚­‚±‚Æ
+	// FDC_MCã‚’å®Ÿè¡Œä¸­ã¯ã€CLI();ã—ã¦ãŠãã“ã¨
 	TEST(DL, 0x50);
 	if (== 0) {
 		do {
-			//	status‚Ìbit6‚ª1‚ÅAbit7‚ª1‚É‚È‚é‚Ì‚ğ‘Ò‚ÂB
+			//	statusã®bit6ãŒ1ã§ã€bit7ãŒ1ã«ãªã‚‹ã®ã‚’å¾…ã¤ã€‚
 			IN(AL, 0x0090);
 			AL &= 0xc0;
 		} while (AL != 0x80);
@@ -505,28 +505,28 @@ void far FDC_int()
 		OUT(0x0092, AL);
 		NOP();
 		do {
-			//	status‚Ìbit6‚ª1‚ÅAbit7‚ª1‚É‚È‚é‚Ì‚ğ‘Ò‚ÂB
+			//	statusã®bit6ãŒ1ã§ã€bit7ãŒ1ã«ãªã‚‹ã®ã‚’å¾…ã¤ã€‚
 			IN(AL, 0x0090);
 			AL &= 0xc0;
 		} while (AL != 0xc0);
 		IN(AL, 0x0092); /* ST0 */
 		DL = AL;
 		do {
-			//	status‚Ìbit6‚ª1‚ÅAbit7‚ª1‚É‚È‚é‚Ì‚ğ‘Ò‚ÂB
+			//	statusã®bit6ãŒ1ã§ã€bit7ãŒ1ã«ãªã‚‹ã®ã‚’å¾…ã¤ã€‚
 			IN(AL, 0x0090);
 			AL &= 0xc0;
 		} while (AL != 0xc0);
 		IN(AL, 0x0092);
 		TEST(DL, 0x80);
 		if (!= 0)
-			goto skip; /* ó‘Ô‘JˆÚ‚¾‚Á‚½‚Ì‚ÅA–³‹ */
+			goto skip; /* çŠ¶æ…‹é·ç§»ã ã£ãŸã®ã§ã€ç„¡è¦– */
 	}
 
 	(offset) cmd = work->MC_ptr;
 	cmd_free = work->MC_free;
 
 	CALL(work->jmpvec_fdcint);
-	// ó‘Ô‘JˆÚŠ„‚è‚İ‚ª‚ ‚é‚È‚çAjmpvec_fdcint‚ğ‘‚«Š·‚¦‚Ä‚¨‚¯B‚»‚ÌÛAcmd‚Æcmd_free‚Í•Û‘¶‚·‚éB
+	// çŠ¶æ…‹é·ç§»å‰²ã‚Šè¾¼ã¿ãŒã‚ã‚‹ãªã‚‰ã€jmpvec_fdcintã‚’æ›¸ãæ›ãˆã¦ãŠã‘ã€‚ãã®éš›ã€cmdã¨cmd_freeã¯ä¿å­˜ã™ã‚‹ã€‚
 
 	work->MC_ptr = (offset) cmd;
 	work->MC_free = cmd_free;
@@ -544,28 +544,28 @@ skip:
 	IRETD();
 }
 
-//	ƒ^ƒCƒ}[‚©‚ç‚ÌŠ„‚è‚İ‚É‚Â‚¢‚Ä‚ÍAŠe©‚ÅŠÇ—‚·‚éB
+//	ã‚¿ã‚¤ãƒãƒ¼ã‹ã‚‰ã®å‰²ã‚Šè¾¼ã¿ã«ã¤ã„ã¦ã¯ã€å„è‡ªã§ç®¡ç†ã™ã‚‹ã€‚
 
 
 void FDC_MC_DriveReady()
-// ƒhƒ‰ƒCƒuƒŒƒfƒB[(‚±‚ÌƒRƒ}ƒ“ƒh‚ÍAƒ‚[ƒ^[‰ñ“]‚ğ•ÛØ‚·‚é)
+// ãƒ‰ãƒ©ã‚¤ãƒ–ãƒ¬ãƒ‡ã‚£ãƒ¼(ã“ã®ã‚³ãƒãƒ³ãƒ‰ã¯ã€ãƒ¢ãƒ¼ã‚¿ãƒ¼å›è»¢ã‚’ä¿è¨¼ã™ã‚‹)
 {
 	FDC_WORK *work == DS:0;
 	int *cmd == DS:EBX, cmd_free == EBP;
 
-//	unsigned int fdc_control == 0x03f2; // bit7-4‚Ímotor§Œä(1‚ÅON)Abit3‚ÍDMA‹–‰ÂAbit2‚ÍFDCƒŠƒZƒbƒg(0‚ÅƒŠƒZƒbƒg)Abit1-0‚Íƒhƒ‰ƒCƒu”Ô†
+//	unsigned int fdc_control == 0x03f2; // bit7-4ã¯motoråˆ¶å¾¡(1ã§ON)ã€bit3ã¯DMAè¨±å¯ã€bit2ã¯FDCãƒªã‚»ãƒƒãƒˆ(0ã§ãƒªã‚»ãƒƒãƒˆ)ã€bit1-0ã¯ãƒ‰ãƒ©ã‚¤ãƒ–ç•ªå·
 
 	ECX = cmd[4];
 
 	asmout("MOV AL,BYTE PTR CS:[FDC_MC_drive_table+ECX]");
 	TEST(AL, work->motor);
 	if (== 0) {
-		// ƒ‚[ƒ^[‚ª‰ñ‚Á‚Ä‚¢‚È‚©‚Á‚½‚Ì‚ÅA‰ñ‚·‚±‚Æ‚É‚·‚é
+		// ãƒ¢ãƒ¼ã‚¿ãƒ¼ãŒå›ã£ã¦ã„ãªã‹ã£ãŸã®ã§ã€å›ã™ã“ã¨ã«ã™ã‚‹
 		work->motor |= AL;
 		AL = 0x07;
 AL = 0x03;
 		OUT(0x00be, AL);
-		// ƒ^ƒCƒ}[‚ğg‚Á‚Äwait‚·‚éBNEC98‚Å‚Íƒ‚[ƒ^ON‚Í‘Sƒhƒ‰ƒCƒu‹¤’Ê‚È‚Ì‚Åƒ^ƒCƒ}[‚àˆê‚Â‚Å‚¢‚¢B
+		// ã‚¿ã‚¤ãƒãƒ¼ã‚’ä½¿ã£ã¦waitã™ã‚‹ã€‚NEC98ã§ã¯ãƒ¢ãƒ¼ã‚¿ONã¯å…¨ãƒ‰ãƒ©ã‚¤ãƒ–å…±é€šãªã®ã§ã‚¿ã‚¤ãƒãƒ¼ã‚‚ä¸€ã¤ã§ã„ã„ã€‚
 		MOV(EAX, DS);
 		PUSH(FS);
 		FS = AX;
@@ -581,14 +581,14 @@ AL = 0x03;
 		asmout("CALL FAR DWORD DS:[0010H]"); // (work->TimerCmd)();
 		POP(EBX);
 		POP(FS);
-		return; // ƒŠƒ^[ƒ“æ‚ÅAcmd‚âcmd_free‚ğ‘‚«–ß‚µ‚Ä‚­‚ê‚éBrewind‚ÍAƒRƒ}ƒ“ƒhƒ‰ƒCƒg‚Éƒ`ƒFƒbƒN‚·‚é
+		return; // ãƒªã‚¿ãƒ¼ãƒ³å…ˆã§ã€cmdã‚„cmd_freeã‚’æ›¸ãæˆ»ã—ã¦ãã‚Œã‚‹ã€‚rewindã¯ã€ã‚³ãƒãƒ³ãƒ‰ãƒ©ã‚¤ãƒˆæ™‚ã«ãƒã‚§ãƒƒã‚¯ã™ã‚‹
 	}
 	(offset) cmd += 8;
 	cmd_free += 2;
 	TEST(AL, work->motor2);
 	if (!= 0) {
-		// ƒ^ƒCƒ}[‚ÌƒLƒƒƒ“ƒZƒ‹
-		work->motor2 ^= AL; // w’èbit‚ğ0‚É‚·‚é
+		// ã‚¿ã‚¤ãƒãƒ¼ã®ã‚­ãƒ£ãƒ³ã‚»ãƒ«
+		work->motor2 ^= AL; // æŒ‡å®šbitã‚’0ã«ã™ã‚‹
 		MOV(EAX, DS);
 		PUSH(FS);
 		FS = AX;
@@ -599,7 +599,7 @@ AL = 0x03;
 		POP(FS);
 	}
 //	AL = 0x07;
-//	OUT(0x00be, AL); /* ”O‚Ì‚½‚ß */
+//	OUT(0x00be, AL); /* å¿µã®ãŸã‚ */
 
 //	AL = work->motor;
 //	EDX = fdc_control;
@@ -625,7 +625,7 @@ timer_int:
 //	OUT(DX, AL);
 
 //	AL = 0x07;
-//	OUT(0x00be, AL); /* ”O‚Ì‚½‚ß */
+//	OUT(0x00be, AL); /* å¿µã®ãŸã‚ */
 
 	asmout("CALL DWORD PTR DS:[EBX]");
 
@@ -640,18 +640,18 @@ timer_int:
 }
 
 void FDC_MC_DriveOff()
-// ƒhƒ‰ƒCƒu‰ğ•úi‚±‚ÌƒRƒ}ƒ“ƒh‚ª‰ß‚¬‚Ä‚©‚çˆê’èŠÔŒã‚Éƒ‚[ƒ^[‚ª~‚Ü‚éj
+// ãƒ‰ãƒ©ã‚¤ãƒ–è§£æ”¾ï¼ˆã“ã®ã‚³ãƒãƒ³ãƒ‰ãŒéãã¦ã‹ã‚‰ä¸€å®šæ™‚é–“å¾Œã«ãƒ¢ãƒ¼ã‚¿ãƒ¼ãŒæ­¢ã¾ã‚‹ï¼‰
 {
 	FDC_WORK *work == DS:0;
 	int *cmd == DS:EBX, cmd_free == EBP;
 
-	unsigned int fdc_control == 0x03f2; // bit7-4‚Ímotor§Œä(1‚ÅON)Abit3‚ÍDMA‹–‰ÂAbit2‚ÍFDCƒŠƒZƒbƒg(0‚ÅƒŠƒZƒbƒg)Abit1-0‚Íƒhƒ‰ƒCƒu”Ô†
+	unsigned int fdc_control == 0x03f2; // bit7-4ã¯motoråˆ¶å¾¡(1ã§ON)ã€bit3ã¯DMAè¨±å¯ã€bit2ã¯FDCãƒªã‚»ãƒƒãƒˆ(0ã§ãƒªã‚»ãƒƒãƒˆ)ã€bit1-0ã¯ãƒ‰ãƒ©ã‚¤ãƒ–ç•ªå·
 
 	ECX = cmd[4];
 	(offset) cmd += 8;
 	cmd_free += 2;
 	asmout("MOV AL,BYTE PTR CS:[FDC_MC_drive_table+ECX]");
-	work->motor2 |= AL; // w’èbit‚ğ1‚É‚·‚é
+	work->motor2 |= AL; // æŒ‡å®šbitã‚’1ã«ã™ã‚‹
 	/* work->timer_msg */ [DS:0x0024] = AL;
 	MOV(EAX, DS);
 	PUSH(FS);
@@ -675,8 +675,8 @@ timer_int:
 	PUSH(DS);
 	ECX += 8;
 	DS = CX;
-	work->motor2 ^= AL; // w’èbit‚ğ0‚É‚·‚é
-	work->motor ^= AL; // w’èbit‚ğ0‚É‚·‚é
+	work->motor2 ^= AL; // æŒ‡å®šbitã‚’0ã«ã™ã‚‹
+	work->motor ^= AL; // æŒ‡å®šbitã‚’0ã«ã™ã‚‹
 	AL = 0x03;
 	OUT(0x00be, AL);
 	POP(DS);
@@ -708,8 +708,8 @@ void FDC_MC_Finish()
 	(offset) cmd = 0x0100;
 	cmd_free = 192;
 
-//	ƒ‰ƒCƒgƒ|ƒCƒ“ƒ^‚à‰Šú‰»
-//	ó‘Ô‘JˆÚŠ„‚è‚İ‚ğg‚¤‚È‚çA‚»‚ê‚àİ’è
+//	ãƒ©ã‚¤ãƒˆãƒã‚¤ãƒ³ã‚¿ã‚‚åˆæœŸåŒ–
+//	çŠ¶æ…‹é·ç§»å‰²ã‚Šè¾¼ã¿ã‚’ä½¿ã†ãªã‚‰ã€ãã‚Œã‚‚è¨­å®š
 
 	return;
 }
@@ -733,14 +733,14 @@ void FDC_MC_ReadData()
 	unsigned short DMA_address == 0x0009, DMA_counter == 0x000b, DMA_mode == 0x0017;
 	unsigned short DMA_singlemask == 0x0015, DMA_addrhigh == 0x0023;
 
-//	unsigned int fdc_control == 0x03f2; // bit7-4‚Ímotor§Œä(1‚ÅON)Abit3‚ÍDMA‹–‰ÂAbit2‚ÍFDCƒŠƒZƒbƒg(0‚ÅƒŠƒZƒbƒg)Abit1-0‚Íƒhƒ‰ƒCƒu”Ô†
+//	unsigned int fdc_control == 0x03f2; // bit7-4ã¯motoråˆ¶å¾¡(1ã§ON)ã€bit3ã¯DMAè¨±å¯ã€bit2ã¯FDCãƒªã‚»ãƒƒãƒˆ(0ã§ãƒªã‚»ãƒƒãƒˆ)ã€bit1-0ã¯ãƒ‰ãƒ©ã‚¤ãƒ–ç•ªå·
 	unsigned int fdc_status == 0x0090, fdc_data == 0x0092;
 
 	int *cmd == DS:EBX, cmd_free == EBP;
 	char *status_buf == DS:EDI;
 
 #if 1
-	// DMAİ’è
+	// DMAè¨­å®š
 	AL = 0x46; // single-mode, addr-inc., write, ch2
 	OUT(DMA_mode, AL);
 	EAX = cmd[4];
@@ -753,11 +753,11 @@ void FDC_MC_ReadData()
 	OUT(DMA_address, AL);
 	SHR(EAX, 8);
 	OUT(DMA_addrhigh, AL);
-	AL = 0x02; // ch2‚Ìƒ}ƒXƒN‚ğƒNƒŠƒA
+	AL = 0x02; // ch2ã®ãƒã‚¹ã‚¯ã‚’ã‚¯ãƒªã‚¢
 	OUT(DMA_singlemask, AL);
 #endif
 
-	// ƒRƒ}ƒ“ƒh‘—M
+	// ã‚³ãƒãƒ³ãƒ‰é€ä¿¡
 	CL = [DS:EBX + 12];
 	(offset) cmd += 13;
 
@@ -770,7 +770,7 @@ void FDC_MC_ReadData()
 	ECX = 7;
 	do {
 		do {
-			// status‚Ìbit6‚ª1‚ÅAbit7‚ª1‚É‚È‚é‚Ì‚ğ‘Ò‚ÂB
+			// statusã®bit6ãŒ1ã§ã€bit7ãŒ1ã«ãªã‚‹ã®ã‚’å¾…ã¤ã€‚
 			IN(AL, fdc_status);
 			AL &= 0xc0;
 		} while (AL != 0x80);
@@ -783,7 +783,7 @@ void FDC_MC_ReadData()
 
 #if 0
 do {
-	// status‚Ìbit6‚ª1‚ÅAbit7‚ª1‚É‚È‚é‚Ì‚ğ‘Ò‚ÂB
+	// statusã®bit6ãŒ1ã§ã€bit7ãŒ1ã«ãªã‚‹ã®ã‚’å¾…ã¤ã€‚
 	IN(AL, fdc_status);
 	AL &= 0xc0;
 } while (AL != 0x80);
@@ -791,7 +791,7 @@ AL = 0x4a;
 OUT(fdc_data, AL);
 (offset) cmd += 7;
 do {
-	// status‚Ìbit6‚ª1‚ÅAbit7‚ª1‚É‚È‚é‚Ì‚ğ‘Ò‚ÂB
+	// statusã®bit6ãŒ1ã§ã€bit7ãŒ1ã«ãªã‚‹ã®ã‚’å¾…ã¤ã€‚
 	IN(AL, fdc_status);
 	AL &= 0xc0;
 } while (AL != 0x80);
@@ -804,31 +804,31 @@ OUT(fdc_data, AL);
 		IN(AL, fdc_status);
 		AL &= 0xc0;
 	} while (AL != 0x80);
-	AL = 0x01; /* GAP2 EEE •ª‚©‚ç‚È‚¢‚Ì‚Å“K“– */
+	AL = 0x01; /* GAP2 ãƒ»ãƒ»ãƒ» åˆ†ã‹ã‚‰ãªã„ã®ã§é©å½“ */
 	OUT(fdc_data, AL);
 
 	do {
 		IN(AL, fdc_status);
 		AL &= 0xc0;
 	} while (AL != 0x80);
-	AL = 0xff; /* ƒf[ƒ^[’· EEE •ª‚©‚ç‚È‚¢‚Ì‚Å“K“– */
+	AL = 0xff; /* ãƒ‡ãƒ¼ã‚¿ãƒ¼é•· ãƒ»ãƒ»ãƒ» åˆ†ã‹ã‚‰ãªã„ã®ã§é©å½“ */
 	OUT(fdc_data, AL);
 #endif
 
-	// fdc_int‘Ò‚¿
+	// fdc_intå¾…ã¡
 //	work->jmpvec_fdcint = EAX;
 	asmout("MOV DWORD PTR DS:[0008H],OFFSET #fdcint");
 	return;
 
 fdcint:
-	/* ƒŠƒUƒ‹ƒgƒXƒe[ƒ^ƒXóM */
+	/* ãƒªã‚¶ãƒ«ãƒˆã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹å—ä¿¡ */
 	(offset) status_buf = cmd[0];
 	(offset) cmd += 4;
 	cmd_free += 6;
 	ECX = 7;
 	do {
 		do {
-			// status‚Ìbit6‚ª1‚ÅAbit7‚ª1‚É‚È‚é‚Ì‚ğ‘Ò‚ÂB
+			// statusã®bit6ãŒ1ã§ã€bit7ãŒ1ã«ãªã‚‹ã®ã‚’å¾…ã¤ã€‚
 			IN(AL, fdc_status);
 			AL &= 0xc0;
 		} while (AL != 0xc0);
@@ -838,7 +838,7 @@ fdcint:
 		ECX--;
 	} while (!= 0);
 
-	AL = 0x06; // ch2‚Ìƒ}ƒXƒN‚ğƒZƒbƒg
+	AL = 0x06; // ch2ã®ãƒã‚¹ã‚¯ã‚’ã‚»ãƒƒãƒˆ
 	OUT(DMA_singlemask, AL);
 
 	asmout("JMP DWORD PTR DS:[EBX]");
@@ -851,13 +851,13 @@ INT(0x03);
 	unsigned short DMA_address == 0x0004, DMA_counter == 0x0005, DMA_mode == 0x000b;
 	unsigned short DMA_singlemask == 0x000a, DMA_addrhigh == 0x0081;
 
-	unsigned int fdc_control == 0x03f2; // bit7-4‚Ímotor§Œä(1‚ÅON)Abit3‚ÍDMA‹–‰ÂAbit2‚ÍFDCƒŠƒZƒbƒg(0‚ÅƒŠƒZƒbƒg)Abit1-0‚Íƒhƒ‰ƒCƒu”Ô†
+	unsigned int fdc_control == 0x03f2; // bit7-4ã¯motoråˆ¶å¾¡(1ã§ON)ã€bit3ã¯DMAè¨±å¯ã€bit2ã¯FDCãƒªã‚»ãƒƒãƒˆ(0ã§ãƒªã‚»ãƒƒãƒˆ)ã€bit1-0ã¯ãƒ‰ãƒ©ã‚¤ãƒ–ç•ªå·
 	unsigned int fdc_status == 0x03f4, fdc_data == 0x03f5;
 
 	int *cmd == DS:EBX, cmd_free == EBP;
 	char *status_buf == DS:EDI;
 
-	// DMAİ’è
+	// DMAè¨­å®š
 	AL = 0x0a; // demand-mode, addr-inc., read, ch2
 	OUT(DMA_mode, AL);
 	EAX = cmd[4];
@@ -870,10 +870,10 @@ INT(0x03);
 	OUT(DMA_address, AL);
 	SHR(EAX, 8);
 	OUT(DMA_addrhigh, AL);
-	AL = 0x02; // ch2‚Ìƒ}ƒXƒN‚ğƒNƒŠƒA
+	AL = 0x02; // ch2ã®ãƒã‚¹ã‚¯ã‚’ã‚¯ãƒªã‚¢
 	OUT(DMA_singlemask, AL);
 
-	// ƒRƒ}ƒ“ƒh‘—M
+	// ã‚³ãƒãƒ³ãƒ‰é€ä¿¡
 	CL = [DS:EBX + 12];
 	(offset) cmd += 13;
 
@@ -886,7 +886,7 @@ INT(0x03);
 	ECX = 6;
 	do {
 		do {
-			// status‚Ìbit6‚ª1‚ÅAbit7‚ª1‚É‚È‚é‚Ì‚ğ‘Ò‚ÂB
+			// statusã®bit6ãŒ1ã§ã€bit7ãŒ1ã«ãªã‚‹ã®ã‚’å¾…ã¤ã€‚
 			IN(AL, DX);
 			AL &= 0xc0;
 		} while (AL != 0x80);
@@ -899,13 +899,13 @@ INT(0x03);
 	} while (!= 0);
 	(offset) cmd++;
 
-	// fdc_int‘Ò‚¿
+	// fdc_intå¾…ã¡
 //	work->jmpvec_fdcint = EAX;
 	asmout("MOV DWORD PTR DS:[0008H],OFFSET #fdcint");
 	return;
 
 fdcint:
-	// ƒŠƒUƒ‹ƒgƒXƒe[ƒ^ƒXóM
+	// ãƒªã‚¶ãƒ«ãƒˆã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹å—ä¿¡
 	(offset) status_buf = cmd[0];
 	(offset) cmd += 4;
 	cmd_free += 6;
@@ -913,7 +913,7 @@ fdcint:
 	EDX = fdc_status;
 	do {
 		do {
-			// status‚Ìbit6‚ª1‚ÅAbit7‚ª1‚É‚È‚é‚Ì‚ğ‘Ò‚ÂB
+			// statusã®bit6ãŒ1ã§ã€bit7ãŒ1ã«ãªã‚‹ã®ã‚’å¾…ã¤ã€‚
 			IN(AL, DX);
 			AL &= 0xc0;
 		} while (AL != 0xc0);
@@ -925,7 +925,7 @@ fdcint:
 		ECX--;
 	} while (!= 0);
 
-	AL = 0x06; // ch2‚Ìƒ}ƒXƒN‚ğƒZƒbƒg
+	AL = 0x06; // ch2ã®ãƒã‚¹ã‚¯ã‚’ã‚»ãƒƒãƒˆ
 	OUT(DMA_singlemask, AL);
 
 	asmout("JMP DWORD PTR DS:[EBX]");
@@ -937,13 +937,13 @@ void FDC_MC_WriteData()
 	unsigned short DMA_address == 0x0009, DMA_counter == 0x000b, DMA_mode == 0x0017;
 	unsigned short DMA_singlemask == 0x0015, DMA_addrhigh == 0x0023;
 
-//	unsigned int fdc_control == 0x03f2; // bit7-4‚Ímotor§Œä(1‚ÅON)Abit3‚ÍDMA‹–‰ÂAbit2‚ÍFDCƒŠƒZƒbƒg(0‚ÅƒŠƒZƒbƒg)Abit1-0‚Íƒhƒ‰ƒCƒu”Ô†
+//	unsigned int fdc_control == 0x03f2; // bit7-4ã¯motoråˆ¶å¾¡(1ã§ON)ã€bit3ã¯DMAè¨±å¯ã€bit2ã¯FDCãƒªã‚»ãƒƒãƒˆ(0ã§ãƒªã‚»ãƒƒãƒˆ)ã€bit1-0ã¯ãƒ‰ãƒ©ã‚¤ãƒ–ç•ªå·
 	unsigned int fdc_status == 0x0090, fdc_data == 0x0092;
 
 	int *cmd == DS:EBX, cmd_free == EBP;
 	char *status_buf == DS:EDI;
 
-	// DMAİ’è
+	// DMAè¨­å®š
 	AL = 0x4a; // sigle-mode, addr-inc., read, ch2
 	OUT(DMA_mode, AL);
 	EAX = cmd[4];
@@ -956,10 +956,10 @@ void FDC_MC_WriteData()
 	OUT(DMA_address, AL);
 	SHR(EAX, 8);
 	OUT(DMA_addrhigh, AL);
-	AL = 0x02; // ch2‚Ìƒ}ƒXƒN‚ğƒNƒŠƒA
+	AL = 0x02; // ch2ã®ãƒã‚¹ã‚¯ã‚’ã‚¯ãƒªã‚¢
 	OUT(DMA_singlemask, AL);
 
-	// ƒRƒ}ƒ“ƒh‘—M
+	// ã‚³ãƒãƒ³ãƒ‰é€ä¿¡
 	CL = [DS:EBX + 12];
 	(offset) cmd += 13;
 
@@ -971,7 +971,7 @@ void FDC_MC_WriteData()
 	ECX = 7;
 	do {
 		do {
-			// status‚Ìbit6‚ª1‚ÅAbit7‚ª1‚É‚È‚é‚Ì‚ğ‘Ò‚ÂB
+			// statusã®bit6ãŒ1ã§ã€bit7ãŒ1ã«ãªã‚‹ã®ã‚’å¾…ã¤ã€‚
 			IN(AL, fdc_status);
 			AL &= 0xc0;
 		} while (AL != 0x80);
@@ -985,30 +985,30 @@ void FDC_MC_WriteData()
 		IN(AL, fdc_status);
 		AL &= 0xc0;
 	} while (AL != 0x80);
-	AL = 53; /* GPL EEE •ª‚©‚ç‚È‚¢‚Ì‚Å“K“– */
+	AL = 53; /* GPL ãƒ»ãƒ»ãƒ» åˆ†ã‹ã‚‰ãªã„ã®ã§é©å½“ */
 	OUT(fdc_data, AL);
 
 	do {
 		IN(AL, fdc_status);
 		AL &= 0xc0;
 	} while (AL != 0x80);
-	AL = 0xff; /* DTL EEE •ª‚©‚ç‚È‚¢‚Ì‚Å“K“– */
+	AL = 0xff; /* DTL ãƒ»ãƒ»ãƒ» åˆ†ã‹ã‚‰ãªã„ã®ã§é©å½“ */
 	OUT(fdc_data, AL);
 
-	// fdc_int‘Ò‚¿
+	// fdc_intå¾…ã¡
 //	work->jmpvec_fdcint = EAX;
 	asmout("MOV DWORD PTR DS:[0008H],OFFSET #fdcint");
 	return;
 
 fdcint:
-	// ƒŠƒUƒ‹ƒgƒXƒe[ƒ^ƒXóM
+	// ãƒªã‚¶ãƒ«ãƒˆã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹å—ä¿¡
 	(offset) status_buf = cmd[0];
 	(offset) cmd += 4;
 	cmd_free += 6;
 	ECX = 7;
 	do {
 		do {
-			// status‚Ìbit6‚ª1‚ÅAbit7‚ª1‚É‚È‚é‚Ì‚ğ‘Ò‚ÂB
+			// statusã®bit6ãŒ1ã§ã€bit7ãŒ1ã«ãªã‚‹ã®ã‚’å¾…ã¤ã€‚
 			IN(AL, fdc_status);
 			AL &= 0xc0;
 		} while (AL != 0xc0);
@@ -1018,28 +1018,28 @@ fdcint:
 		ECX--;
 	} while (!= 0);
 
-	AL = 0x06; // ch2‚Ìƒ}ƒXƒN‚ğƒZƒbƒg
+	AL = 0x06; // ch2ã®ãƒã‚¹ã‚¯ã‚’ã‚»ãƒƒãƒˆ
 	OUT(DMA_singlemask, AL);
 
 	asmout("JMP DWORD PTR DS:[EBX]");
 }
 
 void FDC_Init()
-// ƒ[ƒNƒGƒŠƒA‚Ì‰Šú‰»
+// ãƒ¯ãƒ¼ã‚¯ã‚¨ãƒªã‚¢ã®åˆæœŸåŒ–
 {
 	FDC_WORK *work == DS:0;
 	unsigned int tapi_sel == 12 * 8;
-//	unsigned int fdc_control == 0x03f2; // bit7-4‚Ímotor§Œä(1‚ÅON)Abit3‚ÍDMA‹–‰ÂAbit2‚ÍFDCƒŠƒZƒbƒg(0‚ÅƒŠƒZƒbƒg)Abit1-0‚Íƒhƒ‰ƒCƒu”Ô†
+//	unsigned int fdc_control == 0x03f2; // bit7-4ã¯motoråˆ¶å¾¡(1ã§ON)ã€bit3ã¯DMAè¨±å¯ã€bit2ã¯FDCãƒªã‚»ãƒƒãƒˆ(0ã§ãƒªã‚»ãƒƒãƒˆ)ã€bit1-0ã¯ãƒ‰ãƒ©ã‚¤ãƒ–ç•ªå·
 	unsigned short DMA_singlemask == 0x0015;
 
 	PUSH(EAX);
-	AL = 0x06; // ch2‚Ìƒ}ƒXƒN‚ğƒZƒbƒg
+	AL = 0x06; // ch2ã®ãƒã‚¹ã‚¯ã‚’ã‚»ãƒƒãƒˆ
 	OUT(DMA_singlemask, AL);
 
 	work->MC_ptr = 0x0100;
 	work->jmpvec_fdcint = 0xffffffff;
-//	AL = 0x0c; // ‘Sƒ‚[ƒ^[’â~Aƒhƒ‰ƒCƒu0‘I‘ğ
-//	AL = 0x1c; // drv0‚Ìƒ‚[ƒ^[‰ñ“]A‘¼‚Í’â~Aƒhƒ‰ƒCƒu0‘I‘ğ
+//	AL = 0x0c; // å…¨ãƒ¢ãƒ¼ã‚¿ãƒ¼åœæ­¢ã€ãƒ‰ãƒ©ã‚¤ãƒ–0é¸æŠ
+//	AL = 0x1c; // drv0ã®ãƒ¢ãƒ¼ã‚¿ãƒ¼å›è»¢ã€ä»–ã¯åœæ­¢ã€ãƒ‰ãƒ©ã‚¤ãƒ–0é¸æŠ
 	POP(EAX);
 //	EDX = fdc_control;
 	work->motor = AL;
@@ -1049,7 +1049,7 @@ void FDC_Init()
 	AL = 0x90;
 	OUT(0x0094, AL);
 	AL = 0x03;
-	OUT(0x00be, AL); /* 1MBƒ‚[ƒh, 1MB I/O-port */
+	OUT(0x00be, AL); /* 1MBãƒ¢ãƒ¼ãƒ‰, 1MB I/O-port */
 	AL = 0x10;
 	OUT(0x0094, AL);
 
@@ -1065,31 +1065,31 @@ void FDC_Init()
 	EBX = /* (offset) &work->timer_cmd6 */ 0x0060;
 	asmout("CALL FAR DWORD DS:[0010H]"); // (work->TimerCmd)();
 	EAX = work->timer_node5;
-	work->timer_cmd0 = 11 * 4 /* ƒƒbƒZ[ƒWƒZƒbƒg */;
+	work->timer_cmd0 = 11 * 4 /* ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚»ãƒƒãƒˆ */;
 	work->timer_node0 = EAX;
 	work->timer_msglen = 1;
 	work->timer_msg = 0;
-	work->timer_cmd1 = 7 * 4 /* Œ»İƒZƒbƒg */;
+	work->timer_cmd1 = 7 * 4 /* ç¾åœ¨æ™‚åˆ»ã‚»ãƒƒãƒˆ */;
 	work->timer_node1 = EAX;
-	work->timer_cmd2 = 8 * 4 /* ‰ÁZ */;
+	work->timer_cmd2 = 8 * 4 /* æ™‚åˆ»åŠ ç®— */;
 	work->timer_node2 = EAX;
-	work->timer_cmd3 = 10 * 4 /* ƒxƒNƒ^ƒZƒbƒg */;
+	work->timer_cmd3 = 10 * 4 /* ãƒ™ã‚¯ã‚¿ã‚»ãƒƒãƒˆ */;
 	work->timer_node3 = EAX;
 	work->jmpvec_timer_CS = 28 * 8;
-	work->timer_cmd4 = 4 * 4 /* ƒ^ƒCƒ}[“o˜^ */;
+	work->timer_cmd4 = 4 * 4 /* ã‚¿ã‚¤ãƒãƒ¼ç™»éŒ² */;
 	work->timer_node4 = EAX;
 	work->timer_cmd5 = 0;
-	work->timer_cmd6 = 5 * 4 /* ƒ^ƒCƒ}[æ‚èÁ‚µ */;
+	work->timer_cmd6 = 5 * 4 /* ã‚¿ã‚¤ãƒãƒ¼å–ã‚Šæ¶ˆã— */;
 	EAX = 0;
 	MOV(ECX, SS);
 	FS = CX;
 	PUSH(0 /* eoc */);
 	ESP -= 32;
-	PUSH(4 /* ˆê”Êî•ñ—v‹ */);
+	PUSH(4 /* ä¸€èˆ¬æƒ…å ±è¦æ±‚ */);
 	PUSH(4);
 	EBX = ESP;
 	asmout("CALL FAR DWORD DS:[0010H]"); // (work->TimerCmd)();
-	ECX = [SS:ESP + 36]; // Š„‚è‚İü”g”[Hz]
+	ECX = [SS:ESP + 36]; // å‰²ã‚Šè¾¼ã¿å‘¨æ³¢æ•°[Hz]
 	ESP += 44;
 	POP(FS);
 	work->wait0_0 = ECX;
@@ -1121,11 +1121,11 @@ void FDC_Init()
 	POP(EAX);
 	POP(FS);
 
-	/* SPECIFY ƒRƒ}ƒ“ƒh */
+	/* SPECIFY ã‚³ãƒãƒ³ãƒ‰ */
 	ECX = 0x32ba03;
 	do {
 		do {
-			// status‚Ìbit6‚ª1‚ÅAbit7‚ª1‚É‚È‚é‚Ì‚ğ‘Ò‚ÂB
+			// statusã®bit6ãŒ1ã§ã€bit7ãŒ1ã«ãªã‚‹ã®ã‚’å¾…ã¤ã€‚
 			IN(AL, 0x0090);
 			AL &= 0xc0;
 		} while (AL != 0x80);
@@ -1134,8 +1134,8 @@ void FDC_Init()
 		ECX >>= 8;
 	} while (!= 0);
 
-	/* DOS‚âBIOS‚ª‚¢‚¢‰ÁŒ¸‚ÅAFDC‚ÌƒXƒe[ƒ^ƒX‚ª‚¨‚©‚µ‚­‚È‚Á‚Ä‚¢‚é–‚ª‚ ‚é */
-	/* ‚»‚ê‚ğ‰ñ”ğ‚·‚é‚½‚ß‚Ìˆ’u */
+	/* DOSã‚„BIOSãŒã„ã„åŠ æ¸›ã§ã€FDCã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãŒãŠã‹ã—ããªã£ã¦ã„ã‚‹äº‹ãŒã‚ã‚‹ */
+	/* ãã‚Œã‚’å›é¿ã™ã‚‹ãŸã‚ã®å‡¦ç½® */
 
 //	EDX = 0x03f4; /* fdc_status */
 //	IN(AL, DX);
@@ -1151,10 +1151,10 @@ void FDC_Init()
 }
 
 void FDC_MC_test4()
-// EDX:ƒ[ƒh‚·‚é•¨—ƒAƒhƒŒƒX, ECX:ƒVƒOƒiƒ‹”Ô†
-// AH:side”Ô†(0 or 1), AL:ƒVƒŠƒ“ƒ_[”Ô†
-// 1trackƒ[ƒh for DOS(64KB‹«ŠE‚É’ˆÓ‚µ‚Ä‚¢‚é‚Ì‚ÅŒø—¦ƒAƒbƒv)
-// ‚±‚Ìƒo[ƒWƒ‡ƒ“‚Å‚ÍƒV[ƒN‚Ì•K—v‚ª‚ ‚é‚Æ‚«‚¾‚¯ƒV[ƒN‚·‚é
+// EDX:ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹, ECX:ã‚·ã‚°ãƒŠãƒ«ç•ªå·
+// AH:sideç•ªå·(0 or 1), AL:ã‚·ãƒªãƒ³ãƒ€ãƒ¼ç•ªå·
+// 1trackãƒ­ãƒ¼ãƒ‰ for DOS(64KBå¢ƒç•Œã«æ³¨æ„ã—ã¦ã„ã‚‹ã®ã§åŠ¹ç‡ã‚¢ãƒƒãƒ—)
+// ã“ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã¯ã‚·ãƒ¼ã‚¯ã®å¿…è¦ãŒã‚ã‚‹ã¨ãã ã‘ã‚·ãƒ¼ã‚¯ã™ã‚‹
 {
 	FDC_WORK *work == DS:0;
 	int *cmd == DS:EBX, cmd_free == EBP;
@@ -1217,7 +1217,7 @@ void FDC_MC_test4()
 			cmd[ 4 - 24] = EDI;
 			EDI++;
 			EDI /= 4;
-			ECX += EDI; /* CH‚É‰ÁZ */
+			ECX += EDI; /* CHã«åŠ ç®— */
 			EDX += 8 * 1024;
 			EDI = EDX;
 			EDX &= 0xffff0000;
@@ -1259,11 +1259,11 @@ void FDC_MC_test4()
 }
 
 void near FDC_MC_test5()
-// EDX:CHRNƒŠƒXƒg‚Ö‚Ì•¨—ƒAƒhƒŒƒX, ECX:ƒVƒOƒiƒ‹”Ô†
+// EDX:CHRNãƒªã‚¹ãƒˆã¸ã®ç‰©ç†ã‚¢ãƒ‰ãƒ¬ã‚¹, ECX:ã‚·ã‚°ãƒŠãƒ«ç•ªå·
 // EDI:(bit00-07)N, (bit08-15)SC, (bit16-23)GPL, (bit24-31)D
-// AH:side”Ô†(0 or 1), AL:ƒVƒŠƒ“ƒ_[”Ô†
+// AH:sideç•ªå·(0 or 1), AL:ã‚·ãƒªãƒ³ãƒ€ãƒ¼ç•ªå·
 // 1 track format
-// ‚±‚Ìƒo[ƒWƒ‡ƒ“‚Å‚ÍƒV[ƒN‚Ì•K—v‚ª‚ ‚é‚Æ‚«‚¾‚¯ƒV[ƒN‚·‚é
+// ã“ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã¯ã‚·ãƒ¼ã‚¯ã®å¿…è¦ãŒã‚ã‚‹ã¨ãã ã‘ã‚·ãƒ¼ã‚¯ã™ã‚‹
 {
 INT(0x03);
 #if 0
@@ -1322,12 +1322,7 @@ INT(0x03);
 		cmd[20] = 0x00f8;
 		(offset) cmd += 24;
 
-		asmout("MOV DWORD PTR DS:[EBX+ 0],OFFSET FDC_MC_DriveOff");
-		cmd[ 4] = 0;
-		asmout("MOV DWORD PTR DS:[EBX+ 8],OFFSET FDC_MC_MakeSignal");
-		cmd[12] = 2;
-		EAX = work->TAPI_sendsignalofs;
-		ECX = work->TAPI_sendsignalsel;
+		asmout(k->TAPI_sendsignalsel;
 		cmd[16] = EAX;
 		cmd[20] = ECX;
 		EAX = [SS:ESP + 32];
@@ -1346,79 +1341,10 @@ INT(0x03);
 	POP(DS); // 4
 	POPAD(); // 8
 	return;
-#endif
 }
 
-void FDC_MC_test6()
-// EAX:CHRN, ECX:“]‘—ƒTƒCƒY, EDX:•¨—ƒAƒhƒŒƒX, EDI:ƒVƒOƒiƒ‹”Ô†
-// ‚±‚Ìƒo[ƒWƒ‡ƒ“‚Å‚ÍƒV[ƒN‚Ì•K—v‚ª‚ ‚é‚Æ‚«‚¾‚¯ƒV[ƒN‚·‚é
-// 64KB‹«ŠE‚É·‚µŠ|‚©‚é‚ÆŒë“®ì‚·‚é
-{
-	FDC_WORK *work == DS:0;
-	int *cmd == DS:EBX, cmd_free == EBP;
-
-	PUSHAD();
-	MOV(EBX, CS);
-	PUSH(DS);
-	EBX += 8;
-	DS = EBX;
-	PUSHFD();
-	CLI();
-
-	(offset) cmd = work->MC_ptr;
-	if ((unsigned) (offset) cmd == 0x0100) {
-		asmout("MOV DWORD PTR DS:[EBX+ 0],OFFSET FDC_MC_DriveReady");
-		cmd[ 4] = 0;
-		(offset) cmd += 8;
-		AH <<= 2;
-		if (AL != work->cylinder[0]) {
-			asmout("MOV DWORD PTR DS:[EBX],OFFSET FDC_MC_SendCommand");
-			cmd[ 4] = 2;
-			cmd[ 8] = 0x00000711; // 11, 07 /* seek0 */, 00, 00
-			if (AL != 0) {
-				cmd[ 4] = 3;
-				cmd[ 8] = 0x00000f11; // 11, 0f /* seek */, 00, 00
-				[DS:EBX + 11] = AL; // C
-				[DS:EBX + 10] = AH; // H
-			}
-			asmout("MOV DWORD PTR DS:[EBX+12],OFFSET FDC_MC_WaitFdcInt");
-		//	asmout("MOV DWORD PTR DS:[EBX+16],OFFSET FDC_MC_SendCommand");
-		//	cmd[20] = 1;
-		//	cmd[24] = 0x00000810; // 10, 08 /* sense int status */, 00, 00
-		//	asmout("MOV DWORD PTR DS:[EBX+28],OFFSET FDC_MC_ReadStatus");
-		//	cmd[32] = 2;
-		//	cmd[36] = 0x000000f8;
-			(offset) cmd += 40-24;
-			work->cylinder[0] = AL;
-		}
-
-		asmout("MOV DWORD PTR DS:[EBX+ 0],OFFSET FDC_MC_WriteData");
-		ECX--;
-		cmd[ 4] = ECX;
-		ECX++;
-		cmd[ 8] = EDX;
-		cmd[12] = 0x0000c511; // 11, c5 /* write data */, 00, 00
-		[DS:EBX + 14] = AH;
-		(unsigned char) AH >>= 2;
-		[DS:EBX + 15] = AL;
-		(unsigned int) EAX /= 256;
-		EAX |= 0x7f000000; // EOT‚Í“K“–
-		cmd[16] = EAX;
-		cmd[20] = 0x00f8;
-		(offset) cmd += 24;
-
-		asmout("MOV DWORD PTR DS:[EBX+ 0],OFFSET FDC_MC_DriveOff");
-		cmd[ 4] = 0;
-		asmout("MOV DWORD PTR DS:[EBX+ 8],OFFSET FDC_MC_MakeSignal");
-		cmd[12] = 2;
-		EAX = work->TAPI_sendsignalofs;
-		ECX = work->TAPI_sendsignalsel;
-		cmd[16] = EAX;
-		cmd[20] = ECX;
-		EAX = [SS:ESP + 8 /* EDI */];
-		cmd[24] = 0x1241;
-		cmd[28] = EAX;
-		asmout("MOV DWORD PTR DS:[EBX+32],OFFSET FDC_MC_Finish");
+void near FDC_MC_test5()
+// EDX:CHRNç¹ï½ªç¹§ï½¹ç¹åŒ»âˆˆç¸ºï½®è¿šï½©é€…[EBX+32],OFFSET FDC_MC_Finish");
 
 		(offset) cmd = 0x100;
 		asmout("CALL DWORD PTR DS:[EBX]");

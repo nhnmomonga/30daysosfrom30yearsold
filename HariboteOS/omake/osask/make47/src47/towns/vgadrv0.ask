@@ -1,9 +1,9 @@
-/* "VGADRV0.ASK" for TOWNS ver.1.9 copyright(C) 2003 I.Tak., �썇�G�� */
+/* "VGADRV0.ASK" for TOWNS ver.1.9 copyright(C) 2003 I.Tak., 川合秀実 */
 
 #if (defined(VMODE) || defined(CLGD543X))
-	#undef TWVSW			/* 1024�łȂ��ƃC���^�[���[�X�ł��Ȃ� */
-	#define TWVSW	1024	/* �C���^�[���[�X���Ȃ��Ȃ���Ȃ��� */
-							/* CLGD�ɂ�1024�̃p�����[�^��������ĂȂ� */
+	#undef TWVSW			/* 1024でないとインターレースできない */
+	#define TWVSW	1024	/* インターレースしないなら問題ないが */
+							/* CLGDには1024のパラメータしか作ってない */
 #endif
 
 /* TWVSW is... TOWNS Vertial Screen Width! */
@@ -45,19 +45,19 @@ struct GAPI_WORK {
 	int mouse_pattern[2560 /* 0x0a00 */]; /* +0x0180 */
 	WORK_SUB worksub;
 	void [1136];
-	/* �ȏ�4KB */
+	/* 以上4KB */
 };
 
 void far GAPI_entry()
-/* �K���AEFLAGS.IF == 1�ŌĂԂ��� */
+/* 必ず、EFLAGS.IF == 1で呼ぶこと */
 {
 	goto syscmd;
 //	ORG(0x0008);
 //	ORG(0x0010);
 	asmout("RESB 0x10-$");
 	asmout("DD OFFSET #syscmd, 0, 0, 0");
-	DD(4096); /* ���������ɕK�v�ȃ��[�N�G���A�T�C�Y */
-	DD(0); /* �ő働�[�J���X�^�b�N����� */
+	DD(4096); /* 初期化時に必要なワークエリアサイズ */
+	DD(0); /* 最大ローカルスタック消費量 */
 //	ORG(0x0040);
 	asmout("RESB 0x40-$");
 syscmd:
@@ -196,12 +196,12 @@ font_attr_table:
 	DB(6 /*  64bytes/font (8x 8 4bit color half height) */);
 }
 
-/* �}�E�X�ɂ͔�\���J�E���g�Ƃ����̂�����
-   ���ꂪ0����non-0�ɂȂ����Ƃ���Anon-0����0�ɂȂ����Ƃ��ɁA�`��E�Ҕ����s�Ȃ� */
+/* マウスには非表示カウントというのがある
+   これが0からnon-0になったときや、non-0から0になったときに、描画・待避を行なう */
 
 void near GAPI_fontwrite()
 {
-	/* 8x16�̃t�H���g��`��(�w�i�F�t��) */
+	/* 8x16のフォントを描画(背景色付き) */
 
 	int *cmd == FS:EBX;
 
@@ -219,7 +219,7 @@ void near GAPI_fontwrite()
 	ESI = cmd[12]; /* y */
 	TEST(AL, 0x03);
 	if (!= 0)
-		goto error; /* 4�̔{���ȊO�͂܂��T�|�[�g���ĂȂ� */
+		goto error; /* 4の倍数以外はまだサポートしてない */
 
 	IMUL_TWVSW(ESI);
 	ESI += EAX;
@@ -263,8 +263,8 @@ void near GAPI_fontwrite()
 	PUSH(EDX); // 0000
 
 //	ES = [FS:EBX + 28];
-	/* fontsize�`�F�b�N�͂��Ȃ��Ȃ����B���̕��������B
-	   �`�F�b�N���K�v�Ȃ�A��ʃ��[�`���ł��B */
+	/* fontsizeチェックはしなくなった。その方が速い。
+	   チェックが必要なら、上位ルーチンでやる。 */
 
 	int *string == FS:EBP;
 	ECX = cmd[32]; // length
@@ -421,7 +421,7 @@ opt2:
 	ESI = cmd[12]; /* y */
 	TEST(AL, 0x03);
 	if (!= 0)
-		goto error; /* 4�̔{���ȊO�͂܂��T�|�[�g���ĂȂ� */
+		goto error; /* 4の倍数以外はまだサポートしてない */
 
 	IMUL_TWVSW(ESI);
 	ESI += EAX;
@@ -510,14 +510,14 @@ opt3:
 opt_high:
 /*
 	0x0101, opt, x, y, col, bcol[20], dummy[24], dummy[28], len, str...
-	opt�ɂ���āAx, y��ofs:sel�ɂȂ�
-	opt8-10 : 0, 1, 2, 4(3) (0�ȊO��RAM�`��, dmy[24]�����C���o�C�g)
-	opt11 : ext�t���O, str��far-ptr�ɂ���(�ł����l��������)
-	opt12 : col�������t���O��
-	opt13 : bcol�������t���O
+	optによって、x, yがofs:selになる
+	opt8-10 : 0, 1, 2, 4(3) (0以外はRAM描画, dmy[24]がラインバイト)
+	opt11 : extフラグ, strをfar-ptrにする(でも価値無しだな)
+	opt12 : col無効化フラグに
+	opt13 : bcol無効化フラグ
 	opt14-15 : pset, and, or, xor
-	�Ƃ肠�����Aopt:0x0100�݂̂̃T�|�[�g��ǉ����悤�B
-	opt�Ŋ֐��̃A�h���X�����܂�A��������[�v���ƂɌĂԁBjmp�ł��悢�B
+	とりあえず、opt:0x0100のみのサポートを追加しよう。
+	optで関数のアドレスが決まり、それをループごとに呼ぶ。jmpでもよい。
 */
 	if (EAX != 0x0100)
 		goto error;
@@ -624,19 +624,19 @@ boxfill:
 		EDI -= EDX;
 		EDX = (unsigned short) AX;
 		EAX <<= 16;
-		/* EDI : x�����̃T�C�Y(�o�C�g��) */
-		/* EBP : y�����̃T�C�Y(�h�b�g�� - 1) */
-		/* ESI : VRAM��̃A�h���X */
+		/* EDI : x方向のサイズ(バイト数) */
+		/* EBP : y方向のサイズ(ドット数 - 1) */
+		/* ESI : VRAM上のアドレス */
 		EBP++;
 		EAX |= EDX;
-		/* �����H�v�����`�惋�[�`�� */
-		/* �c�ɕ`���Ă��� */
+		/* 少し工夫した描画ルーチン */
+		/* 縦に描いていく */
 		PUSH((offset) cmd);
 		if (CL == 0) {
 			if ((unsigned) EBP >= 8) {
 				TEST(ESI, 0x03);
 				if (!= 0) {
-					/* �蔲�� */
+					/* 手抜き */
 					do {
 						ECX = EBP;
 						EBX = ESI;
@@ -704,7 +704,7 @@ boxfill:
 				}
 				EDI += 4;
 				if (!= 0) {
-					/* �蔲�� */
+					/* 手抜き */
 					do {
 						ECX = EBP;
 						EBX = ESI;
@@ -742,7 +742,7 @@ boxfill:
 		//	if ((unsigned) EBP < 8) {
 				TEST(ESI, 0x03);
 				if (!= 0) {
-					/* �蔲�� */
+					/* 手抜き */
 					do {
 						ECX = EBP;
 						EBX = ESI;
@@ -805,7 +805,7 @@ boxfill:
 			if ((unsigned) EBP >= 8) {
 				TEST(ESI, 0x03);
 				if (!= 0) {
-					/* �蔲�� */
+					/* 手抜き */
 					do {
 						PUSH(EBP);
 						EBX = ESI;
@@ -883,7 +883,7 @@ boxfill:
 				}
 				EDI += 4;
 				if (!= 0) {
-					/* �蔲�� */
+					/* 手抜き */
 					do {
 						PUSH(EBP);
 						EBX = ESI;
@@ -926,7 +926,7 @@ boxfill:
 		//	if ((unsigned) EBP < 8) {
 				TEST(ESI, 0x03);
 				if (!= 0) {
-					/* �蔲�� */
+					/* 手抜き */
 					do {
 						ECX = EBP;
 						EBX = ESI;
@@ -993,7 +993,7 @@ boxfill:
 	//		if ((unsigned) EBP >= 8) {
 				TEST(ESI, 0x03);
 				if (!= 0) {
-					/* �蔲�� */
+					/* 手抜き */
 					do {
 						PUSH(EBP);
 						EBX = ESI;
@@ -1071,7 +1071,7 @@ boxfill:
 				}
 				EDI += 4;
 				if (!= 0) {
-					/* �蔲�� */
+					/* 手抜き */
 					do {
 						PUSH(EBP);
 						EBX = ESI;
@@ -1116,7 +1116,7 @@ boxfill:
 	//		if (EBP >= 8) {
 				TEST(ESI, 0x03);
 				if (!= 0) {
-					/* �蔲�� */
+					/* 手抜き */
 					do {
 						PUSH(EBP);
 						EBX = ESI;
@@ -1194,7 +1194,7 @@ boxfill:
 				}
 				EDI += 4;
 				if (!= 0) {
-					/* �蔲�� */
+					/* 手抜き */
 					do {
 						PUSH(EBP);
 						EBX = ESI;
@@ -1257,16 +1257,16 @@ line_fin:
 	AL = cmd[24]; // color
 	CL &= 0xc0;
 	EDI -= EDX;
-	/* EDI : x�����̃T�C�Y(�o�C�g��) */
-	/* EBP : y�����̃T�C�Y(�h�b�g�� - 1) */
-	/* ESI : VRAM��̃A�h���X */
+	/* EDI : x方向のサイズ(バイト数) */
+	/* EBP : y方向のサイズ(ドット数 - 1) */
+	/* ESI : VRAM上のアドレス */
 	EBP--;
 	EDX = cmd[20];
 	IMUL_TWVSW(EDX);
 	EDX += cmd[ 8];
 	EDX += 0xe0000000;
 	if (CL == 0) { /* pset */
-		/* �S���H�v�̂Ȃ��`�惋�[�`�� */
+		/* 全く工夫のない描画ルーチン */
 		ECX = ESI;
 		do {
 			[DS:ESI] = AL;
@@ -1290,7 +1290,7 @@ line_fin:
 		asmout("JMP next_command");
 	}
 	if (CL == 0xc0) { /* xor */
-		/* �S���H�v�̂Ȃ��`�惋�[�`�� */
+		/* 全く工夫のない描画ルーチン */
 		ECX = ESI;
 		do {
 			[DS:ESI] ^= AL;
@@ -1314,7 +1314,7 @@ line_fin:
 		asmout("JMP next_command");
 	}
 	if (CL == 0x40) { /* and */
-		/* �S���H�v�̂Ȃ��`�惋�[�`�� */
+		/* 全く工夫のない描画ルーチン */
 		ECX = ESI;
 		do {
 			[DS:ESI] &= AL;
@@ -1338,7 +1338,7 @@ line_fin:
 		asmout("JMP next_command");
 	}
 //	if (CL == 0x80) { /* or */
-		/* �S���H�v�̂Ȃ��`�惋�[�`�� */
+		/* 全く工夫のない描画ルーチン */
 		ECX = ESI;
 		do {
 			[DS:ESI] |= AL;
@@ -1357,43 +1357,15 @@ line_fin:
 			[DS:EDI] |= AL;
 			EDI += TWVSW;
 			EBP--;
+		} while (!=	[DS:EDI] &= AL;
+			EDI += TWVSW;
+			EBP--;
 		} while (!= 0);
 		(offset) cmd += 28;
 		asmout("JMP next_command");
-//	}
-
-line:
-	(offset) cmd += 28;
-	asmout("JMP next_command");
-
-error:
-	INT(0x03);
-}
-
-void near GAPI_putbox()
-{
-	/* 256�F�u���b�N�]�� */
-	/* cmd, opt, x0, y0, xsize, ysize, yskip, ofs, sel */
-
-	/* �A���C���ɂ͂܂��z�����Ă��Ȃ� */
-
-	int *cmd == FS:EBX;
-	unsigned char *p == ES:EDI, *q == DS:ESI;
-	unsigned int *pi == ES:EDI, *qi == DS:ESI;
-	unsigned int *ps == ES:EDI;
-
-	PUSH(ES);
-	PUSH(EBP);
-	asmout("LES EDI,DWORD FS:[EBX+28]");
-	ESI = cmd[12]; /* y */
-	EBP = TWVSW;
-	IMUL_TWVSW(ESI);
-	ESI += cmd[ 8]; /* x */
-	EBP -= cmd[16]; /* xsize */
-	EDX = cmd[20]; /* ysize */
-	ESI += 0xe0000000;
-	AL = (char) cmd[4];
-	TEST(AL, 0x10);
+	}
+//	if (CL == 0x80) { /* or */
+		/* 蜈ｨ縺丞ｷ･螟ｫ縺ｮ縺ｪ縺ST(AL, 0x10);
 	if (!= 0)
 		goto putbox1;
 	AL &= 0x2f;

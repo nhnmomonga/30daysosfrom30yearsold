@@ -60,7 +60,7 @@ void mainCRTStartup(void)
 	argv = ConvCmdLine0(&argc);
 
 	GOL_retcode = main1(argc, argv, bss0->work1);
-	/* ƒoƒbƒtƒ@‚ðo—Í */
+	/* ãƒãƒƒãƒ•ã‚¡ã‚’å‡ºåŠ› */
 	GOL_sysabort(0);
 }
 
